@@ -8,11 +8,14 @@ public class Vehicle {
     private double MAX_SPEED;
     private double speed;
     private boolean size;
-    //private Enum direction;
     private int[] puzzle;
     private double roadPosition;
     private int imageNumber;
     private Image carImage;
+
+    private void move() {
+
+    }
 
     public Image getCarImage() {
         return carImage;
@@ -30,8 +33,12 @@ public class Vehicle {
         this.imageNumber = imageNumber;
     }
 
-    public void move() {
 
+    enum direction {
+        NORTH(),
+        SOUTH(),
+        WEST(),
+        EAST()
     }
 
     private void chooseImageRandomly() {
