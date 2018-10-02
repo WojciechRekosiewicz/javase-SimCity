@@ -8,10 +8,10 @@ public class Vehicle {
     private double MAX_SPEED;
     private double speed;
     private boolean size;
-    //private Enum dire;
+    //private Enum direction;
     private int[] puzzle;
     private double roadPosition;
-    private int image;
+    private int imageNumber;
     private Image carImage;
 
     public Image getCarImage() {
@@ -22,12 +22,12 @@ public class Vehicle {
         this.carImage = carImage;
     }
 
-    public int getImage() {
-        return image;
+    public int getImageNumber() {
+        return imageNumber;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImageNumber(int imageNumber) {
+        this.imageNumber = imageNumber;
     }
 
     public void move() {
@@ -35,41 +35,40 @@ public class Vehicle {
     }
 
     private void chooseImageRandomly() {
-        //   int image = getImage();
+        //   int imageNumber = getImageNumber();
         Random generator = new Random();
-        image = generator.nextInt(7);
-        setImage(image);
+        imageNumber = generator.nextInt(7);
+        setImageNumber(imageNumber);
     }
 
     private void setTheImageOfTheCar() {
-        int numOfImage = getImage();
+        int imageNumber = getImageNumber();
 
-        if (numOfImage == 0) {
+        if (imageNumber == 0) {
             Image carImage = new Image("car_00.png");
             setCarImage(carImage);
-        } else if (numOfImage == 1) {
+        } else if (imageNumber == 1) {
             Image carImage = new Image("car_01.png");
             setCarImage(carImage);
-        } else if (numOfImage == 2) {
+        } else if (imageNumber == 2) {
             Image carImage = new Image("car_02.png");
             setCarImage(carImage);
-        } else if (numOfImage == 3) {
+        } else if (imageNumber == 3) {
             Image carImage = new Image("car_03.png");
             setCarImage(carImage);
-        } else if (numOfImage == 4) {
+        } else if (imageNumber == 4) {
             Image carImage = new Image("car_04.png");
             setCarImage(carImage);
-        } else if (numOfImage == 5) {
+        } else if (imageNumber == 5) {
             Image carImage = new Image("car_05.png");
             setCarImage(carImage);
-        } else if (numOfImage == 6) {
+        } else if (imageNumber == 6) {
             Image carImage = new Image("car_06.png");
             setCarImage(carImage);
-        } else if (numOfImage == 7) {
+        } else if (imageNumber == 7) {
             Image carImage = new Image("car_07.png");
             setCarImage(carImage);
         }
-
     }
 
     private void chooseDirection() {
