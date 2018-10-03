@@ -7,10 +7,7 @@ public class RoadPuzzle {
 
     //  0.6 i 0.4 MAGIC NUMBERS!!!! NEED CHANGE THAT
 
-    boolean N;
-    boolean S;
-    boolean E;
-    boolean W;
+    boolean[] roadType;
 
     double SIZE;
 
@@ -143,13 +140,11 @@ public class RoadPuzzle {
         return pathW_S;
     }
 
-    public RoadPuzzle(int coX, int coY, boolean N, boolean S, boolean E, boolean W) {
+    public RoadPuzzle(int coX, int coY, RoadType type) {
         this.SIZE = 256;
 
-        this.N = N;
-        this.S = S;
-        this.W = W;
-        this.E = E;
+        this.roadType = type.getPossibleDirection();
+
 
         this.coX = coX;
         this.coY = coY;
