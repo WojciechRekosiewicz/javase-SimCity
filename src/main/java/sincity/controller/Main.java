@@ -14,7 +14,7 @@ public class Main extends Application {
     private int horizontalPuzzles = 10;
     private int verticalPuzzles = 5;
 
-    private double sceneWidth = 1600; // window size in pixels
+    private double sceneWidth = 1400; // window size in pixels
     private double tileSize = sceneWidth / horizontalPuzzles; // tile size in pixels
     private double sceneHeight = tileSize * verticalPuzzles; // sceneHeight automatically adjusts based on tileSize and sceneWidth
 
