@@ -1,155 +1,115 @@
 package sincity.model;
 
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
+import javafx.scene.transform.Rotate;
 
 public class RoadPuzzle {
 
-    //  0.6 i 0.4 MAGIC NUMBERS!!!! NEED CHANGE THAT
+    private boolean[] roadType;
 
-    boolean[] roadType;
+    private double size;
 
-    double SIZE;
+    private double coX;
+    private double coY;
 
-    double coX;
-    double coY;
+    private double centerX = coX + size / 2.0;             // center of the puzzle - anchor point of path rotation
+    private double centerY = coY + size / 2.0;
 
-    Line pathE_W = new Line(coX+SIZE, coY+0.4*SIZE, coX, coY+0.4*SIZE );
-    Line pathW_E = new Line(coX, coY+0.6*SIZE, coX+SIZE, coY+0.6*SIZE );
-    Line pathS_N = new Line (coX + 0.6*SIZE, coY+SIZE,coX + 0.6*SIZE, coY);
-    Line pathN_S = new Line (coX + 0.4*SIZE, coY,coX + 0.4*SIZE, coY+SIZE);
+    private double halfLaneWidth = 0.1 * size;
 
-    Polyline pathE_N = new Polyline();
-    Polyline pathE_S = new Polyline();
-    Polyline pathW_N = new Polyline();
-    Polyline pathW_S = new Polyline();
-    Polyline pathN_W = new Polyline();
-    Polyline pathN_E = new Polyline();
-    Polyline pathS_E = new Polyline();
-    Polyline pathS_W = new Polyline();
 
-    private void setPathE_N() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX + SIZE, coY + 0.4 * SIZE,
-                coX +0.6*SIZE, coY + 0.4 * SIZE,
-                coX + 0.6*SIZE, coY,
+    private Polyline pathRight = new Polyline();        //
+    private Polyline pathLeft = new Polyline();
+    private Polyline pathStright = new Polyline;
 
-        });
+
+
+    private void setPathTurnRight() {
+        pathRight.getPoints().addAll(coX, centerY + halfLaneWidth,
+                centerX - halfLaneWidth, centerY + halfLaneWidth,
+                centerX - halfLaneWidth, coY + size);
     }
 
-    public Polyline getPathE_N() {
-        return pathE_N;
+    private void setPathTurnLeft() {
+        pathLeft.getPoints().addAll(coX, centerY + halfLaneWidth,
+                centerX - halfLaneWidth, centerY + halfLaneWidth,
+                centerX + halfLaneWidth, centerY + halfLaneWidth,
+                centerX + halfLaneWidth, centerY - halfLaneWidth,
+                centerX + halfLaneWidth, coY);
     }
 
-    private void setPathE_S() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX + SIZE, coY + 0.4 * SIZE,
-                coX +0.6*SIZE, coY + 0.4 * SIZE,
-                coX +0.4*SIZE, coY + 0.4 * SIZE,
-                coX + 0.4*SIZE, coY+0.6*SIZE,
-                coX + 0.4*SIZE, coY+ SIZE,
-
-        });
+    private void setPatrhStright() {
+        pathStright.getPoints().addAll(coX, centerY + halfLaneWidth,
+                coX + size, centerY + halfLaneWidth);
     }
 
-    public Polyline getPathE_S() {
-        return pathE_S;
-    }
+    public Polyline getPathToMove(String from_to) {
 
-    private void setPathN_W() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX + 0.4*SIZE, coY,
-                coX +0.4*SIZE, coY + 0.4 * SIZE,
-                coX, coY+0.4*SIZE
+        Polyline pathToMove = new Polyline();
 
-        });
-    }
+        switch(from_to) {
 
-    public Polyline getPathN_W() {
-        return pathN_W;
-    }
+            // going stright
+            case "W_E":
+                pathToMove =  pathStright;
+                break;
+            case "N_S":
+                pathStright.getTransforms().add(new Rotate(90, centerX, centerY));
+                pathToMove =  pathStright;
+                break;
+            case "E_W":
+                pathStright.getTransforms().add(new Rotate(180, centerX, centerY));
+                pathToMove =  pathStright;
+                break;
+            case "S_N":
+                pathStright.getTransforms().add(new Rotate(270, centerX, centerY));
+                pathToMove =  pathStright;
+                break;
 
-    private void setPathN_E() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX +0.4*SIZE, coY,
-                coX +0.4*SIZE, coY + 0.4* SIZE,
-                coX +0.4*SIZE, coY + 0.6* SIZE,
-                coX+0.6*SIZE, coY+0.6*SIZE,
-                coX+SIZE, coY+0.6*SIZE,
+                // turns left
+            case "W_N":
+                pathToMove =  pathLeft;
+                break;
+            case "N_E":
+                pathLeft.getTransforms().add(new Rotate(90, centerX, centerY));
+                pathToMove =  pathLeft;
+                break;
+            case "E_S":
+                pathLeft.getTransforms().add(new Rotate(180, centerX, centerY));
+                pathToMove =  pathLeft;
+                break;
+            case "S_W":
+                pathLeft.getTransforms().add(new Rotate(270, centerX, centerY));
+                pathToMove =  pathLeft;
+                break;
 
-        });
-    }
+                // turns right
+            case "W_S":
+                return pathRight;
+            case "N_W":
+                pathRight.getTransforms().add(new Rotate(90, centerX, centerY));
+                pathToMove = pathRight;
+                break;
+            case "E_N":
+                pathRight.getTransforms().add(new Rotate(180, centerX, centerY));
+                pathToMove = pathRight;
+                break;
+            case "S_E":
+                pathRight.getTransforms().add(new Rotate(270, centerX, centerY));
+                pathToMove = pathRight;
+                break;
+        }
 
-    public Polyline getPathN_E() {
-        return pathN_E;
-    }
+        return pathToMove;
 
-
-    private void setPathS_E() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX + 0.6*SIZE, coY+SIZE,
-                coX +0.6*SIZE, coY + 0.6 * SIZE,
-                coX + SIZE, coY+0.6*SIZE
-
-        });
-    }
-
-    public Polyline getPathS_E() {
-        return pathS_E;
-    }
-
-    private void setPathS_W() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX +0.6*SIZE, coY+SIZE,
-                coX +0.6*SIZE, coY + 0.6* SIZE,
-                coX +0.6*SIZE, coY + 0.4* SIZE,
-                coX+0.4*SIZE, coY+0.4*SIZE,
-                coX, coY+0.4*SIZE,
-
-        });
-    }
-
-    public Polyline getPathS_W() {
-        return pathS_W;
-    }
-
-    private void setPathW_N() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX, coY + 0.6 * SIZE,
-                coX +0.4*SIZE, coY + 0.6 * SIZE,
-                coX +0.6*SIZE, coY + 0.6 * SIZE,
-                coX +0.6*SIZE, coY + 0.4 * SIZE,
-                coX + 0.6*SIZE, coY,
-
-        });
-    }
-
-    public Polyline getPathW_N() {
-        return pathW_N;
-    }
-
-    private void setPathW_S() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX, coY + 0.6 * SIZE,
-                coX +0.4*SIZE, coY + 0.6 * SIZE,
-                coX +0.4*SIZE, coY + SIZE,
-        });
-    }
-
-    public Polyline getPathW_S() {
-        return pathW_S;
     }
 
     public RoadPuzzle(int coX, int coY, RoadType type) {
-        this.SIZE = 256;
+        this.size = 256;
 
         this.roadType = type.getPossibleDirection();
-
-
         this.coX = coX;
         this.coY = coY;
 
     }
-
-
 }
