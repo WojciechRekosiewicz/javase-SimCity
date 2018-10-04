@@ -28,7 +28,8 @@ public class Vehicle {
         this.currentRoadPuzzle = roadPuzzle;
     }
 
-    private void move(RoadPuzzle puzzle) {
+
+    private void move(RoadPuzzle puzzle, String image) {
 
 
 //        puzzle.getRoadDirections();
