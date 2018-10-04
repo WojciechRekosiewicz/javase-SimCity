@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
@@ -13,14 +14,19 @@ import javafx.util.Duration;
 import java.util.Random;
 
 public class Vehicle {
+    RoadPuzzle currentRoadPuzzle;
     double maxSpeed;
     double speed;
-    boolean size;
+    double size;
     public Direction direction = Direction.E;
     double roadPosition;
     private int imageNumber;
     private Image carImage;
     int[] puzzleIndicies;
+
+    Vehicle(RoadPuzzle roadPuzzle) {
+        this.currentRoadPuzzle = roadPuzzle;
+    }
 
     private void move(RoadPuzzle puzzle) {
 
@@ -31,15 +37,11 @@ public class Vehicle {
         Polyline pathToMove = puzzle.getPathToMove(FromTo);
 
 
-//        puzzle.puzzlePosX
-
-
-//
-        Rectangle rectangle = new Rectangle(15, 10);
-        rectangle.setFill(Color.GREEN);
+        Image carImage = new Image("file:src/main/resources/" + image);
+        ImageView imageView = new ImageView(carImage);
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(15));
-        pathTransition.setNode(rectangle);
+        pathTransition.setNode(imageView);
         pathTransition.setPath(pathToMove);
         pathTransition.setOrientation(
                 PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);

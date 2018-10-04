@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sincity.model.City;
+import sincity.model.Spawner;
 import sincity.view.Renderer;
 
 public class Main extends Application {
@@ -14,7 +15,7 @@ public class Main extends Application {
     private int horizontalPuzzles = 10;
     private int verticalPuzzles = 5;
 
-    private double sceneWidth = 1200; // window size in pixels
+    private double sceneWidth = 1400; // window size in pixels
     private double tileSize = sceneWidth / horizontalPuzzles; // tile size in pixels
     private double sceneHeight = tileSize * verticalPuzzles; // sceneHeight automatically adjusts based on tileSize and sceneWidth
 
@@ -30,6 +31,9 @@ public class Main extends Application {
 
             // create city with desired size
             City city = new City(verticalPuzzles, horizontalPuzzles, padding, tileSize);
+
+            // create spawner
+            Spawner spawner = new Spawner(city.getPuzzleBoard());
 
             // create view based on city
             Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, padding);

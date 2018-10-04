@@ -4,12 +4,19 @@ public class City {
     private RoadPuzzle[][] puzzleBoard;
     private int padding;
     private double tileSize;
-
     public City(int verticalPuzzles, int horizontalPuzzles, int padding, double tileSize) {
         puzzleBoard = new RoadPuzzle[horizontalPuzzles + padding * 2][verticalPuzzles + padding * 2];
         this.padding = padding;
         this.tileSize = tileSize;
         initializeBoard();
+    }
+
+    public RoadPuzzle[][] getPuzzleBoard() {
+        return puzzleBoard;
+    }
+
+    public RoadType getRoadType(int x, int y) {
+        return puzzleBoard[x][y].getRoadType();
     }
 
     private void initializeBoard() {
@@ -31,12 +38,4 @@ public class City {
             }
         }
     }
-
-    public RoadType getRoadType(int x, int y) {
-        return puzzleBoard[x][y].getRoadType();
-    }
-
-//    public boolean[] getRoadDirections(int x, int y) {
-//        return puzzleBoard[x][y].getRoadDirections();
-//    }
 }
