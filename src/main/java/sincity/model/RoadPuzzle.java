@@ -9,11 +9,11 @@ public class RoadPuzzle {
 
     boolean[] possibleDirections;
     double size;
-    Line pathE_W = new Line(coX + size, coY + 0.4 * size, coX, coY + 0.4 * size);
 
     double coX;
 
     double coY;
+    Line pathE_W = new Line(coX + size, coY + 0.4 * size, coX, coY + 0.4 * size);
     Line pathW_E = new Line(coX, coY + 0.6 * size, coX + size, coY + 0.6 * size);
     Line pathS_N = new Line(coX + 0.6 * size, coY + size, coX + 0.6 * size, coY);
     Line pathN_S = new Line(coX + 0.4 * size, coY, coX + 0.4 * size, coY + size);
