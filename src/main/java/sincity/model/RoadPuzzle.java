@@ -5,7 +5,7 @@ import javafx.scene.transform.Rotate;
 
 public class RoadPuzzle {
 
-    private boolean[] possibleDirections;
+    private boolean[] roadDirections;
     private RoadType roadType;
 
     private double size;
@@ -19,11 +19,15 @@ public class RoadPuzzle {
     private double halfLaneWidth = 0.1 * size;
 
     RoadPuzzle(double coX, double coY, double size, RoadType type) {
+        this.roadDirections = type.getPossibleDirection();
         this.roadType = type;
         this.size = size;
-        this.possibleDirections = type.getPossibleDirection();
         this.coX = coX;
         this.coY = coY;
+    }
+
+    boolean[] getRoadDirections() {
+        return roadDirections;
     }
 
     RoadType getRoadType() {
@@ -106,7 +110,6 @@ public class RoadPuzzle {
             case "S_N":
             case "S_W":
                 pathToMove.getTransforms().add(new Rotate(270, centerX, centerY));
-
         }
         return pathToMove;
     }

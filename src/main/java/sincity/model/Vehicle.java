@@ -6,7 +6,8 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.Random;
@@ -15,23 +16,64 @@ public class Vehicle {
     double maxSpeed;
     double speed;
     boolean size;
-    int[] puzzle;
+    public Direction direction = Direction.E;
     double roadPosition;
     private int imageNumber;
     private Image carImage;
+    int[] puzzleIndicies;
 
-    private void move(Line path) {
+    private void move(RoadPuzzle puzzle) {
+
+
+//        puzzle.getRoadDirections();
+        Direction outDir = getRandomOutDirection(puzzle.getRoadDirections());
+        String FromTo = direction.toString() + "_" + outDir.toString();
+        Polyline pathToMove = puzzle.getPathToMove(FromTo);
+
+
+//        puzzle.puzzlePosX
+
+
+//
         Rectangle rectangle = new Rectangle(15, 10);
         rectangle.setFill(Color.GREEN);
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(15));
         pathTransition.setNode(rectangle);
-        pathTransition.setPath(path);
+        pathTransition.setPath(pathToMove);
         pathTransition.setOrientation(
                 PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setCycleCount(5000);
         pathTransition.setAutoReverse(false);
         pathTransition.play();
+    }
+
+
+    private Direction getRandomOutDirection(boolean[] directions) {
+        Direction[] allDirections = new Direction[]{Direction.E, Direction.N, Direction.S, Direction.W};
+        int rnd;
+        do {
+            rnd = new Random().nextInt(directions.length);
+        } while (!directions[rnd] || notSameDirection(allDirections[rnd]));
+        rnd = new Random().nextInt(directions.length);
+
+        return allDirections[rnd];
+    }
+
+    boolean notSameDirection(Direction chosen) {
+        if (this.direction.equals(Direction.E) && chosen.equals((Direction.W))) {
+            return false;
+        }
+        if (this.direction.equals(Direction.W) && chosen.equals((Direction.E))) {
+            return false;
+        }
+        if (this.direction.equals(Direction.N) && chosen.equals((Direction.S))) {
+            return false;
+        }
+        if (this.direction.equals(Direction.S) && chosen.equals((Direction.N))) {
+            return false;
+        }
+        return true;
     }
 
 

@@ -35,4 +35,8 @@ public class City {
     public RoadType getRoadType(int x, int y) {
         return puzzleBoard[x][y].getRoadType();
     }
+
+//    public boolean[] getRoadDirections(int x, int y) {
+//        return puzzleBoard[x][y].getRoadDirections();
+//    }
 }
