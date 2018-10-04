@@ -2,7 +2,6 @@ package sincity.model;
 
 public class City {
     private RoadPuzzle[][] puzzleBoard;
-
     private int padding;
     private double tileSize;
     public City(int verticalPuzzles, int horizontalPuzzles, int padding, double tileSize) {
