@@ -3,7 +3,7 @@ package sincity.model;
 import javafx.scene.shape.Polyline;
 import javafx.scene.transform.Rotate;
 
-public class RoadPuzzle {
+class RoadPuzzle {
 
     private boolean[] roadDirections;
     private RoadType roadType;
@@ -13,10 +13,10 @@ public class RoadPuzzle {
     private double coX;
     private double coY;
 
-    private double centerX = coX + size / 2.0;             // center of the puzzle - anchor point of path rotation
-    private double centerY = coY + size / 2.0;
+    private double centerX;             // center of the puzzle - anchor point of path rotation
+    private double centerY;
 
-    private double halfLaneWidth = 0.1 * size;
+    private double halfLaneWidth;
 
     RoadPuzzle(double coX, double coY, double size, RoadType type) {
         this.roadDirections = type.getPossibleDirection();
@@ -24,6 +24,9 @@ public class RoadPuzzle {
         this.size = size;
         this.coX = coX;
         this.coY = coY;
+        this.centerX = coX + size / 2.0;
+        this.centerY = coY + size / 2.0;
+        this.halfLaneWidth = 0.1 * size;
     }
 
     boolean[] getRoadDirections() {
@@ -59,12 +62,8 @@ public class RoadPuzzle {
         return pathStraight;
     }
 
-    public Polyline getPathToMove(String fromTo) {
-
-        Polyline pathToMove = setPathShape(fromTo);
-        pathToMove = setPathDirection(pathToMove, fromTo);
-
-        return pathToMove;
+    Polyline getPathToMove(String fromTo) {
+        return setPathDirection(setPathShape(fromTo), fromTo); // setting path arrivalDirection and shape according to arrivalDirection "from" and "to"
     }
 
     private Polyline setPathShape(String fromTo) {
@@ -74,9 +73,9 @@ public class RoadPuzzle {
         switch (fromTo) {
             case "N_W":
             case "S_E":
-            case "W_E":
-            case "E_W":
-                pathToMove = setPathStraight();
+            case "W_S":
+            case "E_N":
+                pathToMove = setPathRight();
                 break;
             case "N_E":
             case "S_W":
@@ -86,9 +85,9 @@ public class RoadPuzzle {
                 break;
             case "N_S":
             case "S_N":
-            case "W_S":
-            case "E_N":
-                pathToMove = setPathRight();
+            case "W_E":
+            case "E_W":
+                pathToMove = setPathStraight();
                 break;
         }
         return pathToMove;
