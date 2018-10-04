@@ -32,12 +32,12 @@ public class Main extends Application {
             // create city with desired size
             City city = new City(verticalPuzzles, horizontalPuzzles, padding, tileSize);
 
-            // create spawner
-            Spawner spawner = new Spawner(city.getPuzzleBoard());
-
             // create view based on city
             Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, padding);
-            renderer.render();
+            renderer.renderCity();
+
+            // create spawner
+            new Spawner(renderer, city.getPuzzleBoard());
         } else {
             System.out.println("Wrong board size, please make sure to have equal or more horizontal puzzles than vertical ones.");
             Platform.exit();
