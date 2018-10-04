@@ -3,6 +3,7 @@ package sincity.view;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import sincity.model.City;
+import sincity.model.RoadType;
 
 public class Renderer {
     private Group root;
@@ -25,12 +26,17 @@ public class Renderer {
         root.getChildren().clear();
         for (int y = padding; y < verticalPuzzles - padding; y++) {
             for (int x = padding; x < horizontalPuzzles - padding; x++) {
+                RoadType roadType = null;
+                if (y == 3) {
+                    roadType = city.getRoadType(x, y);
+                }
 
                 // set image based on puzzle (random for null)
-                String imageUrl = city.puzzleBoard[x][y] != null ? getProperImageUrl() : getRandomImageUrl();
+                String imageUrl = city.puzzleBoard[x][y] != null ? getProperImageUrl(roadType) : getRandomImageUrl();
 
                 // choose image
                 Image image = new Image(imageUrl, tileSize, tileSize, false, false);
+
 
                 // create tile
                 Tile tile = new Tile(x, y, tileSize, padding, image); // x and y are board indices
@@ -46,8 +52,10 @@ public class Renderer {
         return "file:src/main/resources/bcg" + randomNumber + ".png";
     }
 
-    private String getProperImageUrl() {
-        // TODO
+    private String getProperImageUrl(RoadType roadType) {
+        if (roadType == RoadType.EW) {
+            return "file:src/main/resources/X_road2.png";
+        }
         return "";
     }
 }

@@ -23,15 +23,6 @@ public class Vehicle {
     private void move(Line path) {
         Rectangle rectangle = new Rectangle(15, 10);
         rectangle.setFill(Color.GREEN);
-//        Path path = new Path();
-//        MoveTo moveTo = new MoveTo(xFrom, yFrom);
-//        LineTo line1 = new LineTo(xTo, yTo);
-//        LineTo line2 = new LineTo(100, 100);
-//        LineTo line3 = new LineTo(10, 100);
-//        LineTo line4 = new LineTo(10, 10);
-//        LineTo line5 = new LineTo(300, 250);
-//        path.getElements().add(moveTo);
-//        path.getElements().addAll(moveTo, line1);
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(15));
         pathTransition.setNode(rectangle);
@@ -41,8 +32,8 @@ public class Vehicle {
         pathTransition.setCycleCount(5000);
         pathTransition.setAutoReverse(false);
         pathTransition.play();
-
     }
+
 
     private void timeline() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), ev -> {

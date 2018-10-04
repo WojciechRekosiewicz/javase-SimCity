@@ -7,19 +7,19 @@ public class RoadPuzzle {
 
     //  0.6 i 0.4 MAGIC NUMBERS!!!! NEED CHANGE THAT
 
-    boolean[] roadType;
-
-    double SIZE;
+    boolean[] possibleDirections;
+    double size;
+    Line pathE_W = new Line(coX + size, coY + 0.4 * size, coX, coY + 0.4 * size);
 
     double coX;
+
     double coY;
-
-    Line pathE_W = new Line(coX+SIZE, coY+0.4*SIZE, coX, coY+0.4*SIZE );
-    Line pathW_E = new Line(coX, coY+0.6*SIZE, coX+SIZE, coY+0.6*SIZE );
-    Line pathS_N = new Line (coX + 0.6*SIZE, coY+SIZE,coX + 0.6*SIZE, coY);
-    Line pathN_S = new Line (coX + 0.4*SIZE, coY,coX + 0.4*SIZE, coY+SIZE);
-
+    Line pathW_E = new Line(coX, coY + 0.6 * size, coX + size, coY + 0.6 * size);
+    Line pathS_N = new Line(coX + 0.6 * size, coY + size, coX + 0.6 * size, coY);
+    Line pathN_S = new Line(coX + 0.4 * size, coY, coX + 0.4 * size, coY + size);
+    private RoadType roadType;
     Polyline pathE_N = new Polyline();
+
     Polyline pathE_S = new Polyline();
     Polyline pathW_N = new Polyline();
     Polyline pathW_S = new Polyline();
@@ -28,26 +28,28 @@ public class RoadPuzzle {
     Polyline pathS_E = new Polyline();
     Polyline pathS_W = new Polyline();
 
-    private void setPathE_N() {
-        pathE_N.getPoints().addAll(new Double[]{
-                coX + SIZE, coY + 0.4 * SIZE,
-                coX +0.6*SIZE, coY + 0.4 * SIZE,
-                coX + 0.6*SIZE, coY,
+    public RoadPuzzle(double coX, double coY, double size, RoadType type) {
+        this.roadType = type;
+        this.size = size;
+        this.possibleDirections = type.getPossibleDirection();
+        this.coX = coX;
+        this.coY = coY;
 
-        });
+    }
+
+    public RoadType getRoadType() {
+        return roadType;
     }
 
     public Polyline getPathE_N() {
         return pathE_N;
     }
 
-    private void setPathE_S() {
+    private void setPathE_N() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX + SIZE, coY + 0.4 * SIZE,
-                coX +0.6*SIZE, coY + 0.4 * SIZE,
-                coX +0.4*SIZE, coY + 0.4 * SIZE,
-                coX + 0.4*SIZE, coY+0.6*SIZE,
-                coX + 0.4*SIZE, coY+ SIZE,
+                coX + size, coY + 0.4 * size,
+                coX + 0.6 * size, coY + 0.4 * size,
+                coX + 0.6 * size, coY,
 
         });
     }
@@ -56,11 +58,13 @@ public class RoadPuzzle {
         return pathE_S;
     }
 
-    private void setPathN_W() {
+    private void setPathE_S() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX + 0.4*SIZE, coY,
-                coX +0.4*SIZE, coY + 0.4 * SIZE,
-                coX, coY+0.4*SIZE
+                coX + size, coY + 0.4 * size,
+                coX + 0.6 * size, coY + 0.4 * size,
+                coX + 0.4 * size, coY + 0.4 * size,
+                coX + 0.4 * size, coY + 0.6 * size,
+                coX + 0.4 * size, coY + size,
 
         });
     }
@@ -69,13 +73,11 @@ public class RoadPuzzle {
         return pathN_W;
     }
 
-    private void setPathN_E() {
+    private void setPathN_W() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX +0.4*SIZE, coY,
-                coX +0.4*SIZE, coY + 0.4* SIZE,
-                coX +0.4*SIZE, coY + 0.6* SIZE,
-                coX+0.6*SIZE, coY+0.6*SIZE,
-                coX+SIZE, coY+0.6*SIZE,
+                coX + 0.4 * size, coY,
+                coX + 0.4 * size, coY + 0.4 * size,
+                coX, coY + 0.4 * size
 
         });
     }
@@ -84,12 +86,13 @@ public class RoadPuzzle {
         return pathN_E;
     }
 
-
-    private void setPathS_E() {
+    private void setPathN_E() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX + 0.6*SIZE, coY+SIZE,
-                coX +0.6*SIZE, coY + 0.6 * SIZE,
-                coX + SIZE, coY+0.6*SIZE
+                coX + 0.4 * size, coY,
+                coX + 0.4 * size, coY + 0.4 * size,
+                coX + 0.4 * size, coY + 0.6 * size,
+                coX + 0.6 * size, coY + 0.6 * size,
+                coX + size, coY + 0.6 * size,
 
         });
     }
@@ -98,13 +101,11 @@ public class RoadPuzzle {
         return pathS_E;
     }
 
-    private void setPathS_W() {
+    private void setPathS_E() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX +0.6*SIZE, coY+SIZE,
-                coX +0.6*SIZE, coY + 0.6* SIZE,
-                coX +0.6*SIZE, coY + 0.4* SIZE,
-                coX+0.4*SIZE, coY+0.4*SIZE,
-                coX, coY+0.4*SIZE,
+                coX + 0.6 * size, coY + size,
+                coX + 0.6 * size, coY + 0.6 * size,
+                coX + size, coY + 0.6 * size
 
         });
     }
@@ -113,13 +114,13 @@ public class RoadPuzzle {
         return pathS_W;
     }
 
-    private void setPathW_N() {
+    private void setPathS_W() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX, coY + 0.6 * SIZE,
-                coX +0.4*SIZE, coY + 0.6 * SIZE,
-                coX +0.6*SIZE, coY + 0.6 * SIZE,
-                coX +0.6*SIZE, coY + 0.4 * SIZE,
-                coX + 0.6*SIZE, coY,
+                coX + 0.6 * size, coY + size,
+                coX + 0.6 * size, coY + 0.6 * size,
+                coX + 0.6 * size, coY + 0.4 * size,
+                coX + 0.4 * size, coY + 0.4 * size,
+                coX, coY + 0.4 * size,
 
         });
     }
@@ -128,11 +129,14 @@ public class RoadPuzzle {
         return pathW_N;
     }
 
-    private void setPathW_S() {
+    private void setPathW_N() {
         pathE_N.getPoints().addAll(new Double[]{
-                coX, coY + 0.6 * SIZE,
-                coX +0.4*SIZE, coY + 0.6 * SIZE,
-                coX +0.4*SIZE, coY + SIZE,
+                coX, coY + 0.6 * size,
+                coX + 0.4 * size, coY + 0.6 * size,
+                coX + 0.6 * size, coY + 0.6 * size,
+                coX + 0.6 * size, coY + 0.4 * size,
+                coX + 0.6 * size, coY,
+
         });
     }
 
@@ -140,15 +144,12 @@ public class RoadPuzzle {
         return pathW_S;
     }
 
-    public RoadPuzzle(int coX, int coY, RoadType type) {
-        this.SIZE = 256;
-
-        this.roadType = type.getPossibleDirection();
-
-
-        this.coX = coX;
-        this.coY = coY;
-
+    private void setPathW_S() {
+        pathE_N.getPoints().addAll(new Double[]{
+                coX, coY + 0.6 * size,
+                coX + 0.4 * size, coY + 0.6 * size,
+                coX + 0.4 * size, coY + size,
+        });
     }
 
 
