@@ -1,7 +1,7 @@
 package sincity.model;
 
 public class City {
-    public RoadPuzzle[][] puzzleBoard;
+    private RoadPuzzle[][] puzzleBoard;
     private int padding;
     private double tileSize;
 
@@ -17,8 +17,16 @@ public class City {
             for (int y = 0; y < puzzleBoard[x].length; y++) {
                 double coX = (x * tileSize - (padding * tileSize));
                 double coY = (x * tileSize - (padding * tileSize));
-                if (y == 3) {
+
+                // test intersection
+                if (y == 3 && x == 5) {
+                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.ENSW);
+                } else if (y == 3) {
                     puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.EW);
+                } else if (x == 5) {
+                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.NS);
+                } else {
+                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.BCG);
                 }
             }
         }

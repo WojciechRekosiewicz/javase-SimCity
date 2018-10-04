@@ -9,7 +9,6 @@ class Tile extends StackPane {
 
 
     Tile(int x, int y, double size, int padding, Image image) {
-
         // create tile image
         ImageView tileImage = new ImageView(image);
 
