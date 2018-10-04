@@ -2,6 +2,7 @@ package sincity.view;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Polyline;
 import sincity.model.City;
 import sincity.model.RoadType;
 
@@ -22,7 +23,7 @@ public class Renderer {
         this.padding = padding;
     }
 
-    public void render() {
+    public void renderCity() {
         root.getChildren().clear();
         for (int y = padding; y < verticalPuzzles - padding; y++) {
             for (int x = padding; x < horizontalPuzzles - padding; x++) {
@@ -41,5 +42,19 @@ public class Renderer {
                 root.getChildren().add(tile);
             }
         }
+    }
+
+    public void renderVehicle(String imageUrl, Polyline pathToMove) {
+        // vehicle size
+        double vehicleSize = tileSize * 0.37;
+
+        // set image based on roadType
+        Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+
+        // create vehicleDisplay
+        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage, pathToMove);
+
+        // add vehicleDisplay to group
+        root.getChildren().add(vehicleDisplay);
     }
 }
