@@ -23,7 +23,7 @@ public class City {
         for (int x = 0; x < puzzleBoard.length; x++) {
             for (int y = 0; y < puzzleBoard[x].length; y++) {
                 double coX = (x * tileSize - (padding * tileSize));
-                double coY = (x * tileSize - (padding * tileSize));
+                double coY = (y * tileSize - (padding * tileSize));
 
                 // test intersection
                 if (y == 3 && x == 5) {
