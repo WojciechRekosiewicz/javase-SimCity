@@ -2,6 +2,7 @@ package sincity.view;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
 import sincity.model.City;
 import sincity.model.RoadType;
@@ -44,7 +45,7 @@ public class Renderer {
         }
     }
 
-    public void renderVehicle(String imageUrl, Polyline pathToMove) {
+    public void renderVehicle(String imageUrl, Path pathToMove) {
         // vehicle size
         double vehicleSize = tileSize * 0.37;
 

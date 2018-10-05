@@ -1,6 +1,7 @@
 package sincity.model;
 
 import javafx.scene.image.Image;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
 import sincity.view.Renderer;
 
@@ -10,7 +11,7 @@ class Vehicle {
     double maxSpeed;
     double speed;
     double size;
-    private Direction arrivalDirection = Direction.E;
+    private Direction arrivalDirection = Direction.W;
     double roadPosition;
     private int imageNumber;
     private Image carImage;
@@ -25,7 +26,7 @@ class Vehicle {
     private void move(RoadPuzzle puzzle) {
         Direction outDir = getRandomOutDirection(puzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDir.toString();
-        Polyline pathToMove = puzzle.getPathToMove(fromTo);
+        Path pathToMove = puzzle.getPathToMove(fromTo);
         String imageUrl = "car_03.png";
         renderer.renderVehicle(imageUrl, pathToMove);
     }

@@ -1,6 +1,6 @@
 package sincity.model;
 
-import javafx.scene.shape.Polyline;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 
 class RoadPuzzle {
@@ -37,38 +37,93 @@ class RoadPuzzle {
         return roadType;
     }
 
-    private Polyline setPathRight() {
-        Polyline pathRight = new Polyline();
-        pathRight.getPoints().addAll(coX, centerY + halfLaneWidth,
-                centerX - halfLaneWidth, centerY + halfLaneWidth,
-                centerX - halfLaneWidth, coY + size);
-        return pathRight;
+    private Path setPathRight() {
+
+        Path path = new Path();
+
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(coX);
+        moveTo.setY(centerY + halfLaneWidth);
+
+        LineTo lineTo = new LineTo();
+        lineTo.setX(centerX - 2 * halfLaneWidth);
+        lineTo.setY(centerY + halfLaneWidth);
+
+        ArcTo arcTo = new ArcTo();
+        arcTo.setX(centerX - halfLaneWidth);
+        arcTo.setY(centerY + halfLaneWidth);
+        arcTo.setRadiusX(size/2 - halfLaneWidth);
+        arcTo.setRadiusY(size/2 - halfLaneWidth);
+        arcTo.setLargeArcFlag(false);
+        arcTo.setSweepFlag(true);
+
+        LineTo lineTo2 = new LineTo();
+        lineTo2.setX(centerX - halfLaneWidth);
+        lineTo2.setY(coY + size);
+        
+        path.getElements().add(moveTo);
+        path.getElements().add(lineTo);
+        path.getElements().add(arcTo);
+        path.getElements().add(lineTo2);
+
+        return path;
     }
 
-    private Polyline setPathLeft() {
-        Polyline pathLeft = new Polyline();
-        pathLeft.getPoints().addAll(coX, centerY + halfLaneWidth,
-                centerX - halfLaneWidth, centerY + halfLaneWidth,
-                centerX + halfLaneWidth, centerY + halfLaneWidth,
-                centerX + halfLaneWidth, centerY - halfLaneWidth,
-                centerX + halfLaneWidth, coY);
-        return pathLeft;
+    private Path setPathLeft() {
+
+        Path path = new Path();
+
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(coX);
+        moveTo.setY(centerY + halfLaneWidth);
+
+        LineTo lineTo = new LineTo();
+        lineTo.setX(centerX - halfLaneWidth);
+        lineTo.setY(centerY + halfLaneWidth);
+
+        ArcTo arcTo = new ArcTo();
+        arcTo.setX(centerX + halfLaneWidth);
+        arcTo.setY(centerY - halfLaneWidth);
+        arcTo.setRadiusX(3*halfLaneWidth);
+        arcTo.setRadiusY(3*halfLaneWidth);
+
+        LineTo lineTo2 = new LineTo();
+        lineTo2.setX(centerX + halfLaneWidth);
+        lineTo2.setY(coY);
+
+        path.getElements().add(moveTo);
+        path.getElements().add(lineTo);
+        path.getElements().add(arcTo);
+        path.getElements().add(lineTo2);
+
+        return path;
     }
 
-    private Polyline setPathStraight() {
-        Polyline pathStraight = new Polyline();
-        pathStraight.getPoints().addAll(coX, centerY + halfLaneWidth,
-                coX + size, centerY + halfLaneWidth);
-        return pathStraight;
+    private Path setPathStraight() {
+
+        Path path = new Path();
+
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(coX);
+        moveTo.setY(centerY + halfLaneWidth);
+
+        LineTo lineTo = new LineTo();
+        lineTo.setX(coX + size);
+        lineTo.setY(centerY + halfLaneWidth);
+
+        path.getElements().add(moveTo);
+        path.getElements().add(lineTo);
+
+        return path;
     }
 
-    Polyline getPathToMove(String fromTo) {
+    Path getPathToMove(String fromTo) {
         return setPathDirection(setPathShape(fromTo), fromTo); // setting path arrivalDirection and shape according to arrivalDirection "from" and "to"
     }
 
-    private Polyline setPathShape(String fromTo) {
+    private Path setPathShape(String fromTo) {
 
-        Polyline pathToMove = new Polyline();
+        Path  pathToMove = new Path ();
 
         switch (fromTo) {
             case "N_W":
@@ -93,7 +148,7 @@ class RoadPuzzle {
         return pathToMove;
     }
 
-    private Polyline setPathDirection(Polyline pathToMove, String fromTo) {
+    private Path setPathDirection(Path  pathToMove, String fromTo) {
         switch (fromTo) {
             case "N_W":
             case "N_S":
