@@ -4,29 +4,41 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.transform.Rotate;
 
 class RoadPuzzle {
-
     private boolean[] roadDirections;
     private RoadType roadType;
 
+    private int indexX; // position in City board
+    private int indexY;
+
     private double size;
 
-    private double coX;
+    private double coX; // position on Scene
     private double coY;
 
-    private double centerX;             // center of the puzzle - anchor point of path rotation
+    private double centerX; // center of the puzzle - anchor point of path rotation
     private double centerY;
 
     private double halfLaneWidth;
 
-    RoadPuzzle(double coX, double coY, double size, RoadType type) {
+    RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type) {
         this.roadDirections = type.getPossibleDirection();
         this.roadType = type;
         this.size = size;
-        this.coX = coX;
-        this.coY = coY;
+        this.indexX = xIndex;
+        this.indexY = yIndex;
+        this.coX = xIndex * size - (padding * size);
+        this.coY = yIndex * size - (padding * size);
         this.centerX = coX + size / 2.0;
         this.centerY = coY + size / 2.0;
         this.halfLaneWidth = 0.1 * size;
+    }
+
+    int getIndexX() {
+        return indexX;
+    }
+
+    int getIndexY() {
+        return indexY;
     }
 
     boolean[] getRoadDirections() {
