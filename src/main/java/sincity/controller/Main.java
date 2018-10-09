@@ -12,7 +12,7 @@ import sincity.view.Renderer;
 public class Main extends Application {
 
     // board size, there should be always more horizontalPuzzles than verticalPuzzles
-    private int horizontalPuzzles = 10;
+    private int horizontalPuzzles = 10; // could be final
     private int verticalPuzzles = 5;
 
     private double sceneWidth = 1400; // window size in pixels
@@ -27,17 +27,17 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            int padding = 1; // tiles off-screen
+            final int PADDING = 1; // tiles off-screen
 
             // create city with desired size
-            City city = new City(verticalPuzzles, horizontalPuzzles, padding, tileSize);
+            City city = new City(verticalPuzzles, horizontalPuzzles, PADDING, tileSize);
 
             // create view based on city
-            Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, padding);
+            Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, PADDING);
             renderer.renderCity();
 
             // create spawner
-            new Spawner(renderer, city.getPuzzleBoard());
+            new Spawner(city, renderer);
         } else {
             System.out.println("Wrong board size, please make sure to have equal or more horizontal puzzles than vertical ones.");
             Platform.exit();

@@ -11,7 +11,7 @@ public class City {
         initializeBoard();
     }
 
-    public RoadPuzzle[][] getPuzzleBoard() {
+    RoadPuzzle[][] getPuzzleBoard() {
         return puzzleBoard;
     }
 
@@ -22,18 +22,15 @@ public class City {
     private void initializeBoard() {
         for (int x = 0; x < puzzleBoard.length; x++) {
             for (int y = 0; y < puzzleBoard[x].length; y++) {
-                double coX = (x * tileSize - (padding * tileSize));
-                double coY = (y * tileSize - (padding * tileSize));
-
                 // test intersection
-                if (y == 3 && x == 5) {
-                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.ENSW);
+                if ((y == 3 && x == 4) || (y == 3 && x == 6)) {
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW);
                 } else if (y == 3) {
-                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.EW);
-                } else if (x == 5) {
-                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.NS);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW);
+                } else if (x == 4 || x == 6) {
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS);
                 } else {
-                    puzzleBoard[x][y] = new RoadPuzzle(coX, coY, tileSize, RoadType.BCG);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.BCG);
                 }
             }
         }
