@@ -30,7 +30,9 @@ class Vehicle {
     private void move() {
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
-        Path pathToMove = currentRoadPuzzle.getPathToMove(fromTo);
+
+        PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+
         PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
         pathTransition.setOnFinished(event -> {
             changeRoadPuzzle(currentRoadPuzzle);
@@ -85,11 +87,4 @@ class Vehicle {
             return null;
         }
     }
-
-//    private void setTheImageOfTheCar(VehicleType vehicleType, int numberOfVehicle) {
-//        int randomImageNumber = (int) Math.floor(Math.random() * numberOfVehicle);
-//        Image carImage = new Image(vehicleType.getName() + "_0" + randomImageNumber + ".png");
-//        setCarImage(carImage);
-//    }
-
 }
