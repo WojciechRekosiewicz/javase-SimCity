@@ -1,9 +1,12 @@
 package sincity.view;
 
+import javafx.animation.Interpolator;
+import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
+import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
 
@@ -45,17 +48,39 @@ public class Renderer {
         }
     }
 
-    public void renderVehicle(String imageUrl, Path pathToMove) {
+    public VehicleDisplay renderVehicle() {
         // vehicle size
-        double vehicleSize = tileSize * 0.37;
+        double vehicleSize = tileSize * 0.37; // scale factor
+
+        String imageUrl = "car_04.png";
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
 
         // create vehicleDisplay
-        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage, pathToMove);
+        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
 
         // add vehicleDisplay to group
         root.getChildren().add(vehicleDisplay);
+
+        return vehicleDisplay;
     }
+
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove) {
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setNode(vehicleDisplay);
+        pathTransition.setPath(pathToMove);
+        pathTransition.setOrientation(
+                PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        pathTransition.setInterpolator(Interpolator.LINEAR);
+        pathTransition.play();
+        return pathTransition;
+    }
+
+
+
+
 }

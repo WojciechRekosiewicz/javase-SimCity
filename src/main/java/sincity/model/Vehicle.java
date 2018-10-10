@@ -1,34 +1,43 @@
 package sincity.model;
 
-import javafx.scene.image.Image;
+import javafx.animation.PathTransition;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
 import sincity.view.Renderer;
+import sincity.view.VehicleDisplay;
 
 
 class Vehicle {
-    RoadPuzzle currentRoadPuzzle;
     double maxSpeed;
     double speed;
     double size;
-    private Direction arrivalDirection = Direction.W;
-    double roadPosition;
-    private int imageNumber;
-    private Image carImage;
+    private RoadPuzzle currentRoadPuzzle;
+    private Direction arrivalDirection;
+    private Direction outDirection;
+    private City city;
     private Renderer renderer;
+    private VehicleDisplay vehicleDisplay;
 
-    Vehicle(Renderer renderer, RoadPuzzle roadPuzzle) {
+    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
-        move(roadPuzzle);
+        this.arrivalDirection = arrivalDirection;
+        this.vehicleDisplay = renderer.renderVehicle();
+        this.city = city;
+        move();
     }
 
-    private void move(RoadPuzzle puzzle) {
-        Direction outDir = getRandomOutDirection(puzzle.getRoadDirections());
-        String fromTo = arrivalDirection.toString() + "_" + outDir.toString();
-        Path pathToMove = puzzle.getPathToMove(fromTo);
-        String imageUrl = "car_03.png";
-        renderer.renderVehicle(imageUrl, pathToMove);
+    private void move() {
+        outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
+        String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
+        Path pathToMove = currentRoadPuzzle.getPathToMove(fromTo);
+        PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
+        pathTransition.setOnFinished(event -> {
+            changeRoadPuzzle(currentRoadPuzzle);
+            if (currentRoadPuzzle != null) {
+                move();
+            }
+        });
     }
 
     private Direction getRandomOutDirection(boolean[] directions) {
@@ -40,14 +49,47 @@ class Vehicle {
         return allDirections[randomIndex];
     }
 
-    private void setCarImage(Image carImage) {
-        this.carImage = carImage;
+    private void changeRoadPuzzle(RoadPuzzle puzzle) {
+        currentRoadPuzzle = findNextPuzzle(puzzle, outDirection);
     }
 
-    private void setTheImageOfTheCar(VehicleType vehicleType, int numberOfVehicle) {
-        int randomImageNumber = (int) Math.floor(Math.random() * numberOfVehicle);
-        Image carImage = new Image(vehicleType.getName() + "_0" + randomImageNumber + ".png");
-        setCarImage(carImage);
+    private RoadPuzzle findNextPuzzle(RoadPuzzle puzzle, Direction outDir) {
+        int currentX = puzzle.getIndexX();
+        int currentY = puzzle.getIndexY();
+
+        int nextPuzzleIndexX = currentX;
+        int nextPuzzleIndexY = currentY;
+
+        switch (outDir) {
+            case W:
+                nextPuzzleIndexX = currentX - 1;
+                arrivalDirection = Direction.E;
+                break;
+            case E:
+                nextPuzzleIndexX = currentX + 1;
+                arrivalDirection = Direction.W;
+                break;
+            case N:
+                nextPuzzleIndexY = currentY - 1;
+                arrivalDirection = Direction.S;
+                break;
+            case S:
+                nextPuzzleIndexY = currentY + 1;
+                arrivalDirection = Direction.N;
+                break;
+        }
+
+        try {
+            return city.getPuzzleBoard()[nextPuzzleIndexX][nextPuzzleIndexY];
+        } catch (Exception e) {
+            return null;
+        }
     }
+
+//    private void setTheImageOfTheCar(VehicleType vehicleType, int numberOfVehicle) {
+//        int randomImageNumber = (int) Math.floor(Math.random() * numberOfVehicle);
+//        Image carImage = new Image(vehicleType.getName() + "_0" + randomImageNumber + ".png");
+//        setCarImage(carImage);
+//    }
 
 }
