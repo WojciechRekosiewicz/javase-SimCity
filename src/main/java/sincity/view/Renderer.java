@@ -52,7 +52,9 @@ public class Renderer {
         // vehicle size
         double vehicleSize = tileSize * 0.37; // scale factor
 
-        String imageUrl = "car_04.png";
+        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+        System.out.println(randomImageNumber);
+        String imageUrl = ("car_" + randomImageNumber + ".png");
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
@@ -79,8 +81,4 @@ public class Renderer {
         pathTransition.play();
         return pathTransition;
     }
-
-
-
-
 }
