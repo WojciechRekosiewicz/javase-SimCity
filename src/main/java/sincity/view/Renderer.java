@@ -50,7 +50,7 @@ public class Renderer {
 
     public VehicleDisplay renderVehicle() {
         // vehicle size
-        double vehicleSize = tileSize * 0.37; // scale factor
+        double vehicleSize = tileSize * 0.27; // scale factor
 
         String imageUrl = "car_04.png";
 
