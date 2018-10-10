@@ -23,11 +23,13 @@ public class City {
         for (int x = 0; x < puzzleBoard.length; x++) {
             for (int y = 0; y < puzzleBoard[x].length; y++) {
                 // test intersection
-                if ((y == 3 && x == 4) || (y == 3 && x == 6)) {
+                if (y == 3 && x == 4) {
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENW);
+                } else if ((y == 3 && x == 6)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW);
                 } else if (y == 3) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW);
-                } else if (x == 4 || x == 6) {
+                } else if ((x == 4 && y <= 3) || x == 6) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS);
                 } else {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.BCG);

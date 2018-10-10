@@ -50,9 +50,10 @@ public class Renderer {
 
     public VehicleDisplay renderVehicle() {
         // vehicle size
-        double vehicleSize = tileSize * 0.27; // scale factor
+        double vehicleSize = tileSize * 0.37; // scale factor
 
-        String imageUrl = "car_04.png";
+        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+        String imageUrl = ("car_" + randomImageNumber + ".png");
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
@@ -79,8 +80,4 @@ public class Renderer {
         pathTransition.play();
         return pathTransition;
     }
-
-
-
-
 }
