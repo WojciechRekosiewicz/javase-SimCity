@@ -1,6 +1,7 @@
 package sincity.model;
 
 import javafx.animation.PathTransition;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
 import sincity.view.Renderer;
 import sincity.view.VehicleDisplay;
@@ -29,7 +30,7 @@ class Vehicle {
     private void move() {
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
-        Polyline pathToMove = currentRoadPuzzle.getPathToMove(fromTo);
+        Path pathToMove = currentRoadPuzzle.getPathToMove(fromTo);
         PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
         pathTransition.setOnFinished(event -> {
             changeRoadPuzzle(currentRoadPuzzle);

@@ -4,6 +4,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
 import javafx.util.Duration;
 import sincity.model.City;
@@ -51,7 +52,9 @@ public class Renderer {
         // vehicle size
         double vehicleSize = tileSize * 0.37; // scale factor
 
-        String imageUrl = "car_04.png";
+        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+        System.out.println(randomImageNumber);
+        String imageUrl = ("car_" + randomImageNumber + ".png");
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
@@ -65,7 +68,7 @@ public class Renderer {
         return vehicleDisplay;
     }
 
-    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Polyline pathToMove) {
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove) {
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(1));
         pathTransition.setNode(vehicleDisplay);
@@ -78,8 +81,4 @@ public class Renderer {
         pathTransition.play();
         return pathTransition;
     }
-
-
-
-
 }
