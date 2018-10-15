@@ -1,7 +1,7 @@
-package sincity.model;
-
-public class Car extends Vehicle {
-
-
-}
+//package sincity.model;
+//
+//public class Car extends Vehicle {
+//
+//
+//}
 

@@ -1,7 +1,12 @@
 package sincity.view;
 
+import javafx.animation.Interpolator;
+import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Polyline;
+import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
 
@@ -22,7 +27,7 @@ public class Renderer {
         this.padding = padding;
     }
 
-    public void render() {
+    public void renderCity() {
         root.getChildren().clear();
         for (int y = padding; y < verticalPuzzles - padding; y++) {
             for (int x = padding; x < horizontalPuzzles - padding; x++) {
@@ -42,4 +47,41 @@ public class Renderer {
             }
         }
     }
+
+    public VehicleDisplay renderVehicle() {
+        // vehicle size
+        double vehicleSize = tileSize * 0.37; // scale factor
+
+        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+        String imageUrl = ("car_" + randomImageNumber + ".png");
+
+        // set image based on roadType
+        Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+
+        // create vehicleDisplay
+        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
+
+        // add vehicleDisplay to group
+        root.getChildren().add(vehicleDisplay);
+
+        return vehicleDisplay;
+    }
+
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove) {
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setNode(vehicleDisplay);
+        pathTransition.setPath(pathToMove);
+        pathTransition.setOrientation(
+                PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        pathTransition.setInterpolator(Interpolator.LINEAR);
+        pathTransition.play();
+        return pathTransition;
+    }
+
+
+
+
 }

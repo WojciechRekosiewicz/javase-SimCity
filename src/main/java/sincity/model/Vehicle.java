@@ -1,72 +1,90 @@
 package sincity.model;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.util.Duration;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Polyline;
+import sincity.view.Renderer;
+import sincity.view.VehicleDisplay;
 
-import java.util.Random;
 
-public class Vehicle {
+class Vehicle {
     double maxSpeed;
     double speed;
-    boolean size;
-    int[] puzzle;
-    double roadPosition;
-    private int imageNumber;
-    private Image carImage;
+    double size;
+    private RoadPuzzle currentRoadPuzzle;
+    private Direction arrivalDirection;
+    private Direction outDirection;
+    private City city;
+    private Renderer renderer;
+    private VehicleDisplay vehicleDisplay;
 
-    private void move(Line path) {
-        Rectangle rectangle = new Rectangle(15, 10);
-        rectangle.setFill(Color.GREEN);
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(15));
-        pathTransition.setNode(rectangle);
-        pathTransition.setPath(path);
-        pathTransition.setOrientation(
-                PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setCycleCount(5000);
-        pathTransition.setAutoReverse(false);
-        pathTransition.play();
+    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
+        this.renderer = renderer;
+        this.currentRoadPuzzle = roadPuzzle;
+        this.arrivalDirection = arrivalDirection;
+        this.vehicleDisplay = renderer.renderVehicle();
+        this.city = city;
+        move();
     }
 
+    private void move() {
+        outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
+        String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
 
-    private void timeline() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), ev -> {
-            //traffic light
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+
+        PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
+        pathTransition.setOnFinished(event -> {
+            changeRoadPuzzle(currentRoadPuzzle);
+            if (currentRoadPuzzle != null) {
+                move();
+            }
+        });
     }
 
-    public Image getCarImage() {
-        return carImage;
+    private Direction getRandomOutDirection(boolean[] directions) {
+        Direction[] allDirections = new Direction[]{Direction.E, Direction.N, Direction.S, Direction.W};
+        int randomIndex;
+        do {
+            randomIndex = (int) Math.floor(Math.random() * allDirections.length);
+        } while (!directions[randomIndex] || allDirections[randomIndex].equals(arrivalDirection));
+        return allDirections[randomIndex];
     }
 
-    private void setCarImage(Image carImage) {
-        this.carImage = carImage;
+    private void changeRoadPuzzle(RoadPuzzle puzzle) {
+        currentRoadPuzzle = findNextPuzzle(puzzle, outDirection);
     }
 
-    public int getImageNumber() {
-        return imageNumber;
+    private RoadPuzzle findNextPuzzle(RoadPuzzle puzzle, Direction outDir) {
+        int currentX = puzzle.getIndexX();
+        int currentY = puzzle.getIndexY();
+
+        int nextPuzzleIndexX = currentX;
+        int nextPuzzleIndexY = currentY;
+
+        switch (outDir) {
+            case W:
+                nextPuzzleIndexX = currentX - 1;
+                arrivalDirection = Direction.E;
+                break;
+            case E:
+                nextPuzzleIndexX = currentX + 1;
+                arrivalDirection = Direction.W;
+                break;
+            case N:
+                nextPuzzleIndexY = currentY - 1;
+                arrivalDirection = Direction.S;
+                break;
+            case S:
+                nextPuzzleIndexY = currentY + 1;
+                arrivalDirection = Direction.N;
+                break;
+        }
+
+        try {
+            return city.getPuzzleBoard()[nextPuzzleIndexX][nextPuzzleIndexY];
+        } catch (Exception e) {
+            return null;
+        }
     }
-
-    public void setImageNumber(int imageNumber) {
-        this.imageNumber = imageNumber;
-    }
-
-    private void setTheImageOfTheCar(VehicleType vehicleType, int numberOfVehicle) {
-        int randomImageNumber = (int) Math.floor(Math.random() * numberOfVehicle);
-        Image carImage = new Image(vehicleType.getName() + "_0" + randomImageNumber + ".png");
-        setCarImage(carImage);
-    }
-
-    private void chooseDirection() {
-
-    }
-
 }

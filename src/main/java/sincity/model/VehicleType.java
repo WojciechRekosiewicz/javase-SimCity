@@ -1,7 +1,6 @@
 package sincity.model;
 
 public enum VehicleType {
-
     CAR("car"),
     TRUCK("truck"),
     MOTOR("motor");
