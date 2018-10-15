@@ -1,4 +1,4 @@
-package main.java.sincity.model;
+package sincity.model;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

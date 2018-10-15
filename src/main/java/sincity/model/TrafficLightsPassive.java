@@ -1,4 +1,4 @@
-package main.java.sincity.model;
+package sincity.model;
 
 import java.util.Observable;
 import java.util.Observer;
