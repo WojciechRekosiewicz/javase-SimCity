@@ -50,7 +50,7 @@ public class Renderer {
 
     public VehicleDisplay renderVehicle() {
         // vehicle size
-        double vehicleSize = tileSize * 0.37; // scale factor
+        double vehicleSize = tileSize * 0.25; // scale factor
 
         int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
         String imageUrl = ("car_" + randomImageNumber + ".png");
@@ -67,9 +67,9 @@ public class Renderer {
         return vehicleDisplay;
     }
 
-    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove) {
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, int speed) {
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setDuration(Duration.seconds(speed));
         pathTransition.setNode(vehicleDisplay);
         pathTransition.setPath(pathToMove);
         pathTransition.setOrientation(
@@ -81,6 +81,30 @@ public class Renderer {
         return pathTransition;
     }
 
+    public void vehicleRaffle() {
+        double vehicleSize = tileSize * 0.25; // scale factor
+        int raffle = (int) Math.floor(Math.random() * 3);
+
+        if (raffle == 1) {
+            int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+            String imageUrl = ("car_" + randomImageNumber + ".png");
+
+            // set image based on roadType
+            Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+        } else if (raffle == 2) {
+            int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+            String imageUrl = ("car_" + randomImageNumber + ".png");
+
+            // set image based on roadType
+            Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+        } else if (raffle == 3){
+            int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+            String imageUrl = ("car_" + randomImageNumber + ".png");
+
+            // set image based on roadType
+            Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+        }
+    }
 
 
 

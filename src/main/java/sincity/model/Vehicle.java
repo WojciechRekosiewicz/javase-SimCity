@@ -33,7 +33,7 @@ class Vehicle {
 
         PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
 
-        PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
+        PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, 1);
         pathTransition.setOnFinished(event -> {
             changeRoadPuzzle(currentRoadPuzzle);
             if (currentRoadPuzzle != null) {
