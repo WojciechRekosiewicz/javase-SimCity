@@ -50,16 +50,17 @@ public class Renderer {
 
     public VehicleDisplay renderVehicle() {
         // vehicle size
-        double vehicleSize = tileSize * 0.25; // scale factor
-
-        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-        String imageUrl = ("car_" + randomImageNumber + ".png");
+//        double vehicleSize = tileSize * 0.25; // scale factor
+//
+//        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+//        String imageUrl = ("car_" + randomImageNumber + ".png");
 
         // set image based on roadType
-        Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-
+   //     Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+      //  Image vehicleImage = vehicleRaffle();
         // create vehicleDisplay
-        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
+     //   VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
+        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleRaffle());
 
         // add vehicleDisplay to group
         root.getChildren().add(vehicleDisplay);
@@ -81,29 +82,40 @@ public class Renderer {
         return pathTransition;
     }
 
-    public void vehicleRaffle() {
-        double vehicleSize = tileSize * 0.25; // scale factor
+    public Image vehicleRaffle() {
+        Image vehicleImage;
         int raffle = (int) Math.floor(Math.random() * 3);
 
         if (raffle == 1) {
+            double vehicleSize = tileSize * 0.25; // scale factor
             int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
             String imageUrl = ("car_" + randomImageNumber + ".png");
 
             // set image based on roadType
-            Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+            vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+            return vehicleImage;
         } else if (raffle == 2) {
-            int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-            String imageUrl = ("car_" + randomImageNumber + ".png");
+            double vehicleSize = tileSize * 0.40; // scale factor
+            int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
+            String imageUrl = ("truck_1.png");
 
             // set image based on roadType
-            Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-        } else if (raffle == 3){
-            int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-            String imageUrl = ("car_" + randomImageNumber + ".png");
+            vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+            return vehicleImage;
+        } else {
+            double vehicleSize = tileSize * 0.50; // scale factor
+            int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
+            String imageUrl = ("tank_1.png");
 
             // set image based on roadType
-            Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+            vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+            return vehicleImage;
         }
+
+      //  vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+
+
+        //return vehicleImage;
     }
 
 
