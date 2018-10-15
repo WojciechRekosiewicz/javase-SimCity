@@ -1,5 +1,6 @@
 package main.java.sincity.model;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -14,12 +15,12 @@ public class TrafficLightsActive extends TrafficLights {
 
 
     public void timeline() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(displayTime), ev -> {
             System.out.println("kolor zmieniony!");
             this.changeColor(this.currentColor.getNext());
 
         }));
-        timeline.setAutoReverse(true);
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
 
