@@ -8,17 +8,17 @@ import sincity.view.VehicleDisplay;
 
 
  public class Vehicle {
-    double maxSpeed;
-    double speed;
-    double size;
+
+     private double speed = 0.2; // 1 is default
     private RoadPuzzle currentRoadPuzzle;
     private Direction arrivalDirection;
     private Direction outDirection;
     private City city;
     private Renderer renderer;
     private VehicleDisplay vehicleDisplay;
+     private PathTransition pathTransition;
 
-    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
+     Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
         this.arrivalDirection = arrivalDirection;
@@ -28,18 +28,25 @@ import sincity.view.VehicleDisplay;
     }
 
     public void update(){
-        System.out.println("X: " + vehicleDisplay.getTranslateX());
-        System.out.println("Y: " + vehicleDisplay.getTranslateY());
-
+        renderer.RenderRectangle(vehicleDisplay.getCenterX(), vehicleDisplay.getCenterY());
+        //speed += 0.1;
+        pathTransition.setRate(speed);
     }
 
     private void move() {
+        System.out.println("ZMIANA PUZZLA PRZED: " + outDirection);
+        // wypisanie z kolejki o danym kierunku
+
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
+
+        System.out.println("ZMIANA PUZZLA PO: " + outDirection);
+        // wpisanie do kolejki o danym kierunku
+
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
 
         PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
 
-        PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
+        pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, speed);
         pathTransition.setOnFinished(event -> {
             changeRoadPuzzle(currentRoadPuzzle);
             if (currentRoadPuzzle != null) {
@@ -59,7 +66,6 @@ import sincity.view.VehicleDisplay;
 
     private void changeRoadPuzzle(RoadPuzzle puzzle) {
         currentRoadPuzzle = findNextPuzzle(puzzle, outDirection);
-
     }
 
     private RoadPuzzle findNextPuzzle(RoadPuzzle puzzle, Direction outDir) {

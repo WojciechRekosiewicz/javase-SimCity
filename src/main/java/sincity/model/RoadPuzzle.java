@@ -1,5 +1,8 @@
 package sincity.model;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 class RoadPuzzle {
 
     private boolean[] roadDirections;
@@ -17,6 +20,13 @@ class RoadPuzzle {
 
     private double centerY;
     private double centerX; // center of the puzzle - anchor point of path rotation
+
+    Queue<Vehicle> northVehicleList = new LinkedList<>();
+    Queue<Vehicle> southvehicleList = new LinkedList<>();
+    Queue<Vehicle> westVehicleList = new LinkedList<>();
+    Queue<Vehicle> eastVehicleList = new LinkedList<>();
+
+
 
 
     RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type) {

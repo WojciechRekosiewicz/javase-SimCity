@@ -4,11 +4,15 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
+import sincity.model.Vehicle;
 
 public class Renderer {
     private Group root;
@@ -67,8 +71,9 @@ public class Renderer {
         return vehicleDisplay;
     }
 
-    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove) {
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
         PathTransition pathTransition = new PathTransition();
+        pathTransition.setRate(speed); // 1 is default
         pathTransition.setDuration(Duration.seconds(1));
         pathTransition.setNode(vehicleDisplay);
         pathTransition.setPath(pathToMove);
@@ -81,7 +86,11 @@ public class Renderer {
         return pathTransition;
     }
 
+    public void RenderRectangle(double x, double y) {
+        Node rectangleTest = new Node(x, y);
 
-
+        // add node to group
+        root.getChildren().add(rectangleTest);
+    }
 
 }
