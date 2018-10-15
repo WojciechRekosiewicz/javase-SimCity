@@ -30,7 +30,7 @@ public class City {
                 } else if (y == 3) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW);
                 } else if ((x == 4 && y <= 3) || x == 6) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NSW);
                 } else {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.BCG);
                 }
