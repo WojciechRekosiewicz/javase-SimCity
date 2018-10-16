@@ -38,14 +38,16 @@ public class Spawner {
     }
 
     private void spawnTimer(List<RoadPuzzle> spawnPuzzles) {
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
             RoadPuzzle spawnPuzzle = getRandomSpawnPuzzle(spawnPuzzles);
             Direction arrivalDirection = getArrivalDirection(spawnPuzzle);
             Vehicle vehicle = new Vehicle(city, renderer, spawnPuzzle, arrivalDirection);
+            Tank tank = new Tank(city, renderer, spawnPuzzle, arrivalDirection);
+            gameLoop.addToTankList(tank);
             gameLoop.addToVehicleList(vehicle);
-//        }));
-//        timeline.setCycleCount(Animation.INDEFINITE);
-//        timeline.play();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     private RoadPuzzle getRandomSpawnPuzzle(List<RoadPuzzle> spawnPuzzles) {

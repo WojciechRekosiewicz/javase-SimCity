@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
+import sincity.model.Tank;
 import sincity.model.Vehicle;
 
 public class Renderer {
@@ -61,7 +62,6 @@ public class Renderer {
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-
         // create vehicleDisplay
         VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
 
@@ -69,6 +69,19 @@ public class Renderer {
         root.getChildren().add(vehicleDisplay);
 
         return vehicleDisplay;
+    }
+
+    public TankDisplay renderTank() {
+
+        double vehicleSize = tileSize * 0.50; // scale factor
+        int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
+        String imageUrl = ("tank_1.png");
+
+        // set image based on roadType
+        Image tankImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+        TankDisplay tankDisplay = new TankDisplay(tankImage);
+        root.getChildren().add(tankDisplay);
+        return tankDisplay;
     }
 
     public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
@@ -83,6 +96,22 @@ public class Renderer {
         pathTransition.setAutoReverse(false);
         pathTransition.setInterpolator(Interpolator.LINEAR);
         pathTransition.play();
+        return pathTransition;
+    }
+
+    public PathTransition moveAnimationTank(TankDisplay tankDisplay, Path pathToMove, double speed) {
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setRate(speed); // 1 is default
+        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setNode(tankDisplay);
+        pathTransition.setPath(pathToMove);
+        pathTransition.setOrientation(
+                PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        pathTransition.setInterpolator(Interpolator.LINEAR);
+        pathTransition.play();
+        System.out.println();
         return pathTransition;
     }
 
@@ -126,7 +155,7 @@ public class Renderer {
         //return vehicleImage;
     }
 
-        // add node to group
+    // add node to group
 
 
 }
