@@ -17,6 +17,7 @@ public class TrafficLightsPassive extends TrafficLights implements Observer {
         activeLights.addObserver(this);
         this.orientation = Orientation.HORIZONTAL;
         this.currentColor = LightColor.RED;
+
     }
 
     void changeToOpposite(LightColor color) {

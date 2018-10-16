@@ -6,7 +6,7 @@ import sincity.view.TrafficLightsDisplay;
 
 public class TrafficLightGenerator {
 
-    final int DISPLAY_TIME = 1;
+    final int DISPLAY_TIME = 2;
     RoadPuzzle puzzle;
     Direction[] directions = {Direction.E, Direction.N, Direction.S, Direction.W};
     TrafficLightsActive activeLights;
