@@ -11,7 +11,6 @@ public abstract class TrafficLights extends Observable {
     Orientation orientation;
 
     public TrafficLights() {
-
     }
 
     public LightColor getCurrentColor() {
@@ -29,6 +28,7 @@ public abstract class TrafficLights extends Observable {
         }
         setChanged();
         notifyObservers(currentColor);
+        clearChanged();
     }
 
 }

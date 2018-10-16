@@ -1,4 +1,5 @@
 package sincity.view;
+//package sincity.model;
 
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
@@ -7,11 +8,12 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
 import javafx.util.Duration;
-import sincity.model.City;
-import sincity.model.RoadType;
-import sincity.model.TrafficLights;
+import sincity.model.*;
 
-public class Renderer {
+import java.util.Observable;
+import java.util.Observer;
+
+public class Renderer implements Observer {
     private Group root;
     private City city;
     private double tileSize;
@@ -47,19 +49,20 @@ public class Renderer {
                 root.getChildren().add(tile);
 
                 if (city.getPuzzleBoard()[x][y].isTrafficLight()) {
-                    TrafficLights[] allTrafficLights = city.getPuzzleBoard()[x][y].getTrafficLights();
-
-                    for (TrafficLights light : allTrafficLights) {
-                        TrafficLightsDisplay lightDisplay = new TrafficLightsDisplay(light, city.getPuzzleBoard()[x][y]);
-                        root.getChildren().add(lightDisplay);
-                    }
+                    addLightsToView(y, x);
                 }
-
-
-
-
-
             }
+        }
+    }
+
+    private void addLightsToView(int y, int x) {
+        TrafficLights[] allTrafficLights = city.getPuzzleBoard()[x][y].getTrafficLights();
+        TrafficLightsActive activeLights = (TrafficLightsActive) allTrafficLights[0];
+        activeLights.addObserver(this);
+
+        for (TrafficLights light : allTrafficLights) {
+            TrafficLightsDisplay lightDisplay = new TrafficLightsDisplay(light, city.getPuzzleBoard()[x][y]);
+            root.getChildren().add(lightDisplay);
         }
     }
 
@@ -98,9 +101,19 @@ public class Renderer {
 
 
     public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay ){
-//        TrafficLightsDisplay trafficLightsDisplay = new TrafficLightsDisplay();
         root.getChildren().add(trafficLightsDisplay);
         return trafficLightsDisplay;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+//        if (o instanceof TrafficLightsActive) {
+//            TrafficLightsActive light = (TrafficLightsActive) o;
+//            RoadPuzzle puzzle = light.getPuzzle();
+//            addLightsToView(puzzle.getIndexX(), puzzle.getIndexY());
+//        } else {
+//            System.out.println("ELSE");
+//        }
+//        TO BE FIXED!!!
+    }
 }

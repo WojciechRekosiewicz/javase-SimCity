@@ -67,11 +67,11 @@ public class RoadPuzzle {
         return size;
     }
 
-    int getIndexY() {
+    public int getIndexY() {
         return indexY;
     }
 
-    int getIndexX() {
+    public int getIndexX() {
         return indexX;
     }
 

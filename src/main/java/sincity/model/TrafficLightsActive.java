@@ -4,14 +4,22 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import sincity.view.Renderer;
+
 
 public class TrafficLightsActive extends TrafficLights {
     int displayTime;
 
+    RoadPuzzle puzzle;
 
 
-    public TrafficLightsActive( int displayTime) {
+
+    public RoadPuzzle getPuzzle() {
+        return puzzle;
+    }
+
+    public TrafficLightsActive(RoadPuzzle puzzle, int displayTime) {
+
+        this.puzzle = puzzle;
         this.displayTime =  displayTime;
         this.orientation = Orientation.VERTICAL;
         this.currentColor = LightColor.GREEN;
@@ -22,6 +30,11 @@ public class TrafficLightsActive extends TrafficLights {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(displayTime), ev -> {
             System.out.println("kolor zmieniony!");
             this.changeColor(this.currentColor.getNext());
+            setChanged();
+            notifyObservers(currentColor);
+            clearChanged();
+//            notifyObservers(puzzle);
+//            notifyObservers(currentColor);
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);

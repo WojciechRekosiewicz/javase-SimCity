@@ -24,9 +24,6 @@ public class TrafficLightsDisplay extends Pane {
         createLightsViesIfNeeded();
         imageSizeH = 0.15 * puzzle.getSize();
         imageSizeV = 0.3 * puzzle.getSize();
-//        trafficColorImg = new Image (lights.getCurrentColor().getImageUrl());
-//        trafficLigthView = new ImageView(trafficColorImg);
-//        getChildren().add(trafficLigthView);
     }
 
     private void createLightsViesIfNeeded() {
