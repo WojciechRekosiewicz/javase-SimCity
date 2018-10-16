@@ -6,10 +6,8 @@ import java.util.Observable;
 public abstract class TrafficLights extends Observable {
     LightColor currentColor;
     Orientation orientation;
-    //all traffic lights  created green by default
 
     public TrafficLights() {
-        this.currentColor = LightColor.GREEN;
 
     }
 

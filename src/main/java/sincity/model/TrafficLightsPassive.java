@@ -9,9 +9,12 @@ public class TrafficLightsPassive extends TrafficLights implements Observer {
         this.changeToOpposite((LightColor) color);
     }
 
+
+    // passive Traffic Lights are RED and HORIZONTAL by default
     public TrafficLightsPassive(TrafficLightsActive activeLights) {
         activeLights.addObserver(this);
         this.orientation = Orientation.HORIZONTAL;
+        this.currentColor = LightColor.RED;
     }
 
     void changeToOpposite(LightColor color) {

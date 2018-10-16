@@ -9,10 +9,11 @@ public class TrafficLightsActive extends TrafficLights {
     int displayTime;
 
 
-
+    // Active Traffic Lights are GREEN and VERTICAL by default
     public TrafficLightsActive(Direction direction, int displayTime) {
         this.displayTime =  displayTime;
         this.orientation = Orientation.VERTICAL;
+        this.currentColor = LightColor.GREEN;
     }
 
 
