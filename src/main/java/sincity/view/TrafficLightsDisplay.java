@@ -3,6 +3,7 @@ package sincity.view;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import sincity.model.Direction;
+import sincity.model.Orientation;
 import sincity.model.RoadPuzzle;
 import sincity.model.TrafficLights;
 import javafx.scene.image.Image;
@@ -33,12 +34,19 @@ public class TrafficLightsDisplay extends Pane {
         double imageSizeH = 0.15 * puzzle.getSize();
         double imageSizeV = 0.3 * puzzle.getSize();
         for (boolean isThereRoad : puzzle.getRoadDirections()) {
-            if (isThereRoad) {
+            if (isThereRoad && (lights.getOrientation() == Orientation.HORIZONTAL && (dir == 0 || dir == 3)  )) {
                 trafficColorImg = new Image(lights.getCurrentColor().getImageUrl(), imageSizeH, imageSizeV, false, true);
                 trafficLigthView = new ImageView(trafficColorImg);
                 setImagePlacement(dir);
                 getChildren().add(trafficLigthView);
                 }
+            if (isThereRoad && (lights.getOrientation() == Orientation.VERTICAL && (dir == 1 || dir == 2)  )) {
+                trafficColorImg = new Image(lights.getCurrentColor().getImageUrl(), imageSizeH, imageSizeV, false, true);
+                trafficLigthView = new ImageView(trafficColorImg);
+                setImagePlacement(dir);
+                getChildren().add(trafficLigthView);
+            }
+
             dir++;
         }
     }
