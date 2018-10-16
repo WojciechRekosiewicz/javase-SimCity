@@ -15,37 +15,36 @@ public class TrafficLightGenerator {
 
     public TrafficLightGenerator( RoadPuzzle puzzle) {
         this.puzzle = puzzle;
-//        createLights();
     }
 
     public TrafficLights[] createLights(){
         TrafficLightsActive activeLights = new TrafficLightsActive(DISPLAY_TIME);
         activeLights.timeline();
 
-        TrafficLightsPassive passiveLights = new TrafficLightsPassive( activeLights);
+        TrafficLightsPassive passiveLights = new TrafficLightsPassive(activeLights);
         return new TrafficLights[] {activeLights, passiveLights};
     }
 
 
 
 
-    public void createLightsView() {
-        int dir = 0;
-        for (boolean isThereRoad : puzzle.getRoadDirections()) {
-            if (isThereRoad) {
-                if (dir == 1 || dir == 2) {
-                    showTrafficLights(activeLights, puzzle);
-                } else {
-                    showTrafficLights(passiveLights, puzzle);
-                }
-                dir++;
-            }
-        }
-    }
-
-        private void showTrafficLights (TrafficLights lights, RoadPuzzle puzzle){
-            TrafficLightsDisplay trafficLightsDisplay = new TrafficLightsDisplay(lights, puzzle );
-        }
+//    public void createLightsView() {
+//        int dir = 0;
+//        for (boolean isThereRoad : puzzle.getRoadDirections()) {
+//            if (isThereRoad) {
+//                if (dir == 1 || dir == 2) {
+//                    showTrafficLights(activeLights, puzzle);
+//                } else {
+//                    showTrafficLights(passiveLights, puzzle);
+//                }
+//                dir++;
+//            }
+//        }
+//    }
+//
+//        private void showTrafficLights (TrafficLights lights, RoadPuzzle puzzle){
+//            TrafficLightsDisplay trafficLightsDisplay = new TrafficLightsDisplay(lights, puzzle );
+//        }
 
 
 //        createLightsDisplay(puzzle);

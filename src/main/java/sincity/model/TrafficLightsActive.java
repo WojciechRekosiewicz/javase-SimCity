@@ -8,10 +8,15 @@ import sincity.view.Renderer;
 
 public class TrafficLightsActive extends TrafficLights {
     int displayTime;
+    Direction direction;
+
 
 
     public TrafficLightsActive( int displayTime) {
         this.displayTime =  displayTime;
+        this.direction = Direction.S;
+        if (direction == Direction.W || direction == Direction.E) this.lightDirection = new Direction[] {Direction.E, Direction.W};
+        if (direction == Direction.S || direction == Direction.N) this.lightDirection = new Direction[] {Direction.N, Direction.S};
     }
 
 
