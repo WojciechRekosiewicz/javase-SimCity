@@ -7,7 +7,7 @@ import sincity.view.Renderer;
 import sincity.view.VehicleDisplay;
 
 
-class Vehicle {
+ public class Vehicle {
     double maxSpeed;
     double speed;
     double size;
@@ -25,6 +25,12 @@ class Vehicle {
         this.vehicleDisplay = renderer.renderVehicle();
         this.city = city;
         move();
+    }
+
+    public void update(){
+        System.out.println("X: " + vehicleDisplay.getTranslateX());
+        System.out.println("Y: " + vehicleDisplay.getTranslateY());
+
     }
 
     private void move() {
@@ -53,6 +59,7 @@ class Vehicle {
 
     private void changeRoadPuzzle(RoadPuzzle puzzle) {
         currentRoadPuzzle = findNextPuzzle(puzzle, outDirection);
+
     }
 
     private RoadPuzzle findNextPuzzle(RoadPuzzle puzzle, Direction outDir) {
