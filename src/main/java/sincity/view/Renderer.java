@@ -4,11 +4,15 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
+import sincity.model.Vehicle;
 
 public class Renderer {
     private Group root;
@@ -50,17 +54,16 @@ public class Renderer {
 
     public VehicleDisplay renderVehicle() {
         // vehicle size
-//        double vehicleSize = tileSize * 0.25; // scale factor
-//
-//        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-//        String imageUrl = ("car_" + randomImageNumber + ".png");
+        double vehicleSize = tileSize * 0.37; // scale factor
+
+        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
+        String imageUrl = ("car_" + randomImageNumber + ".png");
 
         // set image based on roadType
-   //     Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-      //  Image vehicleImage = vehicleRaffle();
+        Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
+
         // create vehicleDisplay
-     //   VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
-        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleRaffle());
+        VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
 
         // add vehicleDisplay to group
         root.getChildren().add(vehicleDisplay);
@@ -68,9 +71,10 @@ public class Renderer {
         return vehicleDisplay;
     }
 
-    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, int speed) {
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(speed));
+        pathTransition.setRate(speed); // 1 is default
+        pathTransition.setDuration(Duration.seconds(1));
         pathTransition.setNode(vehicleDisplay);
         pathTransition.setPath(pathToMove);
         pathTransition.setOrientation(
@@ -82,6 +86,10 @@ public class Renderer {
         return pathTransition;
     }
 
+    public void RenderRectangle(double x, double y) {
+        Node rectangleTest = new Node(x, y);
+        root.getChildren().add(rectangleTest);
+    }
     public Image vehicleRaffle() {
         Image vehicleImage;
         int raffle = (int) Math.floor(Math.random() * 3);
@@ -118,6 +126,7 @@ public class Renderer {
         //return vehicleImage;
     }
 
+        // add node to group
 
 
 }
