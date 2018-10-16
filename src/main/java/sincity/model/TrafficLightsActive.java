@@ -17,6 +17,7 @@ public class TrafficLightsActive extends TrafficLights {
         this.direction = Direction.S;
         if (direction == Direction.W || direction == Direction.E) this.lightDirection = new Direction[] {Direction.E, Direction.W};
         if (direction == Direction.S || direction == Direction.N) this.lightDirection = new Direction[] {Direction.N, Direction.S};
+        this.orientation = Orientation.VERTICAL;
     }
 
 

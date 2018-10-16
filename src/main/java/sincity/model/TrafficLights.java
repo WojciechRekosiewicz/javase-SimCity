@@ -8,8 +8,7 @@ import java.util.Observable;
 
 public abstract class TrafficLights extends Observable {
     LightColor currentColor;
-    Direction[] lightDirection;
-    Direction lightsOrienttion;
+    Orientation orientation;
     //all traffic lights  created green by default
 
     public TrafficLights() {
@@ -21,8 +20,8 @@ public abstract class TrafficLights extends Observable {
         return this.currentColor;
     }
 
-    public Direction[] getLightDirection() {
-        return this.lightDirection;
+    public Orientation getOrientation() {
+        return this.orientation;
     }
 
 
