@@ -8,7 +8,7 @@ import sincity.view.Renderer;
 public class Tank {
 
 
-    private double speed = 1; // 1 is default
+    private double speed = 0.5; // 1 is default
     private RoadPuzzle currentRoadPuzzle;
     private Direction arrivalDirection;
     private Direction outDirection;
@@ -18,16 +18,28 @@ public class Tank {
     private PathTransition pathTransition;
 
     Tank(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
+        // super(city, renderer, roadPuzzle, arrivalDirection);
+        //  this.tankDisplay = renderer.renderTank();
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
         this.arrivalDirection = arrivalDirection;
         this.tankDisplay = renderer.renderTank();
         this.city = city;
         moveTank();
+
     }
 
+//    Tank(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
+//        this.renderer = renderer;
+//        this.currentRoadPuzzle = roadPuzzle;
+//        this.arrivalDirection = arrivalDirection;
+//        this.tankDisplay = renderer.renderTank();
+//        this.city = city;
+//        moveTank();
+
+
     public void update() {
-        System.out.println("X: " + tankDisplay.getTranslateX());
+        //   System.out.println("X: " + tankDisplay.getTranslateX());
         //   System.out.println("Y: " + tankDisplay.getTranslateY());
 
     }
@@ -37,7 +49,7 @@ public class Tank {
         // wypisanie z kolejki o danym kierunku
 
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
-        System.out.println("dfdfgdf");
+
         // System.out.println("ZMIANA PUZZLA PO: " + outDirection);
         // wpisanie do kolejki o danym kierunku
 
@@ -102,5 +114,5 @@ public class Tank {
         }
     }
 }
-
+//
 

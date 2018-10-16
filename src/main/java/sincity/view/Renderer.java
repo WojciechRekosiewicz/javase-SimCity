@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
-import sincity.model.Tank;
+//import sincity.model.Tank;
 import sincity.model.Vehicle;
 
 public class Renderer {
@@ -73,7 +73,7 @@ public class Renderer {
 
     public TankDisplay renderTank() {
 
-        double vehicleSize = tileSize * 0.50; // scale factor
+        double vehicleSize = tileSize * 0.45; // scale factor
         int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
         String imageUrl = ("tank_1.png");
 

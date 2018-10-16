@@ -27,11 +27,6 @@ import sincity.view.VehicleDisplay;
         move();
     }
 
-    public void update(){
-        //  System.out.println("X: " + vehicleDisplay.getTranslateX());
-        //   System.out.println("Y: " + vehicleDisplay.getTranslateY());
-
-    }
 
     private void move() {
         //System.out.println("ZMIANA PUZZLA PRZED: " + outDirection);
