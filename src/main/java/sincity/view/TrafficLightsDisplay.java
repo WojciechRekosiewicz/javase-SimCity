@@ -1,8 +1,6 @@
 package sincity.view;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import sincity.model.Direction;
 import sincity.model.Orientation;
 import sincity.model.RoadPuzzle;
 import sincity.model.TrafficLights;
@@ -13,7 +11,7 @@ public class TrafficLightsDisplay extends Pane {
 
     private RoadPuzzle puzzle;
     Image trafficColorImg;
-    ImageView trafficLigthView;
+    ImageView trafficLightView;
     TrafficLights lights;
     double imageSizeH;
     double imageSizeV;
@@ -21,27 +19,27 @@ public class TrafficLightsDisplay extends Pane {
     public TrafficLightsDisplay(TrafficLights lights, RoadPuzzle puzzle) {
         this.lights = lights;
         this.puzzle = puzzle;
-        createLightsViesIfNeeded();
+        createLightsViewsIfNeeded();
         imageSizeH = 0.15 * puzzle.getSize();
         imageSizeV = 0.3 * puzzle.getSize();
     }
 
-    private void createLightsViesIfNeeded() {
+    private void createLightsViewsIfNeeded() {
         int dir = 0;
         double imageSizeH = 0.15 * puzzle.getSize();
         double imageSizeV = 0.3 * puzzle.getSize();
         for (boolean isThereRoad : puzzle.getRoadDirections()) {
             if (isThereRoad && (lights.getOrientation() == Orientation.HORIZONTAL && (dir == 0 || dir == 3)  )) {
                 trafficColorImg = new Image(lights.getCurrentColor().getImageUrl(), imageSizeH, imageSizeV, false, true);
-                trafficLigthView = new ImageView(trafficColorImg);
+                trafficLightView = new ImageView(trafficColorImg);
                 setImagePlacement(dir);
-                getChildren().add(trafficLigthView);
+                getChildren().add(trafficLightView);
                 }
             if (isThereRoad && (lights.getOrientation() == Orientation.VERTICAL && (dir == 1 || dir == 2)  )) {
                 trafficColorImg = new Image(lights.getCurrentColor().getImageUrl(), imageSizeH, imageSizeV, false, true);
-                trafficLigthView = new ImageView(trafficColorImg);
+                trafficLightView = new ImageView(trafficColorImg);
                 setImagePlacement(dir);
-                getChildren().add(trafficLigthView);
+                getChildren().add(trafficLightView);
             }
 
             dir++;
@@ -52,27 +50,27 @@ public class TrafficLightsDisplay extends Pane {
         final double DISTANCE_TRANSLATION = 0.15 * puzzle.getSize();
         switch(dir){
             case 0:                     //EAST
-                trafficLigthView.setRotate(trafficLigthView.getRotate() + 270);                        //rotate around puzzle self-centre
-                trafficLigthView.setX(puzzle.getCoX() + puzzle.getSize() - 1.5 * DISTANCE_TRANSLATION);
-                trafficLigthView.setY(puzzle.getCoY() + 0.5 * DISTANCE_TRANSLATION);
+                trafficLightView.setRotate(trafficLightView.getRotate() + 270);                        //rotate around puzzle self-centre
+                trafficLightView.setX(puzzle.getCoX() + puzzle.getSize() - 1.5 * DISTANCE_TRANSLATION);
+                trafficLightView.setY(puzzle.getCoY() + 0.5 * DISTANCE_TRANSLATION);
                 break;
 
             case 1:                     //NORTH
-                trafficLigthView.setRotate(trafficLigthView.getRotate() + 180);                          //rotate around puzzle self-centre
-                trafficLigthView.setX(puzzle.getCoX() + DISTANCE_TRANSLATION);
-                trafficLigthView.setY(puzzle.getCoY());
+                trafficLightView.setRotate(trafficLightView.getRotate() + 180);                          //rotate around puzzle self-centre
+                trafficLightView.setX(puzzle.getCoX() + DISTANCE_TRANSLATION);
+                trafficLightView.setY(puzzle.getCoY());
                 break;
 
             case 2:                     //SOUTH
-                trafficLigthView.setRotate(trafficLigthView.getRotate() + 0);                         //rotate around puzzle self-centre
-                trafficLigthView.setX(puzzle.getCoX() + puzzle.getSize() - 2 * DISTANCE_TRANSLATION);
-                trafficLigthView.setY(puzzle.getCoY() + puzzle.getSize() - 2 * DISTANCE_TRANSLATION);
+                trafficLightView.setRotate(trafficLightView.getRotate() + 0);                         //rotate around puzzle self-centre
+                trafficLightView.setX(puzzle.getCoX() + puzzle.getSize() - 2 * DISTANCE_TRANSLATION);
+                trafficLightView.setY(puzzle.getCoY() + puzzle.getSize() - 2 * DISTANCE_TRANSLATION);
                 break;
 
             case 3:                     //WEST
-                trafficLigthView.setRotate(trafficLigthView.getRotate() + 90);                    //rotate around puzzle self-centre
-                trafficLigthView.setX(puzzle.getCoX() + 0.5 * DISTANCE_TRANSLATION);
-                trafficLigthView.setY(puzzle.getCoY() + puzzle.getSize() - 2.5 * DISTANCE_TRANSLATION);
+                trafficLightView.setRotate(trafficLightView.getRotate() + 90);                    //rotate around puzzle self-centre
+                trafficLightView.setX(puzzle.getCoX() + 0.5 * DISTANCE_TRANSLATION);
+                trafficLightView.setY(puzzle.getCoY() + puzzle.getSize() - 2.5 * DISTANCE_TRANSLATION);
                 break;
         }
 
