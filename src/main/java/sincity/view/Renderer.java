@@ -9,6 +9,7 @@ import javafx.scene.shape.Polyline;
 import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
+import sincity.model.TrafficLights;
 
 public class Renderer {
     private Group root;
@@ -33,7 +34,7 @@ public class Renderer {
             for (int x = padding; x < horizontalPuzzles - padding; x++) {
                 RoadType roadType = city.getRoadType(x, y);
 
-                // set image based on roadType
+                // set image basedc on roadType
                 String imageUrl = "file:src/main/resources/" + roadType.getImageUrl();
 
                 // choose image
@@ -44,6 +45,20 @@ public class Renderer {
 
                 // add tile to group
                 root.getChildren().add(tile);
+
+                if (city.getPuzzleBoard()[x][y].isTrafficLight()) {
+                    TrafficLights[] allTrafficLights = city.getPuzzleBoard()[x][y].getTrafficLights();
+
+                    for (TrafficLights light : allTrafficLights) {
+                        TrafficLightsDisplay lightDisplay = new TrafficLightsDisplay(light, city.getPuzzleBoard()[x][y]);
+                        root.getChildren().add(lightDisplay);
+                    }
+                }
+
+
+
+
+
             }
         }
     }
@@ -82,6 +97,10 @@ public class Renderer {
     }
 
 
-
+    public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay ){
+//        TrafficLightsDisplay trafficLightsDisplay = new TrafficLightsDisplay();
+        root.getChildren().add(trafficLightsDisplay);
+        return trafficLightsDisplay;
+    }
 
 }
