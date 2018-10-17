@@ -16,6 +16,9 @@ import sincity.model.City;
 import sincity.model.RoadType;
 import sincity.model.Vehicle;
 import sincity.model.*;
+import sincity.model.VehicleType;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,16 +78,15 @@ public class Renderer implements Observer {
         }
     }
 
-    public VehicleDisplay renderVehicle() {
+    public VehicleDisplay renderVehicle(VehicleType vehicleType) {
         // vehicle size
-        double vehicleSize = tileSize * 0.37; // scale factor
+        double vehicleSize = tileSize * vehicleType.getScale(); // scale factor
 
-        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-        String imageUrl = ("car_" + randomImageNumber + ".png");
+        int randomImageNumber = (int) Math.floor(Math.random() * vehicleType.getAmount()); // 8 is total number of vehicle images
+        String imageUrl = (vehicleType.getName() + "_" + randomImageNumber + ".png");
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-
         // create vehicleDisplay
         VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
 
@@ -93,6 +95,7 @@ public class Renderer implements Observer {
 
         return vehicleDisplay;
     }
+
 
     public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
         PathTransition pathTransition = new PathTransition();
@@ -109,7 +112,7 @@ public class Renderer implements Observer {
         return pathTransition;
     }
 
-    public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay ){
+    public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay) {
         root.getChildren().add(trafficLightsDisplay);
         return trafficLightsDisplay;
     }

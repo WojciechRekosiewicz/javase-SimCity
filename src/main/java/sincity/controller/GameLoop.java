@@ -9,15 +9,17 @@ public class GameLoop extends AnimationTimer {
 
     private LinkedList<Vehicle> vehicleList =  new LinkedList<>();
 
-    // This gets called every 1/60 seconds
+    //  This gets called every 1/60 seconds
     @Override
     public void handle(long now) {
         for (Vehicle vehicle : vehicleList) {
             vehicle.update();
         }
+
     }
 
     public void addToVehicleList(Vehicle vehicle){
         vehicleList.add(vehicle);
     }
+
 }
