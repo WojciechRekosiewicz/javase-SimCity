@@ -44,6 +44,8 @@ public class Spawner {
             Direction arrivalDirection = getArrivalDirection(spawnPuzzle);
             Vehicle vehicle = new Vehicle(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.CAR);
             Truck truck = new Truck(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.TRUCK);
+            Tank tank = new Tank(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.TANK);
+            gameLoop.addToVehicleList(tank);
             gameLoop.addToVehicleList(vehicle);
             gameLoop.addToVehicleList(truck);
 
