@@ -54,12 +54,77 @@ public enum RoadType {
         put(Direction.W, false);
     }}, "ns_1.png"),
 
-    BCG(new HashMap<Direction, Boolean>() {{
+    BCG1(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_");
+    }}, "bcg_1"),
+
+    BCG2(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_2"),
+
+    BCG3(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_3"),
+
+    BCG4(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_4"),
+
+    BCG5(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_5"),
+
+    BCG6(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_6"),
+
+    BCG7(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_7"),
+
+    BCG8(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_8"),
+
+    BCG9(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_9"),
+
+    BCG10(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_10");
+
+
 
     private HashMap<Direction, Boolean> possibleDirection;
     private String imageUrl;
@@ -74,6 +139,6 @@ public enum RoadType {
     }
 
     public String getImageUrl() {
-        return imageUrl.equals("bcg_") ? imageUrl + (int) Math.ceil(Math.random() * 10) + ".png" : imageUrl;
+        return imageUrl;
     }
 }

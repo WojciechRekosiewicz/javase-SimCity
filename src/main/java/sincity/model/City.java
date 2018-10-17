@@ -44,7 +44,7 @@ public class City {
                 } else if ((x == 4 && y <= 3) || (x == 6 || x == 8) || (y == 4 && x == 2)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS, false);
                 } else {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.BCG, false);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.BCG8, false);
                 }
             }
         }
