@@ -15,7 +15,6 @@ public enum VehicleType {
         this.SCALE = scale;
     }
 
-
     public int getAmount() {
         return AMOUNT;
     }

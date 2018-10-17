@@ -1,7 +1,5 @@
 package sincity.model;
 
-import javafx.animation.PathTransition;
-import sincity.view.*;
 import sincity.view.Renderer;
 
 
