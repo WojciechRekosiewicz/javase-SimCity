@@ -26,7 +26,6 @@ public class TrafficLightsActive extends TrafficLights {
 
     public void timeline() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(displayTime), ev -> {
-            System.out.println("kolor zmieniony!");
             this.changeColor(this.currentColor.getNext());
             setChanged();
             notifyObservers(currentColor);
