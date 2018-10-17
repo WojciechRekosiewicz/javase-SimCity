@@ -5,13 +5,10 @@ import javafx.scene.paint.Color;
 import sincity.view.Renderer;
 import sincity.view.VehicleDisplay;
 
-import java.util.HashMap;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
-public abstract class Vehicle {
+public class Vehicle implements Observer {
 
 
     double speed; // 1 is default
@@ -35,7 +32,7 @@ public abstract class Vehicle {
         move();
     }
 
-    public void update() {
+    public void updateVehicle() {
         Vehicle carInFront = findCarInFront();
 
         if (carInFront != null) {
@@ -48,12 +45,29 @@ public abstract class Vehicle {
         pathTransition.setRate(speed);
     }
 
-    public void move() {
-        outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
-        addToCorrectList();
+    private void move() {
 
+        addToCorrectList();
+        outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+
+        if (currentRoadPuzzle.isTrafficLight()) {
+
+            TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
+            for (TrafficLights light : lights) {
+                if (arrivalDirection.getOrientation() == light.getOrientation()) {
+                    if (light.currentColor == LightColor.GREEN) {
+                        //DO NOTHING
+                    } else {
+                        light.addObserver(this);
+                        speed = 0;  //add setter for speed
+
+                    }
+
+                }
+            }
+        }
 
         pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, speed);
 
@@ -182,5 +196,13 @@ public abstract class Vehicle {
                 arrivalDirection = Direction.N;
                 break;
         }
+    }
+
+    @Override
+    public void update(Observable o, Object lightColor) {
+        if ((LightColor) lightColor == LightColor.GREEN) {
+            speed = 0.5;
+        }
+
     }
 }

@@ -13,7 +13,7 @@ public class GameLoop extends AnimationTimer {
     @Override
     public void handle(long now) {
         for (Vehicle vehicle : vehicleList) {
-            vehicle.update();
+            vehicle.updateVehicle();
         }
 
     }
