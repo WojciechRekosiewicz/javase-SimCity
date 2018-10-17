@@ -29,7 +29,7 @@ public class TrafficLightsDisplay extends Pane {
         double imageSizeH = 0.15 * puzzle.getSize();
         double imageSizeV = 0.3 * puzzle.getSize();
 
-        for (Direction direction : Direction.values()){
+        for (Direction direction : Direction.values()) {
             Image trafficColorImg;
             boolean isDirectionHorizontal = direction.getOrientation() == Orientation.HORIZONTAL;
             boolean isDirectionVertical = direction.getOrientation() == Orientation.VERTICAL;
@@ -37,7 +37,7 @@ public class TrafficLightsDisplay extends Pane {
             boolean isLightHorizontal = lights.getOrientation() == Orientation.HORIZONTAL;
             boolean isLightVertical = lights.getOrientation() == Orientation.VERTICAL;
 
-            if (isThereRoad && ((isDirectionHorizontal && isLightHorizontal) || (isDirectionVertical && isLightVertical))){
+            if (isThereRoad && ((isDirectionHorizontal && isLightHorizontal) || (isDirectionVertical && isLightVertical))) {
                 trafficColorImg = new Image(lights.getCurrentColor().getImageUrl(), imageSizeH, imageSizeV, false, true);
                 trafficLightView = new ImageView(trafficColorImg);
                 setImagePlacement(direction);
@@ -46,9 +46,9 @@ public class TrafficLightsDisplay extends Pane {
         }
     }
 
-    private void setImagePlacement(Direction direction){
+    private void setImagePlacement(Direction direction) {
         final double DISTANCE_TRANSLATION = 0.15 * puzzle.getSize();
-        switch(direction){
+        switch (direction) {
             case E:
                 trafficLightView.setRotate(trafficLightView.getRotate() + 270);                        //rotate around image's centre
                 trafficLightView.setX(puzzle.getCoX() + puzzle.getSize() - 1.5 * DISTANCE_TRANSLATION);
@@ -62,7 +62,7 @@ public class TrafficLightsDisplay extends Pane {
                 break;
 
             case S:
-                        //no rotation
+                //no rotation
                 trafficLightView.setX(puzzle.getCoX() + puzzle.getSize() - 2 * DISTANCE_TRANSLATION);
                 trafficLightView.setY(puzzle.getCoY() + puzzle.getSize() - 2 * DISTANCE_TRANSLATION);
                 break;
@@ -75,8 +75,6 @@ public class TrafficLightsDisplay extends Pane {
         }
 
     }
-
-
 
 
 }

@@ -112,7 +112,7 @@ public class Renderer implements Observer {
         return pathTransition;
     }
 
-    public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay ){
+    public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay) {
         root.getChildren().add(trafficLightsDisplay);
         return trafficLightsDisplay;
     }

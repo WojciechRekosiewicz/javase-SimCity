@@ -12,8 +12,8 @@ public enum LightColor {
     YELLOW_GREEN("YELLOW_G_light.png");
 
 
-    private String imageUrl;
     private static List<LightColor> lights = asList(RED, YELLOW_RED, GREEN, YELLOW_GREEN);
+    private String imageUrl;
 
     LightColor(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -26,11 +26,11 @@ public enum LightColor {
     }
 
     public LightColor getNext() {
-        return lights.get((lights.indexOf(this) + 1 ) % lights.size());
+        return lights.get((lights.indexOf(this) + 1) % lights.size());
     }
 
     public LightColor getOpposite() {
-        return lights.get((lights.indexOf(this) + lights.size() / 2 ) % lights.size());
+        return lights.get((lights.indexOf(this) + lights.size() / 2) % lights.size());
     }
 
 
