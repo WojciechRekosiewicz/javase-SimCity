@@ -43,8 +43,6 @@ public class Spawner {
             RoadPuzzle spawnPuzzle = getRandomSpawnPuzzle(spawnPuzzles);
             Direction arrivalDirection = getArrivalDirection(spawnPuzzle);
             Vehicle vehicle = new Vehicle(city, renderer, spawnPuzzle, arrivalDirection);
-            Tank tank = new Tank(city, renderer, spawnPuzzle, arrivalDirection);
-            gameLoop.addToTankList(tank);
             gameLoop.addToVehicleList(vehicle);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);

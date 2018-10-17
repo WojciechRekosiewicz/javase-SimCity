@@ -12,7 +12,7 @@ import java.util.List;
 public class Vehicle {
 
 
-    private double speed = 0.5; // 1 is default
+    double speed = 0.5; // 1 is default
     private RoadPuzzle currentRoadPuzzle;
     private Direction arrivalDirection;
     private Direction outDirection;
@@ -28,7 +28,7 @@ public class Vehicle {
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
         this.arrivalDirection = arrivalDirection;
-        this.vehicleDisplay = renderer.renderVehicle();
+        this.vehicleDisplay = renderer.renderVehicle("car", 8);
         this.city = city;
         move();
     }

@@ -17,6 +17,7 @@ import sincity.model.RoadType;
 //import sincity.model.Tank;
 import sincity.model.Vehicle;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +59,12 @@ public class Renderer {
         }
     }
 
-    public VehicleDisplay renderVehicle() {
+    public VehicleDisplay renderVehicle(String vehicleType, int amount) {
         // vehicle size
         double vehicleSize = tileSize * 0.37; // scale factor
 
-        int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-        String imageUrl = ("car_" + randomImageNumber + ".png");
+        int randomImageNumber = (int) Math.floor(Math.random() * amount); // 8 is total number of vehicle images
+        String imageUrl = (vehicleType + "_" + randomImageNumber + ".png");
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
@@ -120,10 +121,10 @@ public class Renderer {
         return pathTransition;
     }
 
-    public void RenderRectangle(double x, double y) {
-        Node rectangleTest = new Node(x, y);
-        root.getChildren().add(rectangleTest);
-    }
+    //    public void RenderRectangle(double x, double y) {
+//        Node rectangleTest = new Node(x, y);
+//        root.getChildren().add(rectangleTest);
+//    }
     public Image vehicleRaffle() {
         Image vehicleImage;
         int raffle = (int) Math.floor(Math.random() * 3);
