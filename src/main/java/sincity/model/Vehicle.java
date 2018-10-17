@@ -32,7 +32,7 @@ public class Vehicle implements Observer {
         move();
     }
 
-    public void update() {
+    public void updateVehicle() {
         Vehicle carInFront = findCarInFront();
 
         if (carInFront != null) {
@@ -53,9 +53,20 @@ public class Vehicle implements Observer {
         PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
 
         if (currentRoadPuzzle.isTrafficLight()) {
-            TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
-            startObservingLigthsInRightDirection(lights);
 
+            TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
+            for (TrafficLights light : lights) {
+                if (arrivalDirection.getOrientation() == light.getOrientation()) {
+                    if (light.currentColor == LightColor.GREEN) {
+                        //DO NOTHING
+                    } else {
+                        light.addObserver(this);
+                        speed = 0;  //add setter for speed
+
+                    }
+
+                }
+            }
         }
 
         pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, speed);
@@ -70,13 +81,6 @@ public class Vehicle implements Observer {
     }
 
 
-    private void startObservingLigthsInRightDirection(TrafficLights[] lights){
-        for (TrafficLights light :lights ){
-            if(arrivalDirection.getOrientation() == light.getOrientation()){
-                light.addObserver(this);
-            }
-        }
-    }
 
 
     private void addToCorrectList() {
@@ -198,7 +202,10 @@ public class Vehicle implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object lightColor) {
+        if ((LightColor) lightColor == LightColor.GREEN) {
+            speed = 0.5;
+        }
 
     }
 }
