@@ -7,11 +7,9 @@ import javafx.util.Duration;
 
 
 public class TrafficLightsActive extends TrafficLights {
-    int displayTime;
 
-    RoadPuzzle puzzle;
-
-
+    private int displayTime;
+    private RoadPuzzle puzzle;
 
     public RoadPuzzle getPuzzle() {
         return puzzle;
@@ -25,7 +23,6 @@ public class TrafficLightsActive extends TrafficLights {
         this.currentColor = LightColor.GREEN;
     }
 
-
     public void timeline() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(displayTime), ev -> {
             System.out.println("kolor zmieniony!");
@@ -33,8 +30,6 @@ public class TrafficLightsActive extends TrafficLights {
             setChanged();
             notifyObservers(currentColor);
             clearChanged();
-//            notifyObservers(puzzle);
-//            notifyObservers(currentColor);
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);

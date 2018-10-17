@@ -6,10 +6,10 @@ import static java.util.Arrays.asList;
 import static sincity.model.Orientation.*;
 
 public enum Direction {
+    E(HORIZONTAL),
     N(VERTICAL),
     S(VERTICAL),
-    W(HORIZONTAL),
-    E(HORIZONTAL);
+    W(HORIZONTAL);
 
     private Orientation orientation;
     private static List<Direction> directions = asList(N, S, W, E);

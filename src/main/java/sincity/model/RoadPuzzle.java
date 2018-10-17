@@ -2,9 +2,11 @@ package sincity.model;
 
 import sincity.view.TrafficLightsDisplay;
 
+import java.util.HashMap;
+
 public class RoadPuzzle {
 
-    private boolean[] roadDirections;
+    private HashMap<Direction, Boolean> roadDirections;
     private RoadType roadType;
 
     private int indexX; // position in City board
@@ -22,7 +24,7 @@ public class RoadPuzzle {
 
     private boolean isTrafficLight;
 
-    TrafficLights[] trafficLights;
+    private TrafficLights[] trafficLights;
 
 
 
@@ -83,7 +85,7 @@ public class RoadPuzzle {
         return centerY;
     }
 
-    public boolean[] getRoadDirections() {
+    public HashMap<Direction, Boolean> getRoadDirections() {
         return roadDirections;
     }
 

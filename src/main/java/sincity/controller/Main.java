@@ -5,9 +5,6 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sincity.model.TrafficLights;
-import sincity.model.TrafficLightsActive;
-import sincity.model.TrafficLightsPassive;
 import sincity.model.City;
 import sincity.model.Spawner;
 import sincity.view.Renderer;
@@ -25,11 +22,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        /// TESTING TRAFFIC LIGHTS START//
-//        TrafficLightsActive active = new TrafficLightsActive(1);
-//        TrafficLightsPassive passive = new TrafficLightsPassive(active);
-//        active.timeline();
-        /// TESTING TRAFFIC LIGHTS STOP//
 
         if (horizontalPuzzles >= verticalPuzzles) {
             Group root = new Group();

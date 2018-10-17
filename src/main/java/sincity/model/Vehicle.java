@@ -6,6 +6,8 @@ import javafx.scene.shape.Polyline;
 import sincity.view.Renderer;
 import sincity.view.VehicleDisplay;
 
+import java.util.HashMap;
+
 
 class Vehicle {
     double maxSpeed;
@@ -30,9 +32,7 @@ class Vehicle {
     private void move() {
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
-
         PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
-
         PathTransition pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove);
         pathTransition.setOnFinished(event -> {
             changeRoadPuzzle(currentRoadPuzzle);
@@ -42,14 +42,18 @@ class Vehicle {
         });
     }
 
-    private Direction getRandomOutDirection(boolean[] directions) {
-        Direction[] allDirections = new Direction[]{Direction.E, Direction.N, Direction.S, Direction.W};
+    private Direction getRandomOutDirection(HashMap<Direction, Boolean> possibleDirections) {
         int randomIndex;
+        boolean isChosenDirection;
+        Direction chosen;
         do {
-            randomIndex = (int) Math.floor(Math.random() * allDirections.length);
-        } while (!directions[randomIndex] || allDirections[randomIndex].equals(arrivalDirection));
-        return allDirections[randomIndex];
+            randomIndex = (int) Math.floor(Math.random() * 4);  // number of directions
+            chosen = Direction.values()[randomIndex];
+            isChosenDirection = possibleDirections.get(chosen);
+        } while (!isChosenDirection || Direction.values()[randomIndex].equals(arrivalDirection));
+        return chosen;
     }
+
 
     private void changeRoadPuzzle(RoadPuzzle puzzle) {
         currentRoadPuzzle = findNextPuzzle(puzzle, outDirection);

@@ -26,12 +26,19 @@ public class City {
                 if (y == 3 && x == 4) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENW, true);
                     puzzleBoard[x][y].setTrafficLight(true);
-                } else if ((y == 3 && x == 6)) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, true);
-                    puzzleBoard[x][y].setTrafficLight(true);
+                } else if (y == 3 && (x == 6 || x == 8)) {
+                    if (x==6) {
+                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, true);
+                    } else {
+                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, false);
+                    }
                 } else if (y == 3) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW, false);
-                } else if ((x == 4 && y <= 3) || x == 6) {
+                } else if (y == 2 && x == 8){
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENS, false);
+                } else if (y == 2 && x > 8) {
+                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW, false);
+                } else if ((x == 4 && y <= 3) || (x == 6 || x == 8)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS, false);
                 } else {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.BCG, false);

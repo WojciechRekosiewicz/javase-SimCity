@@ -108,12 +108,10 @@ public class Renderer implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
-//          TO BE FIXED!!
         if (o instanceof TrafficLightsActive) {
             TrafficLightsActive light = (TrafficLightsActive) o;
             RoadPuzzle puzzle = light.getPuzzle();
             addLightsToView(puzzle.getIndexY(), puzzle.getIndexX());
         }
-//        TO BE FIXED!!!
     }
 }
