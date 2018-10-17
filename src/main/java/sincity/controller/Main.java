@@ -16,7 +16,7 @@ public class Main extends Application {
     //    private double sceneWidth = 1400; // window size in pixels
     //    private double sceneHeight = tileSize * verticalPuzzles; // sceneHeight automatically adjusts based on tileSize and sceneWidth
 
-    private double tileSize = 140; // tile size in pixels
+    private int tileSize = 140; // tile size in pixels
     private double sceneWidth = horizontalPuzzles * tileSize; // window size in pixels
     private double sceneHeight = verticalPuzzles * tileSize; // sceneHeight automatically adjusts based on tileSize and sceneWidth
 
@@ -26,7 +26,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, sceneWidth + tileSize, sceneHeight);
         primaryStage.setScene(scene);
 
-        ConstructBoardView initialView = new ConstructBoardView(horizontalPuzzles, verticalPuzzles);
+        ConstructBoardView initialView = new ConstructBoardView(horizontalPuzzles, verticalPuzzles, tileSize);
         GridPane gridPane = initialView.constructFields();
 
 

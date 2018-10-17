@@ -26,7 +26,7 @@ public class Spawner {
             for (int y = 0; y < puzzleBoard[x].length; y++) {
                 boolean upperLeftPadding = (x == 0 || y == 0);
                 boolean lowerRightPadding = (x == puzzleBoard.length - 1 || y == puzzleBoard[x].length - 1);
-                boolean isNotBackground = !(puzzleBoard[x][y].getRoadType().equals(RoadType.BCG));
+                boolean isNotBackground = !(puzzleBoard[x][y].getRoadType().equals(RoadType.BCG8));
                 if ((upperLeftPadding || lowerRightPadding) && isNotBackground) {
                     spawnPuzzles.add(puzzleBoard[x][y]);
                 }
