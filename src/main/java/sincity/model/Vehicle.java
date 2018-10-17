@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import sincity.view.Renderer;
 import sincity.view.VehicleDisplay;
 
+import java.util.HashMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,13 +121,16 @@ public class Vehicle {
         }
     }
 
-    private Direction getRandomOutDirection(boolean[] directions) {
-        Direction[] allDirections = new Direction[]{Direction.E, Direction.N, Direction.S, Direction.W};
+    private Direction getRandomOutDirection(HashMap<Direction, Boolean> possibleDirections) {
         int randomIndex;
+        boolean isChosenDirection;
+        Direction chosen;
         do {
-            randomIndex = (int) Math.floor(Math.random() * allDirections.length);
-        } while (!directions[randomIndex] || allDirections[randomIndex].equals(arrivalDirection));
-        return allDirections[randomIndex];
+            randomIndex = (int) Math.floor(Math.random() * 4);  // number of directions
+            chosen = Direction.values()[randomIndex];
+            isChosenDirection = possibleDirections.get(chosen);
+        } while (!isChosenDirection || Direction.values()[randomIndex].equals(arrivalDirection));
+        return chosen;
     }
 
     private void changeRoadPuzzle(RoadPuzzle puzzle) {
