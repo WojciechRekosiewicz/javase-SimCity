@@ -11,17 +11,17 @@ public class TrafficLightsActive extends TrafficLights {
     private int displayTime;
     private RoadPuzzle puzzle;
 
-    public RoadPuzzle getPuzzle() {
-        return puzzle;
-    }
-
     public TrafficLightsActive(RoadPuzzle puzzle, int displayTime) {
 
         this.puzzle = puzzle;
-        this.displayTime =  displayTime;
+        this.displayTime = displayTime;
         this.orientation = Orientation.VERTICAL;
         this.currentColor = LightColor.GREEN;
 
+    }
+
+    public RoadPuzzle getPuzzle() {
+        return puzzle;
     }
 
     public void timeline() {

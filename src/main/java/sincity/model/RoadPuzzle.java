@@ -37,8 +37,6 @@ public class RoadPuzzle {
     List<Vehicle> eastVehicleList = new ArrayList<>();
 
 
-
-
     RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type, boolean isTrafficLights) {
         this.roadDirections = type.getPossibleDirection();
         this.roadType = type;
@@ -51,7 +49,7 @@ public class RoadPuzzle {
         this.centerY = coY + size / 2.0;
         this.halfLaneWidth = 0.1 * size;     // maybe should be final
         this.isTrafficLight = isTrafficLights;
-        if (isTrafficLight){
+        if (isTrafficLight) {
             this.trafficLights = new TrafficLightGenerator(this).createLights();
         }
     }

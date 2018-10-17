@@ -11,7 +11,7 @@ import java.util.*;
 public class Vehicle implements Observer {
 
 
-    private double speed = 0.5; // 1 is default
+    double speed; // 1 is default
     private RoadPuzzle currentRoadPuzzle;
     private Direction arrivalDirection;
     private Direction outDirection;
@@ -22,12 +22,12 @@ public class Vehicle implements Observer {
     private Color color;
 
 
-    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
+    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection, VehicleType vehicleType) {
         this.color = Color.color(Math.random(), Math.random(), Math.random(), 1);
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
         this.arrivalDirection = arrivalDirection;
-        this.vehicleDisplay = renderer.renderVehicle();
+        this.vehicleDisplay = renderer.renderVehicle(vehicleType);
         this.city = city;
         move();
     }
@@ -79,9 +79,6 @@ public class Vehicle implements Observer {
             }
         });
     }
-
-
-
 
     private void addToCorrectList() {
         currentRoadPuzzle.addVehicleToList(this, arrivalDirection);
