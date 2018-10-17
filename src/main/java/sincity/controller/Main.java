@@ -21,8 +21,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-
         if (horizontalPuzzles >= verticalPuzzles) {
             Group root = new Group();
             Scene scene = new Scene(root, sceneWidth, sceneHeight);
@@ -38,10 +36,11 @@ public class Main extends Application {
             Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, PADDING);
             renderer.renderCity();
 
+            GameLoop gameLoop = new GameLoop();
+            gameLoop.start();
+
             // create spawner
-            new Spawner(city, renderer);
-
-
+            new Spawner(city, renderer, gameLoop);
         } else {
             System.out.println("Wrong board size, please make sure to have equal or more horizontal puzzles than vertical ones.");
             Platform.exit();

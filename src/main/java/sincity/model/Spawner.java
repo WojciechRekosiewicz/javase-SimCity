@@ -4,19 +4,23 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import sincity.controller.GameLoop;
 import sincity.view.Renderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Spawner {
     private List<RoadPuzzle> spawnPuzzles = new ArrayList<>();
     private Renderer renderer;
     private City city;
+    private GameLoop gameLoop;
 
-    public Spawner(City city, Renderer renderer) {
+    public Spawner(City city, Renderer renderer, GameLoop gameLoop) {
         this.city = city;
         this.renderer = renderer;
+        this.gameLoop = gameLoop;
         getSpawnPuzzles(city.getPuzzleBoard());
         spawnTimer(spawnPuzzles);
     }
@@ -38,7 +42,8 @@ public class Spawner {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
             RoadPuzzle spawnPuzzle = getRandomSpawnPuzzle(spawnPuzzles);
             Direction arrivalDirection = getArrivalDirection(spawnPuzzle);
-            new Vehicle(city, renderer, spawnPuzzle, arrivalDirection);
+            Vehicle vehicle = new Vehicle(city, renderer, spawnPuzzle, arrivalDirection);
+            gameLoop.addToVehicleList(vehicle);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

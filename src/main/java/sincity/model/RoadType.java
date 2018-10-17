@@ -27,7 +27,7 @@ public enum RoadType {
         put(Direction.N, true);
         put(Direction.S, true);
         put(Direction.W, true);
-    }}, "nsw_1.png"),
+    }}, "ens_1.png"),
 
     ENS(new HashMap<Direction, Boolean>()
     {{

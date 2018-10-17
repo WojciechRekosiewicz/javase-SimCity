@@ -1,5 +1,10 @@
 package sincity.model;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import sincity.view.TrafficLightsDisplay;
 
 import java.util.HashMap;
@@ -25,6 +30,12 @@ public class RoadPuzzle {
     private boolean isTrafficLight;
 
     private TrafficLights[] trafficLights;
+
+    List<Vehicle> northVehicleList = new ArrayList<>();
+    List<Vehicle> southVehicleList = new ArrayList<>();
+    List<Vehicle> westVehicleList = new ArrayList<>();
+    List<Vehicle> eastVehicleList = new ArrayList<>();
+
 
 
 
@@ -91,5 +102,41 @@ public class RoadPuzzle {
 
     RoadType getRoadType() {
         return roadType;
+    }
+
+    void addVehicleToList(Vehicle vehicle, Direction direction) {
+        switch (direction) {
+            case E:
+                eastVehicleList.add(vehicle);
+                break;
+            case N:
+                northVehicleList.add(vehicle);
+                break;
+            case S:
+                southVehicleList.add(vehicle);
+                break;
+            case W:
+                westVehicleList.add(vehicle);
+                break;
+        }
+    }
+
+    void removeLastVehicleFromList(Vehicle vehicle, Direction direction) {
+        if (direction != null) {
+            switch (direction) {
+                case E:
+                    eastVehicleList.remove(vehicle);
+                    break;
+                case N:
+                    northVehicleList.remove(vehicle);
+                    break;
+                case S:
+                    southVehicleList.remove(vehicle);
+                    break;
+                case W:
+                    westVehicleList.remove(vehicle);
+                    break;
+            }
+        }
     }
 }

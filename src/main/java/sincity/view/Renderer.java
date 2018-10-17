@@ -1,14 +1,23 @@
 package sincity.view;
-//package sincity.model;
 
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import sincity.model.City;
+import sincity.model.RoadType;
+import sincity.model.Vehicle;
 import sincity.model.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -85,8 +94,9 @@ public class Renderer implements Observer {
         return vehicleDisplay;
     }
 
-    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove) {
+    public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
         PathTransition pathTransition = new PathTransition();
+        pathTransition.setRate(speed); // 1 is default
         pathTransition.setDuration(Duration.seconds(1));
         pathTransition.setNode(vehicleDisplay);
         pathTransition.setPath(pathToMove);
@@ -98,7 +108,6 @@ public class Renderer implements Observer {
         pathTransition.play();
         return pathTransition;
     }
-
 
     public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay ){
         root.getChildren().add(trafficLightsDisplay);
@@ -114,4 +123,41 @@ public class Renderer implements Observer {
             addLightsToView(puzzle.getIndexY(), puzzle.getIndexX());
         }
     }
+
+    // metody pomocnicze do testow:
+
+    public void RenderTestLine(double startX1, double startY1, double endX1, double endY1, Color color) {
+        List<javafx.scene.Node> linesToRemove = new ArrayList<>();
+        for (javafx.scene.Node node : root.getChildren()) {
+            if (node instanceof TestLine) {
+                if (((TestLine) node).color.equals(color)) {
+                    linesToRemove.add(node);
+                }
+            }
+        }
+
+        root.getChildren().removeAll(linesToRemove);
+
+        DoubleProperty startX = new SimpleDoubleProperty(startX1);
+        DoubleProperty startY = new SimpleDoubleProperty(startY1);
+        DoubleProperty endX = new SimpleDoubleProperty(endX1);
+        DoubleProperty endY = new SimpleDoubleProperty(endY1);
+
+        TestLine testLine = new TestLine(startX, startY, endX, endY, color);
+
+        root.getChildren().add(testLine);
+    }
+
+    public void RemoveTestLine(Color color) {
+        List<javafx.scene.Node> linesToRemove = new ArrayList<>();
+        for (javafx.scene.Node node : root.getChildren()) {
+            if (node instanceof TestLine) {
+                if (((TestLine) node).color.equals(color)) {
+                    linesToRemove.add(node);
+                }
+            }
+        }
+        root.getChildren().removeAll(linesToRemove);
+    }
+
 }
