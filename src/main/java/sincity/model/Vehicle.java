@@ -23,12 +23,12 @@ public class Vehicle {
     private Color color;
 
 
-    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection) {
+    Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection, VehicleType vehicleType) {
         this.color = Color.color(Math.random(), Math.random(), Math.random(), 1);
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
         this.arrivalDirection = arrivalDirection;
-        this.vehicleDisplay = renderer.renderVehicle("car", 8);
+        this.vehicleDisplay = renderer.renderVehicle(vehicleType);
         this.city = city;
         move();
     }
@@ -46,7 +46,7 @@ public class Vehicle {
         pathTransition.setRate(speed);
     }
 
-    private void move() {
+    public void move() {
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         addToCorrectList();
 

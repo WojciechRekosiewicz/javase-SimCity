@@ -16,6 +16,7 @@ import sincity.model.City;
 import sincity.model.RoadType;
 //import sincity.model.Tank;
 import sincity.model.Vehicle;
+import sincity.model.VehicleType;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -59,12 +60,12 @@ public class Renderer {
         }
     }
 
-    public VehicleDisplay renderVehicle(String vehicleType, int amount) {
+    public VehicleDisplay renderVehicle(VehicleType vehicleType) {
         // vehicle size
-        double vehicleSize = tileSize * 0.37; // scale factor
+        double vehicleSize = tileSize * vehicleType.getScale(); // scale factor
 
-        int randomImageNumber = (int) Math.floor(Math.random() * amount); // 8 is total number of vehicle images
-        String imageUrl = (vehicleType + "_" + randomImageNumber + ".png");
+        int randomImageNumber = (int) Math.floor(Math.random() * vehicleType.getAmount()); // 8 is total number of vehicle images
+        String imageUrl = (vehicleType.getName() + "_" + randomImageNumber + ".png");
 
         // set image based on roadType
         Image vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
@@ -77,18 +78,6 @@ public class Renderer {
         return vehicleDisplay;
     }
 
-    public TankDisplay renderTank() {
-
-        double vehicleSize = tileSize * 0.45; // scale factor
-        int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
-        String imageUrl = ("tank_1.png");
-
-        // set image based on roadType
-        Image tankImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-        TankDisplay tankDisplay = new TankDisplay(tankImage);
-        root.getChildren().add(tankDisplay);
-        return tankDisplay;
-    }
 
     public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
         PathTransition pathTransition = new PathTransition();
@@ -103,62 +92,6 @@ public class Renderer {
         pathTransition.setInterpolator(Interpolator.LINEAR);
         pathTransition.play();
         return pathTransition;
-    }
-
-    public PathTransition moveAnimationTank(TankDisplay tankDisplay, Path pathToMove, double speed) {
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setRate(speed); // 1 is default
-        pathTransition.setDuration(Duration.seconds(1));
-        pathTransition.setNode(tankDisplay);
-        pathTransition.setPath(pathToMove);
-        pathTransition.setOrientation(
-                PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setCycleCount(1);
-        pathTransition.setAutoReverse(false);
-        pathTransition.setInterpolator(Interpolator.LINEAR);
-        pathTransition.play();
-        System.out.println();
-        return pathTransition;
-    }
-
-    //    public void RenderRectangle(double x, double y) {
-//        Node rectangleTest = new Node(x, y);
-//        root.getChildren().add(rectangleTest);
-//    }
-    public Image vehicleRaffle() {
-        Image vehicleImage;
-        int raffle = (int) Math.floor(Math.random() * 3);
-
-        if (raffle == 1) {
-            double vehicleSize = tileSize * 0.25; // scale factor
-            int randomImageNumber = (int) Math.floor(Math.random() * 8); // 8 is total number of vehicle images
-            String imageUrl = ("car_" + randomImageNumber + ".png");
-
-            // set image based on roadType
-            vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-            return vehicleImage;
-        } else if (raffle == 2) {
-            double vehicleSize = tileSize * 0.40; // scale factor
-            int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
-            String imageUrl = ("truck_1.png");
-
-            // set image based on roadType
-            vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-            return vehicleImage;
-        } else {
-            double vehicleSize = tileSize * 0.50; // scale factor
-            int randomImageNumber = (int) Math.floor(Math.random() * 1); // 8 is total number of vehicle images
-            String imageUrl = ("tank_1.png");
-
-            // set image based on roadType
-            vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-            return vehicleImage;
-        }
-
-      //  vehicleImage = new Image("file:src/main/resources/" + imageUrl, vehicleSize, vehicleSize, true, false);
-
-
-        //return vehicleImage;
     }
 
     // metody pomocnicze do testow:

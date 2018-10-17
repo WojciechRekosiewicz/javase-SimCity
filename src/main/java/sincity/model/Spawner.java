@@ -42,8 +42,11 @@ public class Spawner {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
             RoadPuzzle spawnPuzzle = getRandomSpawnPuzzle(spawnPuzzles);
             Direction arrivalDirection = getArrivalDirection(spawnPuzzle);
-            Vehicle vehicle = new Vehicle(city, renderer, spawnPuzzle, arrivalDirection);
+            Vehicle vehicle = new Vehicle(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.CAR);
+            Truck truck = new Truck(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.TRUCK);
             gameLoop.addToVehicleList(vehicle);
+            gameLoop.addToVehicleList(truck);
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
