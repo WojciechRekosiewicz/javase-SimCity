@@ -10,6 +10,7 @@ import sincity.view.Renderer;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Spawner {
     private List<RoadPuzzle> spawnPuzzles = new ArrayList<>();
     private Renderer renderer;

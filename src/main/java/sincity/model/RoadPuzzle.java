@@ -1,6 +1,8 @@
 package sincity.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 class RoadPuzzle {
@@ -21,13 +23,10 @@ class RoadPuzzle {
     private double centerY;
     private double centerX; // center of the puzzle - anchor point of path rotation
 
-    Queue<Vehicle> northVehicleList = new LinkedList<>();
-    Queue<Vehicle> southvehicleList = new LinkedList<>();
-    Queue<Vehicle> westVehicleList = new LinkedList<>();
-    Queue<Vehicle> eastVehicleList = new LinkedList<>();
-
-
-
+    List<Vehicle> northVehicleList = new ArrayList<>();
+    List<Vehicle> southVehicleList = new ArrayList<>();
+    List<Vehicle> westVehicleList = new ArrayList<>();
+    List<Vehicle> eastVehicleList = new ArrayList<>();
 
     RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type) {
         this.roadDirections = type.getPossibleDirection();
@@ -76,5 +75,41 @@ class RoadPuzzle {
 
     RoadType getRoadType() {
         return roadType;
+    }
+
+    void addVehicleToList(Vehicle vehicle, Direction direction) {
+        switch (direction) {
+            case E:
+                eastVehicleList.add(vehicle);
+                break;
+            case N:
+                northVehicleList.add(vehicle);
+                break;
+            case S:
+                southVehicleList.add(vehicle);
+                break;
+            case W:
+                westVehicleList.add(vehicle);
+                break;
+        }
+    }
+
+    void removeLastVehicleFromList(Vehicle vehicle, Direction direction) {
+        if (direction != null) {
+            switch (direction) {
+                case E:
+                    eastVehicleList.remove(vehicle);
+                    break;
+                case N:
+                    northVehicleList.remove(vehicle);
+                    break;
+                case S:
+                    southVehicleList.remove(vehicle);
+                    break;
+                case W:
+                    westVehicleList.remove(vehicle);
+                    break;
+            }
+        }
     }
 }
