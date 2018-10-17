@@ -1,7 +1,13 @@
-//package sincity.model;
-//
-//public class Car extends Vehicle {
-//
-//
-//}
+package sincity.model;
+
+import sincity.view.Renderer;
+
+public class Car extends Vehicle {
+
+
+    Car(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection, VehicleType vehicleType) {
+        super(city, renderer, roadPuzzle, arrivalDirection, vehicleType);
+        speed = 0.9;
+    }
+}
 

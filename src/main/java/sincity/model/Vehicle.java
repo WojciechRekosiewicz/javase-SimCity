@@ -12,7 +12,7 @@ import java.util.List;
 public class Vehicle {
 
 
-    double speed = 0.9; // 1 is default
+    double speed; // 1 is default
     private RoadPuzzle currentRoadPuzzle;
     private Direction arrivalDirection;
     private Direction outDirection;
