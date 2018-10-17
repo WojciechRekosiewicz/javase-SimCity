@@ -21,6 +21,7 @@ public class TrafficLightsActive extends TrafficLights {
         this.displayTime =  displayTime;
         this.orientation = Orientation.VERTICAL;
         this.currentColor = LightColor.GREEN;
+
     }
 
     public void timeline() {

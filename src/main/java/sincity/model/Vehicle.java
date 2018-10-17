@@ -5,13 +5,10 @@ import javafx.scene.paint.Color;
 import sincity.view.Renderer;
 import sincity.view.VehicleDisplay;
 
-import java.util.HashMap;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
-public class Vehicle {
+public class Vehicle implements Observer {
 
 
     private double speed = 0.5; // 1 is default
@@ -49,11 +46,17 @@ public class Vehicle {
     }
 
     private void move() {
-        outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
-        addToCorrectList();
 
+        addToCorrectList();
+        outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+
+        if (currentRoadPuzzle.isTrafficLight()) {
+            TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
+            startObservingLigthsInRightDirection(lights);
+
+        }
 
         pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, speed);
 
@@ -65,6 +68,16 @@ public class Vehicle {
             }
         });
     }
+
+
+    private void startObservingLigthsInRightDirection(TrafficLights[] lights){
+        for (TrafficLights light :lights ){
+            if(arrivalDirection.getOrientation() == light.getOrientation()){
+                light.addObserver(this);
+            }
+        }
+    }
+
 
     private void addToCorrectList() {
         currentRoadPuzzle.addVehicleToList(this, arrivalDirection);
@@ -182,5 +195,10 @@ public class Vehicle {
                 arrivalDirection = Direction.N;
                 break;
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

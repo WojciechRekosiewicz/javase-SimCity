@@ -10,6 +10,7 @@ public abstract class TrafficLights extends Observable {
     LightColor currentColor;
     Orientation orientation;
 
+
     public TrafficLights() {
     }
 
