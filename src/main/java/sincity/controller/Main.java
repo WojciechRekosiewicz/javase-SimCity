@@ -14,7 +14,7 @@ import sincity.view.Renderer;
 public class Main extends Application {
 
     // board size, there should be always more horizontalPuzzles than verticalPuzzles
-    private int horizontalPuzzles = 10; // could be final
+    private int horizontalPuzzles = 9; // could be final
     private int verticalPuzzles = 5;
     //    private double tileSize = sceneWidth / horizontalPuzzles; // tile size in pixels
     //    private double sceneWidth = 1400; // window size in pixels

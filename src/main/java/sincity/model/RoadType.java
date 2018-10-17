@@ -59,70 +59,70 @@ public enum RoadType {
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_1"),
+    }}, "bcg_1.png"),
 
     BCG2(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_2"),
+    }}, "bcg_2.png"),
 
     BCG3(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_3"),
+    }}, "bcg_3.png"),
 
     BCG4(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_4"),
+    }}, "bcg_4.png"),
 
     BCG5(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_5"),
+    }}, "bcg_5.png"),
 
     BCG6(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_6"),
+    }}, "bcg_6.png"),
 
     BCG7(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_7"),
+    }}, "bcg_7.png"),
 
     BCG8(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_8"),
+    }}, "bcg_8.png"),
 
     BCG9(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_9"),
+    }}, "bcg_9.png"),
 
     BCG10(new HashMap<Direction, Boolean>() {{
         put(Direction.E, false);
         put(Direction.N, false);
         put(Direction.S, false);
         put(Direction.W, false);
-    }}, "bcg_10");
+    }}, "bcg_10.png");
 
 
 

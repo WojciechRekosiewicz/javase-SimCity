@@ -162,7 +162,7 @@ public class ConstructBoardView {
                     if (canAddPuzzleToBoard()) {
                         Image image = new Image(activeType.getImageUrl());
                         rectangle.setFill(new ImagePattern(image));
-                        puzzleBoard[colPos + 1][rowPos + 1] = activeType;
+                        puzzleBoard[rowPos + 1] [colPos + 1]= activeType;
                     }
                 });
             }
