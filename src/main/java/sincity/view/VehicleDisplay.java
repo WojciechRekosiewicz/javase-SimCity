@@ -10,4 +10,12 @@ public class VehicleDisplay extends StackPane {
     VehicleDisplay(Image image) {
         getChildren().add(new ImageView(image));
     }
+
+    public double getCenterX() {
+        return getTranslateX() + getWidth() / 2.0;
+    }
+
+    public double getCenterY() {
+        return getTranslateY() + getHeight() / 2.0;
+    }
 }

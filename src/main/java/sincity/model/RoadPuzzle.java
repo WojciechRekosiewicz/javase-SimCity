@@ -1,8 +1,17 @@
 package sincity.model;
 
-class RoadPuzzle {
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
-    private boolean[] roadDirections;
+import sincity.view.TrafficLightsDisplay;
+
+import java.util.HashMap;
+
+public class RoadPuzzle {
+
+    private HashMap<Direction, Boolean> roadDirections;
     private RoadType roadType;
 
     private int indexX; // position in City board
@@ -18,8 +27,17 @@ class RoadPuzzle {
     private double centerY;
     private double centerX; // center of the puzzle - anchor point of path rotation
 
+    private boolean isTrafficLight;
 
-    RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type) {
+    private TrafficLights[] trafficLights;
+
+    List<Vehicle> northVehicleList = new ArrayList<>();
+    List<Vehicle> southVehicleList = new ArrayList<>();
+    List<Vehicle> westVehicleList = new ArrayList<>();
+    List<Vehicle> eastVehicleList = new ArrayList<>();
+
+
+    RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type, boolean isTrafficLights) {
         this.roadDirections = type.getPossibleDirection();
         this.roadType = type;
         this.size = size;
@@ -30,25 +48,41 @@ class RoadPuzzle {
         this.centerX = coX + size / 2.0;
         this.centerY = coY + size / 2.0;
         this.halfLaneWidth = 0.1 * size;     // maybe should be final
+        this.isTrafficLight = isTrafficLights;
+        if (isTrafficLight) {
+            this.trafficLights = new TrafficLightGenerator(this).createLights();
+        }
     }
 
-    double getCoX() {
+    public boolean isTrafficLight() {
+        return isTrafficLight;
+    }
+
+    public void setTrafficLight(boolean trafficLight) {
+        isTrafficLight = trafficLight;
+    }
+
+    public TrafficLights[] getTrafficLights() {
+        return trafficLights;
+    }
+
+    public double getCoX() {
         return coX;
     }
 
-    double getCoY() {
+    public double getCoY() {
         return coY;
     }
 
-    double getSize() {
+    public double getSize() {
         return size;
     }
 
-    int getIndexY() {
+    public int getIndexY() {
         return indexY;
     }
 
-    int getIndexX() {
+    public int getIndexX() {
         return indexX;
     }
 
@@ -60,11 +94,47 @@ class RoadPuzzle {
         return centerY;
     }
 
-    boolean[] getRoadDirections() {
+    public HashMap<Direction, Boolean> getRoadDirections() {
         return roadDirections;
     }
 
     RoadType getRoadType() {
         return roadType;
+    }
+
+    void addVehicleToList(Vehicle vehicle, Direction direction) {
+        switch (direction) {
+            case E:
+                eastVehicleList.add(vehicle);
+                break;
+            case N:
+                northVehicleList.add(vehicle);
+                break;
+            case S:
+                southVehicleList.add(vehicle);
+                break;
+            case W:
+                westVehicleList.add(vehicle);
+                break;
+        }
+    }
+
+    void removeLastVehicleFromList(Vehicle vehicle, Direction direction) {
+        if (direction != null) {
+            switch (direction) {
+                case E:
+                    eastVehicleList.remove(vehicle);
+                    break;
+                case N:
+                    northVehicleList.remove(vehicle);
+                    break;
+                case S:
+                    southVehicleList.remove(vehicle);
+                    break;
+                case W:
+                    westVehicleList.remove(vehicle);
+                    break;
+            }
+        }
     }
 }

@@ -5,33 +5,136 @@ import java.util.HashMap;
 public enum RoadType {
 
     // Directions order in boolean array : East, North, South, West
-    ENSW(new boolean[]{true, true, true, true}, "ensw_1.png"),
-    ENW(new boolean[]{true, true, false, true}, "enw_1.png"),
-    ENS(new boolean[]{true, true, true, false}, "ens_1.png"),
-    NSW(new boolean[]{false, true, true, true}, "nsw_1.png"),
-    ESW(new boolean[]{true, false, true, true}, "esw_1.png"),
-    EW(new boolean[]{true, false, false, true}, "ew_1.png"),
-    NS(new boolean[]{false, true, true, false}, "ns_1.png"),
-    BCG1(new boolean[]{false, false, false, false}, "bcg_1.png"),
-    BCG2(new boolean[]{false, false, false, false}, "bcg_2.png"),
-    BCG3(new boolean[]{false, false, false, false}, "bcg_3.png"),
-    BCG4(new boolean[]{false, false, false, false}, "bcg_4.png"),
-    BCG5(new boolean[]{false, false, false, false}, "bcg_5.png"),
-    BCG6(new boolean[]{false, false, false, false}, "bcg_6.png"),
-    BCG7(new boolean[]{false, false, false, false}, "bcg_7.png"),
-    BCG8(new boolean[]{false, false, false, false}, "bcg_8.png"),
-    BCG9(new boolean[]{false, false, false, false}, "bcg_9.png"),
-    BCG10(new boolean[]{false, false, false, false}, "bcg_10.png");
+    ENSW(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, true);
+        put(Direction.N, true);
+        put(Direction.S, true);
+        put(Direction.W, true);
+    }}, "ensw_1.png"),
 
-    private boolean[] possibleDirection;
+    ENW(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, true);
+        put(Direction.N, true);
+        put(Direction.S, false);
+        put(Direction.W, true);
+    }}, "enw_1.png"),
+
+    NSW(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, true);
+        put(Direction.S, true);
+        put(Direction.W, true);
+    }}, "nsw_1.png"),
+
+    ENS(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, true);
+        put(Direction.N, true);
+        put(Direction.S, true);
+        put(Direction.W, false);
+    }}, "ens_1.png"),
+
+    ESW(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, true);
+        put(Direction.N, false);
+        put(Direction.S, true);
+        put(Direction.W, true);
+    }}, "esw_1.png"),
+
+    EW(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, true);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, true);
+    }}, "ew_1.png"),
+
+    NS(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, true);
+        put(Direction.S, true);
+        put(Direction.W, false);
+    }}, "ns_1.png"),
+
+    BCG1(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_1"),
+
+    BCG2(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_2"),
+
+    BCG3(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_3"),
+
+    BCG4(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_4"),
+
+    BCG5(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_5"),
+
+    BCG6(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_6"),
+
+    BCG7(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_7"),
+
+    BCG8(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_8"),
+
+    BCG9(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_9"),
+
+    BCG10(new HashMap<Direction, Boolean>() {{
+        put(Direction.E, false);
+        put(Direction.N, false);
+        put(Direction.S, false);
+        put(Direction.W, false);
+    }}, "bcg_10");
+
+
+
+    private HashMap<Direction, Boolean> possibleDirection;
     private String imageUrl;
 
-    RoadType(boolean[] possibleDirection, String imageUrl) {
+    RoadType(HashMap<Direction, Boolean> possibleDirection, String imageUrl) {
         this.possibleDirection = possibleDirection;
         this.imageUrl = imageUrl;
     }
 
-    public boolean[] getPossibleDirection() {
+    public HashMap<Direction, Boolean> getPossibleDirection() {
         return possibleDirection;
     }
 

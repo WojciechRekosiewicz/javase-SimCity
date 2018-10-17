@@ -1,16 +1,20 @@
 package sincity.controller;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sincity.model.City;
+import sincity.model.Spawner;
 import sincity.view.ConstructBoardView;
+import sincity.view.Renderer;
 
 public class Main extends Application {
 
     // board size, there should be always more horizontalPuzzles than verticalPuzzles
-    private int horizontalPuzzles = 9; // could be final
+    private int horizontalPuzzles = 10; // could be final
     private int verticalPuzzles = 5;
     //    private double tileSize = sceneWidth / horizontalPuzzles; // tile size in pixels
     //    private double sceneWidth = 1400; // window size in pixels
@@ -38,8 +42,13 @@ public class Main extends Application {
 
 //            final int PADDING = 1; // tiles off-screen
 
+            GameLoop gameLoop = new GameLoop();
+            gameLoop.start();
 
-//
+            // create spawner
+//            new Spawner(city, renderer, gameLoop);
+
+        //
 //        if (horizontalPuzzles >= verticalPuzzles) {
 //            Group root = new Group();
 //            Scene scene = new Scene(root, sceneWidth, sceneHeight);
@@ -61,5 +70,7 @@ public class Main extends Application {
 //            System.out.println("Wrong board size, please make sure to have equal or more horizontal puzzles than vertical ones.");
 //            Platform.exit();
 //        }
+
+
     }
 }
