@@ -15,11 +15,14 @@ import javafx.util.Duration;
 import sincity.model.City;
 import sincity.model.RoadType;
 import sincity.model.Vehicle;
-
+import sincity.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Renderer {
+import java.util.Observable;
+import java.util.Observer;
+
+public class Renderer implements Observer {
     private Group root;
     private City city;
     private double tileSize;
@@ -42,7 +45,7 @@ public class Renderer {
             for (int x = padding; x < horizontalPuzzles - padding; x++) {
                 RoadType roadType = city.getRoadType(x, y);
 
-                // set image based on roadType
+                // set image basedc on roadType
                 String imageUrl = "file:src/main/resources/" + roadType.getImageUrl();
 
                 // choose image
@@ -53,7 +56,22 @@ public class Renderer {
 
                 // add tile to group
                 root.getChildren().add(tile);
+
+                if (city.getPuzzleBoard()[x][y].isTrafficLight()) {
+                    addLightsToView(y, x);
+                }
             }
+        }
+    }
+
+    private void addLightsToView(int y, int x) {
+        TrafficLights[] allTrafficLights = city.getPuzzleBoard()[x][y].getTrafficLights();
+        TrafficLightsActive activeLights = (TrafficLightsActive) allTrafficLights[0];
+        activeLights.addObserver(this);
+
+        for (TrafficLights light : allTrafficLights) {
+            TrafficLightsDisplay lightDisplay = new TrafficLightsDisplay(light, city.getPuzzleBoard()[x][y]);
+            root.getChildren().add(lightDisplay);
         }
     }
 
@@ -91,6 +109,20 @@ public class Renderer {
         return pathTransition;
     }
 
+    public TrafficLightsDisplay renderTrafficLights(TrafficLightsDisplay trafficLightsDisplay ){
+        root.getChildren().add(trafficLightsDisplay);
+        return trafficLightsDisplay;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+        if (o instanceof TrafficLightsActive) {
+            TrafficLightsActive light = (TrafficLightsActive) o;
+            RoadPuzzle puzzle = light.getPuzzle();
+            addLightsToView(puzzle.getIndexY(), puzzle.getIndexX());
+        }
+    }
 
     // metody pomocnicze do testow:
 
