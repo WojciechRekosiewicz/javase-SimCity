@@ -11,7 +11,9 @@ import java.util.*;
 public class Vehicle implements Observer {
 
 
-    double speed; // 1 is default
+    double topSpeed; // 1 is default
+    double currentSpeed;
+    private boolean isStopped;
     private RoadPuzzle currentRoadPuzzle;
     private Direction arrivalDirection;
     private Direction outDirection;
@@ -20,6 +22,8 @@ public class Vehicle implements Observer {
     private VehicleDisplay vehicleDisplay;
     private PathTransition pathTransition;
     private Color color;
+    PathToMove pathToMove;
+    String shape;
 
 
     Vehicle(City city, Renderer renderer, RoadPuzzle roadPuzzle, Direction arrivalDirection, VehicleType vehicleType) {
@@ -36,55 +40,177 @@ public class Vehicle implements Observer {
         Vehicle carInFront = findCarInFront();
 
         if (carInFront != null) {
-            renderer.RenderTestLine(vehicleDisplay.getCenterX(), vehicleDisplay.getCenterY(),
-                    carInFront.vehicleDisplay.getCenterX(), carInFront.vehicleDisplay.getCenterY(), color);
+            //renderer.RenderTestLine(vehicleDisplay.getCenterX(), vehicleDisplay.getCenterY(),
+            //        carInFront.vehicleDisplay.getCenterX(), carInFront.vehicleDisplay.getCenterY(), color);
+
+            double distanceToCarInFront = Math.sqrt(Math.pow(carInFront.vehicleDisplay.getCenterX() - vehicleDisplay.getCenterX(), 2)
+                    + Math.pow(carInFront.vehicleDisplay.getCenterY() - vehicleDisplay.getCenterY(), 2));
+
+            double distanceToStop = Math.max(vehicleDisplay.getWidth(), carInFront.vehicleDisplay.getWidth()) + 10;
+
+
+            if (isStopped || distanceToCarInFront < distanceToStop) {
+                currentSpeed = 0.001;
+            } else {
+                currentSpeed = topSpeed;
+            }
+
+
         } else {
+            currentSpeed = !isStopped ? topSpeed : 0.001;
             renderer.RemoveTestLine(color);
         }
 
-        pathTransition.setRate(speed);
+        pathTransition.setRate(currentSpeed);
     }
 
     private void move() {
 
         addToCorrectList();
+//        currentRoadPuzzle.addObserver(this);
+
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
-        PathToMove pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+        pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
 
+        shape = pathToMove.getShape();
+
+//        while (shape.equals("left")) {
+//            outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
+//            fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
+//            pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+//            shape = pathToMove.getShape();
+//        }
+
+        tryToMove();
+
+    }
+
+    private void tryToMove() {
+
+//        addToCorrectList();
+        currentRoadPuzzle.addObserver(this);
+
+        if (isMovePossible()) {
+
+            currentSpeed = topSpeed;
+            isStopped = false;
+            pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, currentSpeed);
+            RoadPuzzle previous = currentRoadPuzzle;
+
+
+            pathTransition.setOnFinished(event -> {
+                removeFromCorrectList();
+                changeRoadPuzzle(currentRoadPuzzle);
+                previous.deleteObserver(this);
+                if (currentRoadPuzzle != null) {
+                    move();
+                }
+            });
+            previous.deleteObserver(this);
+//            removeFromCorrectList(previous);
+        }
+    }
+
+    private boolean isMovePossible() {
         if (currentRoadPuzzle.isTrafficLight()) {
 
             TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
             for (TrafficLights light : lights) {
                 if (arrivalDirection.getOrientation() == light.getOrientation()) {
+                    light.addObserver(this);
                     if (light.currentColor == LightColor.GREEN) {
-                        //DO NOTHING
+                        if (shape.equals("left")) {
+                            if (checkIsMoveLeftPossible()) {
+                                isStopped = false;
+                                light.deleteObserver(this);
+                                return true;
+                            } else {
+                                isStopped = true;
+                                return false;
+                            }
+                        } else {
+                            isStopped = false;
+                            light.deleteObserver(this);
+                            return true;
+                        }
                     } else {
-                        light.addObserver(this);
-                        speed = 0;  //add setter for speed
-
+                        isStopped = true;  //add setter for currentSpeed
+                        return false;
                     }
-
                 }
             }
+        } else {
+            return setPriority(shape);
         }
+        return false;
 
-        pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, speed);
-
-        pathTransition.setOnFinished(event -> {
-            removeFromCorrectList();
-            changeRoadPuzzle(currentRoadPuzzle);
-            if (currentRoadPuzzle != null) {
-                move();
-            }
-        });
     }
+
+
+    private boolean setPriority(String shape){
+        if (shape.equals("right")){
+            return true;
+        } else if (shape.equals("straight")){
+            if (arrivalDirection == Direction.N){
+                if (currentRoadPuzzle.westVehicleList.isEmpty() ){
+                    currentSpeed = topSpeed;
+                    return true;
+                }
+            } else if (arrivalDirection == Direction.E){
+                if (currentRoadPuzzle.northVehicleList.isEmpty() ){
+                    currentSpeed = topSpeed;
+                    return true;
+                }
+            } else if (arrivalDirection == Direction.S){
+                if (currentRoadPuzzle.eastVehicleList.isEmpty() ){
+                    currentSpeed = topSpeed;
+                    return true;
+                }
+            }  else if (arrivalDirection == Direction.W){
+                if (currentRoadPuzzle.southVehicleList.isEmpty() ){
+                    currentSpeed = topSpeed;
+                    return true;
+                }
+            }
+        } else if (shape.equals("left")){
+            return checkIsMoveLeftPossible();
+        }
+        return false;
+    }
+
+    private boolean checkIsMoveLeftPossible() {
+        if (arrivalDirection == Direction.N){
+            if (currentRoadPuzzle.westVehicleList.isEmpty() && currentRoadPuzzle.southVehicleList.isEmpty() ){
+                currentSpeed = topSpeed;
+                return true;
+            }
+        } else if (arrivalDirection == Direction.E){
+            if (currentRoadPuzzle.northVehicleList.isEmpty() && currentRoadPuzzle.westVehicleList.isEmpty()){
+                currentSpeed = topSpeed;
+                return true;
+            }
+        } else if (arrivalDirection == Direction.S){
+            if (currentRoadPuzzle.eastVehicleList.isEmpty() && currentRoadPuzzle.northVehicleList.isEmpty() ){
+                currentSpeed = topSpeed;
+                return true;
+            }
+        }  else if (arrivalDirection == Direction.W){
+            if (currentRoadPuzzle.southVehicleList.isEmpty() && currentRoadPuzzle.eastVehicleList.isEmpty()  ){
+                currentSpeed = topSpeed;
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private void addToCorrectList() {
         currentRoadPuzzle.addVehicleToList(this, arrivalDirection);
     }
 
     private void removeFromCorrectList() {
+
         currentRoadPuzzle.removeLastVehicleFromList(this, arrivalDirection);
     }
 
@@ -128,8 +254,8 @@ public class Vehicle implements Observer {
         if (combinedVehicleList.indexOf(this) > 0) {
             Vehicle carInFront = combinedVehicleList.get(combinedVehicleList.indexOf(this) - 1);
             boolean fromSameDirection = this.arrivalDirection == carInFront.arrivalDirection; // tweak these values to get the best result
-            boolean toSameDirection = this.outDirection == carInFront.outDirection;
-            return fromSameDirection || toSameDirection ? carInFront : null;
+            //boolean toSameDirection = this.outDirection == carInFront.outDirection;
+            return fromSameDirection ? carInFront : null;
         } else {
             return null;
         }
@@ -200,9 +326,10 @@ public class Vehicle implements Observer {
 
     @Override
     public void update(Observable o, Object lightColor) {
-        if ((LightColor) lightColor == LightColor.GREEN) {
-            speed = 0.5;
+        if (lightColor == LightColor.GREEN) {
+            isStopped = false;
         }
+        tryToMove();
 
     }
 }

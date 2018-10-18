@@ -6,16 +6,21 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
 
-public class PathToMove extends Path {
+class PathToMove extends Path {
 
     private RoadPuzzle puzzle;
     private String fromTo;
+    private String shape;
 
-    public PathToMove(RoadPuzzle puzzle, String fromTo) {
+    PathToMove(RoadPuzzle puzzle, String fromTo) {
         this.puzzle = puzzle;
         this.fromTo = fromTo;
         setPathShape();
         setPathDirection();
+    }
+
+    String getShape() {
+        return shape;
     }
 
     private void setPathRight() {
@@ -96,18 +101,21 @@ public class PathToMove extends Path {
             case "W_S":
             case "E_N":
                 this.setPathRight();
+                shape = "right";
                 break;
             case "N_E":
             case "S_W":
             case "W_N":
             case "E_S":
                 this.setPathLeft();
+                shape = "left";
                 break;
             case "N_S":
             case "S_N":
             case "W_E":
             case "E_W":
                 this.setPathStraight();
+                shape = "straight";
                 break;
         }
     }
