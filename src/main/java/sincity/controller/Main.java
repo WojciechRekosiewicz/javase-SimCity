@@ -22,7 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        // add music to SinCity
         CitySounds.playSong();
 
         if (horizontalPuzzles >= verticalPuzzles) {
