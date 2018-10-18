@@ -26,21 +26,17 @@ public class City {
                 if ((y == 3 && x == 4) || (y == 5 && x == 2)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENW, true);
                 } else if (y == 3 && x == 2) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ESW, false);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ESW, true);
                 } else if (y == 3 && (x == 6 || x == 8)) {
                     if (x == 6) {
                         puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, true);
                     } else {
-                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, false);
+                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, true);
                     }
                 } else if (y == 3 || (y == 5 && x < 6)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW, false);
-                } else if (y == 2 && x == 8) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENS, false);
-                } else if (y == 2 && x > 8) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW, false);
                 } else if (y == 5 && x == 6) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NSW, false);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NSW, true);
                 } else if ((x == 4 && y <= 3) || (x == 6 || x == 8) || (y == 4 && x == 2)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS, false);
                 } else {
