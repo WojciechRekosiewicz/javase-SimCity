@@ -9,6 +9,7 @@ import sincity.model.City;
 import sincity.model.Spawner;
 import sincity.view.Renderer;
 
+
 public class Main extends Application {
 
     // board size, there should be always more horizontalPuzzles than verticalPuzzles
@@ -21,6 +22,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        CitySounds.play();
+
         if (horizontalPuzzles >= verticalPuzzles) {
             Group root = new Group();
             Scene scene = new Scene(root, sceneWidth, sceneHeight);

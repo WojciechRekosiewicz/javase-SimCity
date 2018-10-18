@@ -7,8 +7,6 @@ import sincity.view.VehicleDisplay;
 
 import java.util.*;
 
-import static sincity.model.LightColor.YELLOW_GREEN;
-
 
 public class Vehicle implements Observer {
 
@@ -59,25 +57,11 @@ public class Vehicle implements Observer {
             TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
             for (TrafficLights light : lights) {
                 if (arrivalDirection.getOrientation() == light.getOrientation()) {
-                    switch (light.currentColor) {
-                        case GREEN:
-                            //do nothing
-                            break;
-
-                        case RED:
-                            light.addObserver(this);
-                            speed = 0;
-                            break;
-
-                        case YELLOW_GREEN:
-                          //  light.addObserver(this);
-                            speed = 1.2;
-                            break;
-
-                        default:
-                            light.addObserver(this);
-                            speed = 0.05;  //add setter for speed
-                            break;
+                    if (light.currentColor == LightColor.GREEN) {
+                        //DO NOTHING
+                    } else {
+                        light.addObserver(this);
+                        speed = 0;  //add setter for speed
 
                     }
 
@@ -218,13 +202,6 @@ public class Vehicle implements Observer {
     public void update(Observable o, Object lightColor) {
         if ((LightColor) lightColor == LightColor.GREEN) {
             speed = 0.5;
-            o.deleteObserver(this);
-        }
-        if ((LightColor) lightColor == LightColor.RED) {
-            speed = 0;
-        }
-        if ((LightColor) lightColor == LightColor.YELLOW_RED) {
-            speed = 0.05;
         }
 
     }
