@@ -31,9 +31,19 @@ public class Vehicle implements Observer {
         this.renderer = renderer;
         this.currentRoadPuzzle = roadPuzzle;
         this.arrivalDirection = arrivalDirection;
-        this.vehicleDisplay = renderer.renderVehicle(vehicleType);
+        this.vehicleDisplay = renderer.renderVehicle(vehicleType, this);
         this.city = city;
         move();
+    }
+    public void setOutDirection(){
+        System.out.println("stary dir: " + outDirection);
+        changeOutDirection();
+        System.out.println("nowy dir: " + outDirection);
+        String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
+        pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
+        shape = pathToMove.getShape();
+        tryToMove();
+
     }
 
     public void updateVehicle() {
@@ -86,7 +96,7 @@ public class Vehicle implements Observer {
 
     }
 
-    private void tryToMove() {
+    public void tryToMove() {
 
 //        addToCorrectList();
         currentRoadPuzzle.addObserver(this);
@@ -332,4 +342,25 @@ public class Vehicle implements Observer {
         tryToMove();
 
     }
+
+
+
+    private void changeOutDirection() {
+        switch (outDirection) {
+            case W:
+                outDirection = Direction.E;
+                break;
+            case E:
+                outDirection = Direction.W;
+                break;
+            case N:
+                outDirection = Direction.S;
+                break;
+            case S:
+                outDirection = Direction.N;
+                break;
+        }
+    }
 }
+
+
