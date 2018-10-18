@@ -23,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        CitySounds.play();
+        CitySounds.playSong();
 
         if (horizontalPuzzles >= verticalPuzzles) {
             Group root = new Group();
