@@ -3,6 +3,7 @@ package sincity.controller;
 import javafx.animation.AnimationTimer;
 import sincity.model.Vehicle;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class GameLoop extends AnimationTimer {
@@ -15,7 +16,6 @@ public class GameLoop extends AnimationTimer {
         for (Vehicle vehicle : vehicleList) {
             vehicle.updateVehicle();
         }
-
     }
 
     public void addToVehicleList(Vehicle vehicle){

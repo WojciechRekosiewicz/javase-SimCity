@@ -141,4 +141,8 @@ public enum RoadType {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    public boolean checkPossibleDirection (Direction direction) {
+        return possibleDirection.get(direction);
+    }
 }

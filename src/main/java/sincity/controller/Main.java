@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sincity.model.City;
+import sincity.model.RoadType;
 import sincity.model.Spawner;
 import sincity.view.ConstructBoardView;
 import sincity.view.Renderer;
@@ -32,45 +34,32 @@ public class Main extends Application {
 
         ConstructBoardView initialView = new ConstructBoardView(horizontalPuzzles, verticalPuzzles, tileSize);
         GridPane gridPane = initialView.constructFields();
-
+        Button startButton = initialView.createAcceptButton(gridPane);
 
         root.getChildren().add(gridPane);
         primaryStage.show();
         primaryStage.setScene(scene);
 
+        startButton.setOnMouseClicked( e -> {
 
+            root.getChildren().clear();
+            primaryStage.setMaxWidth(sceneWidth );
+            final int PADDING = 1; // tiles off-screen
 
-//            final int PADDING = 1; // tiles off-screen
+            RoadType[][] userMap = initialView.getPuzzleBoard();
+
+            // create city with desired size
+            City city = new City(userMap, verticalPuzzles, horizontalPuzzles, PADDING, tileSize);
+
+            // create view based on city
+            Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, PADDING);
+            renderer.renderCity();
 
             GameLoop gameLoop = new GameLoop();
             gameLoop.start();
 
             // create spawner
-//            new Spawner(city, renderer, gameLoop);
-
-        //
-//        if (horizontalPuzzles >= verticalPuzzles) {
-//            Group root = new Group();
-//            Scene scene = new Scene(root, sceneWidth, sceneHeight);
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//
-//            final int PADDING = 1; // tiles off-screen
-//
-//            // create city with desired size
-//            City city = new City(verticalPuzzles, horizontalPuzzles, PADDING, tileSize);
-//
-//            // create view based on city
-//            Renderer renderer = new Renderer(root, city, tileSize, verticalPuzzles, horizontalPuzzles, PADDING);
-//            renderer.renderCity();
-//
-//            // create spawner
-//            new Spawner(city, renderer);
-//        } else {
-//            System.out.println("Wrong board size, please make sure to have equal or more horizontal puzzles than vertical ones.");
-//            Platform.exit();
-//        }
-
-
+            new Spawner(city, renderer, gameLoop);
+        });
     }
 }

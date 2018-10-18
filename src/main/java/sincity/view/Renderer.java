@@ -46,7 +46,7 @@ public class Renderer implements Observer {
         root.getChildren().clear();
         for (int y = padding; y < verticalPuzzles - padding; y++) {
             for (int x = padding; x < horizontalPuzzles - padding; x++) {
-                RoadType roadType = city.getRoadType(x, y);
+                RoadType roadType = city.getRoadType(y, x);
 
                 // set image basedc on roadType
                 String imageUrl = "file:src/main/resources/" + roadType.getImageUrl();
@@ -60,7 +60,7 @@ public class Renderer implements Observer {
                 // add tile to group
                 root.getChildren().add(tile);
 
-                if (city.getPuzzleBoard()[x][y].isTrafficLight()) {
+                if (city.getPuzzleBoard()[y][x].isTrafficLight()) {
                     addLightsToView(y, x);
                 }
             }
@@ -68,12 +68,12 @@ public class Renderer implements Observer {
     }
 
     private void addLightsToView(int y, int x) {
-        TrafficLights[] allTrafficLights = city.getPuzzleBoard()[x][y].getTrafficLights();
+        TrafficLights[] allTrafficLights = city.getPuzzleBoard()[y][x].getTrafficLights();
         TrafficLightsActive activeLights = (TrafficLightsActive) allTrafficLights[0];
         activeLights.addObserver(this);
 
         for (TrafficLights light : allTrafficLights) {
-            TrafficLightsDisplay lightDisplay = new TrafficLightsDisplay(light, city.getPuzzleBoard()[x][y]);
+            TrafficLightsDisplay lightDisplay = new TrafficLightsDisplay(light, city.getPuzzleBoard()[y][x]);
             root.getChildren().add(lightDisplay);
         }
     }

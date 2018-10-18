@@ -42,11 +42,14 @@ public class ConstructBoardView {
     public GridPane constructFields() {
         GridPane gridPane = new GridPane();
         createBlackboard(gridPane);
-        createAcceptButton(gridPane);
         createSelectionFrame(gridPane);
         createPaletteImages(gridPane);
 
         return gridPane;
+    }
+
+    public RoadType[][] getPuzzleBoard(){
+        return puzzleBoard;
     }
 
     private void createPaletteImages(GridPane gridPane) {
@@ -75,7 +78,6 @@ public class ConstructBoardView {
                 selectPuzzle(imgPositionsInGrid[1][0], imgPositionsInGrid[1][1]);
                 activeType = backgroundPuzzles.getFirst();
             }
-            System.out.println(activeType);
         });
 
         imageStraightRoad.setOnMouseClicked(e -> {
@@ -91,7 +93,6 @@ public class ConstructBoardView {
                 selectPuzzle(imgPositionsInGrid[2][0], imgPositionsInGrid[2][1]);
                 activeType = straightStreetPuzzle;
             }
-            System.out.println(activeType);
         });
 
         imageT.setOnMouseClicked(e -> {
@@ -107,7 +108,6 @@ public class ConstructBoardView {
                 selectPuzzle(imgPositionsInGrid[3][0], imgPositionsInGrid[3][1]);
                 activeType = tStreetPuzzles.getFirst();
             }
-            System.out.println(activeType);
         });
 
         imageIntersection.setOnMouseClicked(e -> {
@@ -116,7 +116,6 @@ public class ConstructBoardView {
                 activeType = intersectionPuzzle;
 
             }
-            System.out.println(activeType);
         });
     }
 
@@ -140,11 +139,12 @@ public class ConstructBoardView {
         gridPane.add(selector, imgPositionsInGrid[1][0], imgPositionsInGrid[1][1]);
     }
 
-    private void createAcceptButton(GridPane gridPane) {
-        Button button1 = new Button("OK");
-        gridPane.add(button1, 9, 0);
-        button1.setPadding(new Insets(20, 20, 20, 20));
-        GridPane.setHalignment(button1, HPos.CENTER);
+    public Button createAcceptButton(GridPane gridPane) {
+        Button button = new Button("OK");
+        gridPane.add(button, 9, 0);
+        button.setPadding(new Insets(20, 20, 20, 20));
+        GridPane.setHalignment(button, HPos.CENTER);
+        return button;
     }
 
     private void createBlackboard(GridPane gridPane) {
