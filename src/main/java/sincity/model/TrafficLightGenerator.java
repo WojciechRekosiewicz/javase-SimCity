@@ -9,7 +9,7 @@ public class TrafficLightGenerator {
     }
 
     public TrafficLights[] createLights() {
-        int DISPLAY_TIME = getRandomWithRange(1, 4);
+        int DISPLAY_TIME = getRandomWithRange(2, 5);
         TrafficLightsActive activeLights = new TrafficLightsActive(puzzle, DISPLAY_TIME);
         activeLights.timeline();
 
