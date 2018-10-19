@@ -36,9 +36,7 @@ public class Vehicle implements Observer {
         move();
     }
     public void setOutDirection(){
-        System.out.println("stary dir: " + outDirection);
-        changeOutDirection();
-        System.out.println("nowy dir: " + outDirection);
+        changeDirectionToOpposite(outDirection);
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
         shape = pathToMove.getShape();
@@ -50,8 +48,6 @@ public class Vehicle implements Observer {
         Vehicle carInFront = findCarInFront();
 
         if (carInFront != null) {
-            //renderer.RenderTestLine(vehicleDisplay.getCenterX(), vehicleDisplay.getCenterY(),
-            //        carInFront.vehicleDisplay.getCenterX(), carInFront.vehicleDisplay.getCenterY(), color);
 
             double distanceToCarInFront = Math.sqrt(Math.pow(carInFront.vehicleDisplay.getCenterX() - vehicleDisplay.getCenterX(), 2)
                     + Math.pow(carInFront.vehicleDisplay.getCenterY() - vehicleDisplay.getCenterY(), 2));
@@ -77,20 +73,11 @@ public class Vehicle implements Observer {
     private void move() {
 
         addToCorrectList();
-//        currentRoadPuzzle.addObserver(this);
-
         outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
 
         shape = pathToMove.getShape();
-
-//        while (shape.equals("left")) {
-//            outDirection = getRandomOutDirection(currentRoadPuzzle.getRoadDirections());
-//            fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
-//            pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
-//            shape = pathToMove.getShape();
-//        }
 
         tryToMove();
 
@@ -98,7 +85,6 @@ public class Vehicle implements Observer {
 
     public void tryToMove() {
 
-//        addToCorrectList();
         currentRoadPuzzle.addObserver(this);
 
         if (isMovePossible()) {
@@ -119,7 +105,7 @@ public class Vehicle implements Observer {
                 }
             });
             previous.deleteObserver(this);
-//            removeFromCorrectList(previous);
+
         }
     }
 
@@ -268,7 +254,6 @@ public class Vehicle implements Observer {
         if (combinedVehicleList.indexOf(this) > 0) {
             Vehicle carInFront = combinedVehicleList.get(combinedVehicleList.indexOf(this) - 1);
             boolean fromSameDirection = this.arrivalDirection == carInFront.arrivalDirection; // tweak these values to get the best result
-            //boolean toSameDirection = this.outDirection == carInFront.outDirection;
             return fromSameDirection ? carInFront : null;
         } else {
             return null;
@@ -288,7 +273,7 @@ public class Vehicle implements Observer {
     }
 
     private void changeRoadPuzzle(RoadPuzzle puzzle) {
-        changeArrivalDirection(outDirection);
+        changeDirectionToOpposite(outDirection);
         currentRoadPuzzle = findNextPuzzle(puzzle, outDirection);
     }
 
@@ -321,7 +306,7 @@ public class Vehicle implements Observer {
         }
     }
 
-    private void changeArrivalDirection(Direction outDirection) {
+    private void changeDirectionToOpposite(Direction outDirection) {
         switch (outDirection) {
             case W:
                 arrivalDirection = Direction.E;
@@ -347,24 +332,5 @@ public class Vehicle implements Observer {
 
     }
 
-
-
-    private void changeOutDirection() {
-        switch (outDirection) {
-            case W:
-                outDirection = Direction.E;
-                break;
-            case E:
-                outDirection = Direction.W;
-                break;
-            case N:
-                outDirection = Direction.S;
-                break;
-            case S:
-                outDirection = Direction.N;
-                break;
-        }
-    }
-}
 
 
