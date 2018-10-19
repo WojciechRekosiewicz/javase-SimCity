@@ -103,6 +103,7 @@ public class Vehicle implements Observer {
 
         if (isMovePossible()) {
 
+
             currentSpeed = topSpeed;
             isStopped = false;
             pathTransition = renderer.moveAnimation(vehicleDisplay, pathToMove, currentSpeed);
@@ -123,6 +124,7 @@ public class Vehicle implements Observer {
     }
 
     private boolean isMovePossible() {
+
         if (currentRoadPuzzle.isTrafficLight()) {
 
             TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
@@ -130,6 +132,7 @@ public class Vehicle implements Observer {
                 if (arrivalDirection.getOrientation() == light.getOrientation()) {
                     light.addObserver(this);
                     if (light.currentColor == LightColor.GREEN) {
+
                         if (shape.equals("left")) {
                             if (checkIsMoveLeftPossible()) {
                                 isStopped = false;
@@ -147,6 +150,7 @@ public class Vehicle implements Observer {
                     } else {
                         isStopped = true;  //add setter for currentSpeed
                         return false;
+
                     }
                 }
             }

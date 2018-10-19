@@ -1,14 +1,15 @@
 package sincity.model;
 
-public class TrafficLightGenerator {
+class TrafficLightGenerator {
 
     private sincity.model.RoadPuzzle puzzle;
 
-    public TrafficLightGenerator(RoadPuzzle puzzle) {
+    TrafficLightGenerator(RoadPuzzle puzzle) {
         this.puzzle = puzzle;
     }
 
     public TrafficLights[] createLights() {
+
         int DISPLAY_TIME = getRandomWithRange(2, 5);
         TrafficLightsActive activeLights = new TrafficLightsActive(puzzle, DISPLAY_TIME);
         activeLights.timeline();
@@ -16,6 +17,7 @@ public class TrafficLightGenerator {
         TrafficLightsPassive passiveLights = new TrafficLightsPassive(activeLights);
         return new TrafficLights[]{activeLights, passiveLights};
     }
+
 
     int getRandomWithRange(int min, int max)
     {
