@@ -28,17 +28,17 @@ public class City {
                 } else if (y == 5 && x == 2) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENW, true);
                 } else if (y == 3 && x == 2) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ESW, true);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ESW, false);
                 } else if (y == 3 && (x == 6 || x == 8)) {
                     if (x == 6) {
                         puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, true);
                     } else {
-                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, true);
+                        puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENSW, false);
                     }
                 } else if (y == 3 || (y == 5 && x < 6)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.EW, false);
                 } else if (y == 5 && x == 6) {
-                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NSW, true);
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NSW, false);
                 } else if ((x == 4 && y <= 3) || (x == 6 || x == 8) || (y == 4 && x == 2)) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.NS, false);
                 } else {
