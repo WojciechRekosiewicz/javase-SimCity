@@ -195,26 +195,22 @@ public class Vehicle implements Observer {
 
     private boolean checkIsMoveLeftPossible() {
         if (arrivalDirection == Direction.N){
-            if (currentRoadPuzzle.westVehicleList.isEmpty() && currentRoadPuzzle.southVehicleList.isEmpty()
-                    || (currentRoadPuzzle.westVehicleList.isEmpty() && currentRoadPuzzle.southVehicleList.get(0).shape.equals("left"))) {
+            if (currentRoadPuzzle.southVehicleList.isEmpty() || currentRoadPuzzle.southVehicleList.get(0).shape.equals("left") ){
                 currentSpeed = topSpeed;
                 return true;
             }
         } else if (arrivalDirection == Direction.E){
-            if (currentRoadPuzzle.northVehicleList.isEmpty() && currentRoadPuzzle.westVehicleList.isEmpty()
-                    || (currentRoadPuzzle.northVehicleList.isEmpty() && currentRoadPuzzle.westVehicleList.get(0).shape.equals("left"))) {
+            if (currentRoadPuzzle.westVehicleList.isEmpty() || currentRoadPuzzle.westVehicleList.get(0).shape.equals("left") ){
                 currentSpeed = topSpeed;
                 return true;
             }
         } else if (arrivalDirection == Direction.S){
-            if (currentRoadPuzzle.eastVehicleList.isEmpty() && currentRoadPuzzle.northVehicleList.isEmpty()
-                    || (currentRoadPuzzle.eastVehicleList.isEmpty() && currentRoadPuzzle.northVehicleList.get(0).shape.equals("left"))) {
+            if (currentRoadPuzzle.northVehicleList.isEmpty() || currentRoadPuzzle.northVehicleList.get(0).shape.equals("left") ){
                 currentSpeed = topSpeed;
                 return true;
             }
         }  else if (arrivalDirection == Direction.W){
-            if (currentRoadPuzzle.southVehicleList.isEmpty() && currentRoadPuzzle.eastVehicleList.isEmpty()
-                    || (currentRoadPuzzle.southVehicleList.isEmpty() && currentRoadPuzzle.eastVehicleList.get(0).shape.equals("left"))) {
+            if (currentRoadPuzzle.eastVehicleList.isEmpty() || currentRoadPuzzle.eastVehicleList.get(0).shape.equals("left") ){
                 currentSpeed = topSpeed;
                 return true;
             }
