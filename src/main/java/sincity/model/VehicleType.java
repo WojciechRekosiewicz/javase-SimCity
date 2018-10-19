@@ -3,7 +3,8 @@ package sincity.model;
 public enum VehicleType {
     CAR("car", 8, 0.33),
     TRUCK("truck", 3, 0.40),
-    TANK("tank", 2, 0.4);
+
+    TANK("tank", 2, 0.44);
 
     private final String NAME;
     private final int AMOUNT;

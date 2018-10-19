@@ -78,7 +78,7 @@ public class Renderer implements Observer {
         }
     }
 
-    public VehicleDisplay renderVehicle(VehicleType vehicleType) {
+    public VehicleDisplay renderVehicle(VehicleType vehicleType, Vehicle vehicle) {
         // vehicle size
         double vehicleSize = tileSize * vehicleType.getScale(); // scale factor
 
@@ -90,12 +90,16 @@ public class Renderer implements Observer {
         // create vehicleDisplay
         VehicleDisplay vehicleDisplay = new VehicleDisplay(vehicleImage);
 
+        vehicleDisplay.setOnMouseClicked( e -> {
+            System.out.println("click " + vehicleType);
+            vehicle.setOutDirection();
+        });
+
         // add vehicleDisplay to group
         root.getChildren().add(vehicleDisplay);
 
         return vehicleDisplay;
     }
-
 
     public PathTransition moveAnimation(VehicleDisplay vehicleDisplay, Path pathToMove, double speed) {
         PathTransition pathTransition = new PathTransition();

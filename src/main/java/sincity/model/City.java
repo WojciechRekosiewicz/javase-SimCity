@@ -23,7 +23,9 @@ public class City {
         for (int x = 0; x < puzzleBoard.length; x++) {
             for (int y = 0; y < puzzleBoard[x].length; y++) {
                 // test intersection
-                if ((y == 3 && x == 4) || (y == 5 && x == 2)) {
+                if (y == 3 && x == 4) {
+                    puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENW, false);
+                } else if (y == 5 && x == 2) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ENW, true);
                 } else if (y == 3 && x == 2) {
                     puzzleBoard[x][y] = new RoadPuzzle(x, y, padding, tileSize, RoadType.ESW, true);
