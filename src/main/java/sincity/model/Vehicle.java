@@ -184,7 +184,6 @@ public class Vehicle implements Observer {
 
         List<Vehicle> oppositeQueue = currentRoadPuzzle.getOppositeQueue(arrivalDirection);
         List<Vehicle> rightHandQueue = currentRoadPuzzle.getRightHandQueue(arrivalDirection);
-        System.out.println(arrivalDirection);
 
 
         boolean crossingWithTrafficLights = currentRoadPuzzle.isTrafficLight();
