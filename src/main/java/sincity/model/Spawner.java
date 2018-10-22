@@ -49,15 +49,18 @@ public class Spawner {
                 case 2:
                 case 3:
                     Car car = new Car(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.CAR);
+                    car.run();
                     gameLoop.addToVehicleList(car);
                     break;
                 case 4:
                     Tank tank = new Tank(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.TANK);
+                    tank.run();
                     gameLoop.addToVehicleList(tank);
                     break;
                 case 5:
                 case 6:
                     Truck truck = new Truck(city, renderer, spawnPuzzle, arrivalDirection, VehicleType.TRUCK);
+                    truck.run();
                     gameLoop.addToVehicleList(truck);
                     break;
 

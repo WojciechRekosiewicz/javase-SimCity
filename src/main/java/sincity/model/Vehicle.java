@@ -8,7 +8,7 @@ import sincity.view.VehicleDisplay;
 import java.util.*;
 
 
-public class Vehicle implements Observer {
+public class Vehicle implements Observer, Runnable{
 
 
     double topSpeed; // 1 is default
@@ -33,7 +33,6 @@ public class Vehicle implements Observer {
         this.arrivalDirection = arrivalDirection;
         this.vehicleDisplay = renderer.renderVehicle(vehicleType, this);
         this.city = city;
-        move();
     }
 
     public void setOutDirection() {
@@ -81,7 +80,6 @@ public class Vehicle implements Observer {
         shape = pathToMove.getShape();
 
         tryToMove();
-
     }
 
     public void tryToMove() {
@@ -318,8 +316,6 @@ public class Vehicle implements Observer {
         }
     }
 
-
-
     @Override
     public void update(Observable o, Object lightColor) {
         if (lightColor == LightColor.GREEN) {
@@ -327,6 +323,14 @@ public class Vehicle implements Observer {
         }
         tryToMove();
     }
+
+
+
+    @Override
+    public void run() {
+        this.move();
+    }
+
 }
 
 

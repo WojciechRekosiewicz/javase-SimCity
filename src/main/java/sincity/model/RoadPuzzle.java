@@ -154,10 +154,10 @@ public class RoadPuzzle extends Observable{
                 rightHandQueue = this.southVehicleList;
                 break;
             case S:
-                rightHandQueue = this.westVehicleList;
+                rightHandQueue = this.eastVehicleList;
                 break;
             case N:
-                rightHandQueue = this.eastVehicleList;
+                rightHandQueue = this.westVehicleList;
                 break;
         }
         return rightHandQueue;
@@ -182,4 +182,7 @@ public class RoadPuzzle extends Observable{
         }
         return oppositeQueue;
     }
+
+
+
 }
