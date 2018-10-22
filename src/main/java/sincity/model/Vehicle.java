@@ -35,7 +35,8 @@ public class Vehicle implements Observer {
         this.city = city;
         move();
     }
-    public void setOutDirection(){
+
+    public void setOutDirection() {
         changeDirectionToOpposite(outDirection);
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
@@ -148,58 +149,53 @@ public class Vehicle implements Observer {
     }
 
 
-    private boolean setPriority(String shape){
-        if (shape.equals("right")){
+    private boolean setPriority(String shape) {
+        if (shape.equals("right")) {
             return true;
-        } else if (shape.equals("straight")){
-            if (arrivalDirection == Direction.N){
-                if (currentRoadPuzzle.westVehicleList.isEmpty() ){
+        } else if (shape.equals("straight")) {
+            if (arrivalDirection == Direction.N) {
+                if (currentRoadPuzzle.westVehicleList.isEmpty()) {
                     currentSpeed = topSpeed;
                     return true;
                 }
-            } else if (arrivalDirection == Direction.E){
-                if (currentRoadPuzzle.northVehicleList.isEmpty() ){
+            } else if (arrivalDirection == Direction.E) {
+                if (currentRoadPuzzle.northVehicleList.isEmpty()) {
                     currentSpeed = topSpeed;
                     return true;
                 }
-            } else if (arrivalDirection == Direction.S){
-                if (currentRoadPuzzle.eastVehicleList.isEmpty() ){
+            } else if (arrivalDirection == Direction.S) {
+                if (currentRoadPuzzle.eastVehicleList.isEmpty()) {
                     currentSpeed = topSpeed;
                     return true;
                 }
-            }  else if (arrivalDirection == Direction.W){
-                if (currentRoadPuzzle.southVehicleList.isEmpty() ){
+            } else if (arrivalDirection == Direction.W) {
+                if (currentRoadPuzzle.southVehicleList.isEmpty()) {
                     currentSpeed = topSpeed;
                     return true;
                 }
             }
-        } else if (shape.equals("left")){
+        } else if (shape.equals("left")) {
             return checkIsMoveLeftPossible();
         }
         return false;
     }
 
     private boolean checkIsMoveLeftPossible() {
-        if (arrivalDirection == Direction.N){
-            if (currentRoadPuzzle.southVehicleList.isEmpty() || currentRoadPuzzle.southVehicleList.get(0).shape.equals("left") ){
-                currentSpeed = topSpeed;
-                return true;
-            }
-        } else if (arrivalDirection == Direction.E){
-            if (currentRoadPuzzle.westVehicleList.isEmpty() || currentRoadPuzzle.westVehicleList.get(0).shape.equals("left") ){
-                currentSpeed = topSpeed;
-                return true;
-            }
-        } else if (arrivalDirection == Direction.S){
-            if (currentRoadPuzzle.northVehicleList.isEmpty() || currentRoadPuzzle.northVehicleList.get(0).shape.equals("left") ){
-                currentSpeed = topSpeed;
-                return true;
-            }
-        }  else if (arrivalDirection == Direction.W){
-            if (currentRoadPuzzle.eastVehicleList.isEmpty() || currentRoadPuzzle.eastVehicleList.get(0).shape.equals("left") ){
-                currentSpeed = topSpeed;
-                return true;
-            }
+
+        List<Vehicle> oppositeQueue = currentRoadPuzzle.getOppositeQueue(arrivalDirection);
+        List<Vehicle> rightHandQueue = currentRoadPuzzle.getRightHandQueue(arrivalDirection);
+        System.out.println(arrivalDirection);
+
+
+        boolean crossingWithTrafficLights = currentRoadPuzzle.isTrafficLight();
+        boolean oppositeVehicleTurnsLeft = oppositeQueue.size()==0 || oppositeQueue.get(0).shape.equals("left");
+
+
+
+        if ((crossingWithTrafficLights && oppositeVehicleTurnsLeft )
+            || (!crossingWithTrafficLights && (rightHandQueue.isEmpty() ) && (oppositeQueue.isEmpty() || oppositeVehicleTurnsLeft))){
+            currentSpeed = topSpeed;
+            return true;
         }
         return false;
     }
@@ -323,14 +319,15 @@ public class Vehicle implements Observer {
         }
     }
 
+
+
     @Override
     public void update(Observable o, Object lightColor) {
         if (lightColor == LightColor.GREEN) {
             isStopped = false;
         }
         tryToMove();
-
     }
-
+}
 
 

@@ -142,4 +142,44 @@ public class RoadPuzzle extends Observable{
             clearChanged();
         }
     }
+
+
+    List<Vehicle> getRightHandQueue(Direction arrivalDirection) {
+        List<Vehicle> rightHandQueue = null;
+        switch (arrivalDirection) {
+            case E:
+                rightHandQueue = this.northVehicleList;
+                break;
+            case W:
+                rightHandQueue = this.southVehicleList;
+                break;
+            case S:
+                rightHandQueue = this.westVehicleList;
+                break;
+            case N:
+                rightHandQueue = this.eastVehicleList;
+                break;
+        }
+        return rightHandQueue;
+    }
+
+
+    List<Vehicle> getOppositeQueue(Direction arrivalDirection) {
+        List<Vehicle> oppositeQueue = null;
+        switch (arrivalDirection) {
+            case W:
+                oppositeQueue = this.eastVehicleList;
+                break;
+            case E:
+                oppositeQueue = this.westVehicleList;
+                break;
+            case N:
+                oppositeQueue = this.southVehicleList;
+                break;
+            case S:
+                oppositeQueue = this.northVehicleList;
+                break;
+        }
+        return oppositeQueue;
+    }
 }
