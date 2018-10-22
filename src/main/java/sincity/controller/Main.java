@@ -43,7 +43,8 @@ public class Main extends Application {
                 gameLoop.start();
 
                 // create spawner
-                new Spawner(city, renderer, gameLoop);
+                Spawner spawner = new Spawner(city, renderer, gameLoop);
+                spawner.run();
 
                 CitySounds.playSong();
             }

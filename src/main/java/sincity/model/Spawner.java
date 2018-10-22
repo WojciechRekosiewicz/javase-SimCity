@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Spawner {
+public class Spawner implements Runnable{
     private List<RoadPuzzle> spawnPuzzles = new ArrayList<>();
     private Renderer renderer;
     private City city;
@@ -22,7 +22,7 @@ public class Spawner {
         this.renderer = renderer;
         this.gameLoop = gameLoop;
         getSpawnPuzzles(city.getPuzzleBoard());
-        spawnTimer(spawnPuzzles);
+//        spawnTimer(spawnPuzzles);
     }
 
     private void getSpawnPuzzles(RoadPuzzle[][] puzzleBoard) {
@@ -87,5 +87,10 @@ public class Spawner {
             arrivalDirection = Direction.S;
         }
         return arrivalDirection;
+    }
+
+    @Override
+    public void run() {
+        spawnTimer(spawnPuzzles);
     }
 }
