@@ -11,7 +11,6 @@ public enum Direction {
     S(VERTICAL),
     W(HORIZONTAL);
 
-    private static List<Direction> directions = asList(N, S, W, E);
     private Orientation orientation;
 
 
