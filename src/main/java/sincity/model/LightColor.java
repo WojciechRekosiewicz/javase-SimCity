@@ -7,12 +7,14 @@ import static java.util.Arrays.asList;
 public enum LightColor {
 
     RED("RED_light.png"),
+    RED2("RED_light.png"),
     YELLOW_RED("YELLOW_R_light.png"),
     GREEN("GREEN_light.png"),
+    GREEN2("GREEN_light.png"),
     YELLOW_GREEN("YELLOW_G_light.png");
 
 
-    private static List<LightColor> lights = asList(RED, YELLOW_RED, GREEN, YELLOW_GREEN);
+    private static List<LightColor> lights = asList(RED, RED2, YELLOW_RED, GREEN, GREEN2, YELLOW_GREEN);
     private String imageUrl;
 
     LightColor(String imageUrl) {

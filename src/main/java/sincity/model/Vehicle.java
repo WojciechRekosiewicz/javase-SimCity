@@ -117,6 +117,9 @@ public class Vehicle implements Observer {
                 if (currentRoadPuzzle != null) {
                     move();
                 }
+                else {
+                    Cleaner.destroyCar(this);
+                }
             });
             previous.deleteObserver(this);
 //            removeFromCorrectList(previous);
