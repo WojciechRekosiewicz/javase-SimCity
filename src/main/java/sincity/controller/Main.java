@@ -46,7 +46,7 @@ public class Main extends Application {
                 Spawner spawner = new Spawner(city, renderer, gameLoop);
                 spawner.run();
 
-                CitySounds.playSong();
+                // CitySounds.playSong();
             }
         });
 

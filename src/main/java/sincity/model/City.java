@@ -4,6 +4,7 @@ public class City {
     private RoadPuzzle[][] puzzleBoard;
     private int padding;
     private double tileSize;
+
     public City(int verticalPuzzles, int horizontalPuzzles, int padding, double tileSize) {
         puzzleBoard = new RoadPuzzle[horizontalPuzzles + padding * 2][verticalPuzzles + padding * 2];
         this.padding = padding;

@@ -12,18 +12,15 @@ class TrafficLightGenerator {
 
         int DISPLAY_TIME = getRandomWithRange(2, 5);
         TrafficLightsActive activeLights = new TrafficLightsActive(puzzle, DISPLAY_TIME);
-       // activeLights.timeline();
-
-
+        activeLights.timeline();
 
         TrafficLightsPassive passiveLights = new TrafficLightsPassive(activeLights);
         return new TrafficLights[]{activeLights, passiveLights};
     }
 
 
-    int getRandomWithRange(int min, int max)
-    {
+    int getRandomWithRange(int min, int max) {
         int range = (max - min) + 1;
-        return (int)(Math.random() * range) + min;
+        return (int) (Math.random() * range) + min;
     }
 }

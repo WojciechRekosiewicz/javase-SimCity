@@ -36,8 +36,8 @@ class PathToMove extends Path {
         ArcTo arcTo = new ArcTo();
         arcTo.setX(puzzle.getCenterX() - puzzle.halfLaneWidth);
         arcTo.setY(puzzle.getCenterY() + puzzle.halfLaneWidth);
-        arcTo.setRadiusX(puzzle.getSize()/2 - puzzle.halfLaneWidth);
-        arcTo.setRadiusY(puzzle.getSize()/2 - puzzle.halfLaneWidth);
+        arcTo.setRadiusX(puzzle.getSize() / 2 - puzzle.halfLaneWidth);
+        arcTo.setRadiusY(puzzle.getSize() / 2 - puzzle.halfLaneWidth);
         arcTo.setLargeArcFlag(false);
         arcTo.setSweepFlag(true);
 
@@ -138,7 +138,6 @@ class PathToMove extends Path {
                 this.getTransforms().add(new Rotate(270, puzzle.getCenterX(), puzzle.getCenterY()));
         }
     }
-
 
 
 }

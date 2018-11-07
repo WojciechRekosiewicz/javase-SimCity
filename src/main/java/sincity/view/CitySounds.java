@@ -7,6 +7,7 @@ import java.io.File;
 
 public class CitySounds {
 
+    // TODO should be in model
     public static void playSong() {
         String musicFile = "src/main/resources/citySong.mp3";
         Media sound = new Media(new File(musicFile).toURI().toString());

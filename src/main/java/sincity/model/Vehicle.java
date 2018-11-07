@@ -8,7 +8,7 @@ import sincity.view.VehicleDisplay;
 import java.util.*;
 
 
-public class Vehicle implements Observer, Runnable{
+public class Vehicle implements Observer, Runnable {
 
 
     double topSpeed; // 1 is default
@@ -36,6 +36,7 @@ public class Vehicle implements Observer, Runnable{
     }
 
     public void setOutDirection() {
+        // TODO redundant
         changeDirectionToOpposite(outDirection);
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
@@ -56,7 +57,7 @@ public class Vehicle implements Observer, Runnable{
 
 
             if (isStopped || distanceToCarInFront < distanceToStop) {
-                currentSpeed = 0.001;
+                currentSpeed = 0.001; // TODO magic number
             } else {
                 currentSpeed = topSpeed;
             }
@@ -101,8 +102,8 @@ public class Vehicle implements Observer, Runnable{
                 previous.deleteObserver(this);
                 if (currentRoadPuzzle != null) {
                     move();
-                }
-                else {
+                } else {
+                    vehicleDisplay.getChildren().removeAll();
                     Cleaner.destroyCar(this);
                 }
             });
@@ -113,7 +114,7 @@ public class Vehicle implements Observer, Runnable{
 
     private boolean isMovePossible() {
 
-        if (currentRoadPuzzle.isTrafficLight()) {
+        if (currentRoadPuzzle.hasTrafficLight()) {
 
             TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
             for (TrafficLights light : lights) {
@@ -151,6 +152,7 @@ public class Vehicle implements Observer, Runnable{
 
 
     private boolean setPriority(String shape) {
+        // TODO don't use string!
         if (shape.equals("right")) {
             return true;
         } else if (shape.equals("straight")) {
@@ -187,13 +189,12 @@ public class Vehicle implements Observer, Runnable{
         List<Vehicle> rightHandQueue = currentRoadPuzzle.getRightHandQueue(arrivalDirection);
 
 
-        boolean crossingWithTrafficLights = currentRoadPuzzle.isTrafficLight();
-        boolean oppositeVehicleTurnsLeft = oppositeQueue.size()==0 || oppositeQueue.get(0).shape.equals("left");
+        boolean crossingWithTrafficLights = currentRoadPuzzle.hasTrafficLight();
+        boolean oppositeVehicleTurnsLeft = oppositeQueue.size() == 0 || oppositeQueue.get(0).shape.equals("left");
 
 
-
-        if ((crossingWithTrafficLights && oppositeVehicleTurnsLeft )
-            || (!crossingWithTrafficLights && (rightHandQueue.isEmpty() ) && (oppositeQueue.isEmpty() || oppositeVehicleTurnsLeft))){
+        if ((crossingWithTrafficLights && oppositeVehicleTurnsLeft)
+                || (!crossingWithTrafficLights && (rightHandQueue.isEmpty()) && (oppositeQueue.isEmpty() || oppositeVehicleTurnsLeft))) {
             currentSpeed = topSpeed;
             return true;
         }
@@ -261,7 +262,7 @@ public class Vehicle implements Observer, Runnable{
         boolean isChosenDirection;
         Direction chosen;
         do {
-            randomIndex = (int) Math.floor(Math.random() * 4);  // number of directions
+            randomIndex = (int) Math.floor(Math.random() * Direction.values().length);  // number of directions
             chosen = Direction.values()[randomIndex];
             isChosenDirection = possibleDirections.get(chosen);
         } while (!isChosenDirection || Direction.values()[randomIndex].equals(arrivalDirection));
@@ -326,7 +327,6 @@ public class Vehicle implements Observer, Runnable{
         }
         tryToMove();
     }
-
 
 
     @Override

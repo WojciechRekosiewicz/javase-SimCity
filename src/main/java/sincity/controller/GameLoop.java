@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class GameLoop extends AnimationTimer {
 
-    private LinkedList<Vehicle> vehicleList =  new LinkedList<>();
+    private LinkedList<Vehicle> vehicleList = new LinkedList<>();
 
     //  This gets called every 1/60 seconds
     @Override
@@ -18,7 +18,7 @@ public class GameLoop extends AnimationTimer {
 
     }
 
-    public void addToVehicleList(Vehicle vehicle){
+    public void addToVehicleList(Vehicle vehicle) {
         vehicleList.add(vehicle);
     }
 

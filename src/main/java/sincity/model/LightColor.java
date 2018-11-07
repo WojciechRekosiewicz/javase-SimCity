@@ -14,7 +14,7 @@ public enum LightColor {
     YELLOW_GREEN("YELLOW_G_light.png");
 
 
-    private static List<LightColor> lights = asList(RED, RED2, YELLOW_RED, GREEN, GREEN2, YELLOW_GREEN);
+    private static List<LightColor> lights = asList(RED, RED2, YELLOW_RED, GREEN, GREEN2, YELLOW_GREEN); // TODO List is not needed
     private String imageUrl;
 
     LightColor(String imageUrl) {
