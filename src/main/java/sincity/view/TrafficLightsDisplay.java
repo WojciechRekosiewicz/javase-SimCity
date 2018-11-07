@@ -25,11 +25,13 @@ public class TrafficLightsDisplay extends Pane {
 //        this.imageSizeV = 0.3 * puzzle.getSize();
     }
 
+    // TODO magic numbers everywhere
     private void createLightsViewsIfNeeded() {
         double imageSizeH = 0.15 * puzzle.getSize();
         double imageSizeV = 0.3 * puzzle.getSize();
 
         for (Direction direction : Direction.values()) {
+            // TODO deklaracja pamieci poza petla
             Image trafficColorImg;
             boolean isDirectionHorizontal = direction.getOrientation() == Orientation.HORIZONTAL;
             boolean isDirectionVertical = direction.getOrientation() == Orientation.VERTICAL;

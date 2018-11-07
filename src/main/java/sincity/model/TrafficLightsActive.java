@@ -24,7 +24,7 @@ public class TrafficLightsActive extends TrafficLights {
         return puzzle;
     }
 
-    public void timeline() {
+    public void timeline() { // TODO change name
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(displayTime), ev -> {
             this.changeColor(this.currentColor.getNext());
             setChanged();

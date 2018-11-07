@@ -19,9 +19,8 @@ class TrafficLightGenerator {
     }
 
 
-    int getRandomWithRange(int min, int max)
-    {
+    int getRandomWithRange(int min, int max) {
         int range = (max - min) + 1;
-        return (int)(Math.random() * range) + min;
+        return (int) (Math.random() * range) + min;
     }
 }

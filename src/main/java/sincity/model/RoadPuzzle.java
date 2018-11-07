@@ -2,9 +2,7 @@ package sincity.model;
 
 import java.util.*;
 
-import sincity.view.TrafficLightsDisplay;
-
-public class RoadPuzzle extends Observable{
+public class RoadPuzzle extends Observable {
 
     private HashMap<Direction, Boolean> roadDirections;
     private RoadType roadType;
@@ -12,7 +10,7 @@ public class RoadPuzzle extends Observable{
     private int indexX; // position in City board
     private int indexY;
 
-    private double size;
+    private double size; // in pixels
 
     private double coX; // position on Scene
     private double coY;
@@ -22,19 +20,19 @@ public class RoadPuzzle extends Observable{
     private double centerY;
     private double centerX; // center of the puzzle - anchor point of path rotation
 
-    private boolean isTrafficLight;
+    private boolean hasTrafficLight;
 
     private TrafficLights[] trafficLights;
 
+
+    // TODO could put these lists into hash map, maybe lists are not needed
     List<Vehicle> northVehicleList = new ArrayList<>();
     List<Vehicle> southVehicleList = new ArrayList<>();
     List<Vehicle> westVehicleList = new ArrayList<>();
     List<Vehicle> eastVehicleList = new ArrayList<>();
 
 
-
-
-    RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type, boolean isTrafficLights) {
+    RoadPuzzle(int xIndex, int yIndex, int padding, double size, RoadType type, boolean hasTrafficLights) {
         this.roadDirections = type.getPossibleDirection();
         this.roadType = type;
         this.size = size;
@@ -45,18 +43,14 @@ public class RoadPuzzle extends Observable{
         this.centerX = coX + size / 2.0;
         this.centerY = coY + size / 2.0;
         this.halfLaneWidth = 0.1 * size;     // maybe should be final
-        this.isTrafficLight = isTrafficLights;
-        if (isTrafficLight) {
+        this.hasTrafficLight = hasTrafficLights;
+        if (hasTrafficLight) {
             this.trafficLights = new TrafficLightGenerator(this).createLights();
         }
     }
 
-    public boolean isTrafficLight() {
-        return isTrafficLight;
-    }
-
-    public void setTrafficLight(boolean trafficLight) {
-        isTrafficLight = trafficLight;
+    public boolean hasTrafficLight() {
+        return hasTrafficLight;
     }
 
     public TrafficLights[] getTrafficLights() {
@@ -114,6 +108,7 @@ public class RoadPuzzle extends Observable{
                 westVehicleList.add(vehicle);
                 break;
         }
+        // TODO redundant code
         setChanged();
         notifyObservers();
         clearChanged();
@@ -154,10 +149,10 @@ public class RoadPuzzle extends Observable{
                 rightHandQueue = this.southVehicleList;
                 break;
             case S:
-                rightHandQueue = this.westVehicleList;
+                rightHandQueue = this.eastVehicleList;
                 break;
             case N:
-                rightHandQueue = this.eastVehicleList;
+                rightHandQueue = this.westVehicleList;
                 break;
         }
         return rightHandQueue;
@@ -182,4 +177,6 @@ public class RoadPuzzle extends Observable{
         }
         return oppositeQueue;
     }
+
+
 }

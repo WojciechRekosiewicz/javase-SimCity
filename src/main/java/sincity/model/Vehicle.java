@@ -8,7 +8,7 @@ import sincity.view.VehicleDisplay;
 import java.util.*;
 
 
-public class Vehicle implements Observer {
+public class Vehicle implements Observer, Runnable {
 
 
     double topSpeed; // 1 is default
@@ -33,10 +33,10 @@ public class Vehicle implements Observer {
         this.arrivalDirection = arrivalDirection;
         this.vehicleDisplay = renderer.renderVehicle(vehicleType, this);
         this.city = city;
-        move();
     }
 
     public void setOutDirection() {
+        // TODO redundant
         changeDirectionToOpposite(outDirection);
         String fromTo = arrivalDirection.toString() + "_" + outDirection.toString();
         pathToMove = new PathToMove(currentRoadPuzzle, fromTo);
@@ -57,7 +57,7 @@ public class Vehicle implements Observer {
 
 
             if (isStopped || distanceToCarInFront < distanceToStop) {
-                currentSpeed = 0.001;
+                currentSpeed = 0.001; // TODO magic number
             } else {
                 currentSpeed = topSpeed;
             }
@@ -81,7 +81,6 @@ public class Vehicle implements Observer {
         shape = pathToMove.getShape();
 
         tryToMove();
-
     }
 
     public void tryToMove() {
@@ -103,6 +102,9 @@ public class Vehicle implements Observer {
                 previous.deleteObserver(this);
                 if (currentRoadPuzzle != null) {
                     move();
+                } else {
+                    vehicleDisplay.getChildren().removeAll();
+                    Cleaner.destroyCar(this);
                 }
             });
             previous.deleteObserver(this);
@@ -112,7 +114,7 @@ public class Vehicle implements Observer {
 
     private boolean isMovePossible() {
 
-        if (currentRoadPuzzle.isTrafficLight()) {
+        if (currentRoadPuzzle.hasTrafficLight()) {
 
             TrafficLights[] lights = currentRoadPuzzle.getTrafficLights();
             for (TrafficLights light : lights) {
@@ -150,6 +152,7 @@ public class Vehicle implements Observer {
 
 
     private boolean setPriority(String shape) {
+        // TODO don't use string!
         if (shape.equals("right")) {
             return true;
         } else if (shape.equals("straight")) {
@@ -186,13 +189,12 @@ public class Vehicle implements Observer {
         List<Vehicle> rightHandQueue = currentRoadPuzzle.getRightHandQueue(arrivalDirection);
 
 
-        boolean crossingWithTrafficLights = currentRoadPuzzle.isTrafficLight();
-        boolean oppositeVehicleTurnsLeft = oppositeQueue.size()==0 || oppositeQueue.get(0).shape.equals("left");
+        boolean crossingWithTrafficLights = currentRoadPuzzle.hasTrafficLight();
+        boolean oppositeVehicleTurnsLeft = oppositeQueue.size() == 0 || oppositeQueue.get(0).shape.equals("left");
 
 
-
-        if ((crossingWithTrafficLights && oppositeVehicleTurnsLeft )
-            || (!crossingWithTrafficLights && (rightHandQueue.isEmpty() ) && (oppositeQueue.isEmpty() || oppositeVehicleTurnsLeft))){
+        if ((crossingWithTrafficLights && oppositeVehicleTurnsLeft)
+                || (!crossingWithTrafficLights && (rightHandQueue.isEmpty()) && (oppositeQueue.isEmpty() || oppositeVehicleTurnsLeft))) {
             currentSpeed = topSpeed;
             return true;
         }
@@ -260,7 +262,7 @@ public class Vehicle implements Observer {
         boolean isChosenDirection;
         Direction chosen;
         do {
-            randomIndex = (int) Math.floor(Math.random() * 4);  // number of directions
+            randomIndex = (int) Math.floor(Math.random() * Direction.values().length);  // number of directions
             chosen = Direction.values()[randomIndex];
             isChosenDirection = possibleDirections.get(chosen);
         } while (!isChosenDirection || Direction.values()[randomIndex].equals(arrivalDirection));
@@ -318,8 +320,6 @@ public class Vehicle implements Observer {
         }
     }
 
-
-
     @Override
     public void update(Observable o, Object lightColor) {
         if (lightColor == LightColor.GREEN) {
@@ -327,6 +327,13 @@ public class Vehicle implements Observer {
         }
         tryToMove();
     }
+
+
+    @Override
+    public void run() {
+        this.move();
+    }
+
 }
 
 
